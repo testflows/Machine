@@ -1,0 +1,39 @@
+# Copyright 2026 Katteli Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# The smallest project that proves a disk is a compose environment: two
+# services that reach each other by NAME over the network dockerd gives the
+# project. If this runs, veth, netfilter and the platform's iptables are all
+# working, which is what a single-container disk cannot tell you.
+services:
+  server:
+    image: busybox:1.36
+    command:
+      - sh
+      - -c
+      - "mkdir -p /srv && echo COMPOSE-NET-OK > /srv/proof.txt && httpd -f -v -p 8080 -h /srv"
+
+  # Fetches the server's file by service name, prints it, and exits -- which
+  # ends the project, because the machine runs compose with
+  # --abort-on-container-exit.
+  # It retries because nothing gates it on the server being up; a project
+  # whose server takes real time to start should use a healthcheck and
+  # `depends_on: condition: service_healthy` instead.
+  client:
+    image: busybox:1.36
+    depends_on: [server]
+    command:
+      - sh
+      - -c
+      - "for i in 1 2 3 4 5 6 7 8 9 10; do wget -q -O /got http://server:8080/proof.txt && break; sleep 1; done; echo FETCHED: $$(cat /got)"
