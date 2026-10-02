@@ -62,6 +62,13 @@ machine disks build --binary bin/data-race race -- 8
 machine create --disk race
 ```
 
+Or build the image itself, the same one `testflows/machine-examples` is:
+
+```bash
+docker build -t machine-examples .
+machine disks build --image machine-examples --entrypoint /examples/data-race race -- 8
+```
+
 ## 🐳 Compose Environments
 
 `compose/` holds whole environments rather than programs: a docker compose
