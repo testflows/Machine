@@ -1,6 +1,6 @@
-# TestFlows Machine Examples
+# TestFlows™ Machine Examples
 
-Programs and Compose projects to run on [TestFlows Machine](https://testflows.com/machine/).
+Programs and Compose projects to run on [TestFlows™ Machine](https://testflows.com/machine/).
 
 ## ✨ Getting Started
 

@@ -30,8 +30,8 @@ RUN make check
 # a disk built from this image carries only what it runs.
 FROM scratch
 ARG VERSION=dev
-LABEL org.opencontainers.image.title="TestFlows Machine examples" \
-      org.opencontainers.image.description="Programs to run on TestFlows Machine" \
+LABEL org.opencontainers.image.title="TestFlows™ Machine examples" \
+      org.opencontainers.image.description="Programs to run on TestFlows™ Machine" \
       org.opencontainers.image.url="https://testflows.com/machine/" \
       org.opencontainers.image.source="https://github.com/testflows/Machine-Examples" \
       org.opencontainers.image.licenses="Apache-2.0" \

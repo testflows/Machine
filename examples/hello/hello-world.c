@@ -29,7 +29,7 @@ int main(void)
 {
 	struct utsname system;
 
-	printf("Hello from TestFlows Machine!\n");
+	printf("Hello from TestFlows™ Machine!\n");
 	if (uname(&system) == 0)
 		printf("Running on %s %s (%s)\n", system.sysname, system.release, system.machine);
 	return 0;
