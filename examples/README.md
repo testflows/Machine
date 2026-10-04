@@ -196,6 +196,7 @@ exits.
 |---|---|---|
 | [compose/two-services](compose/two-services/docker-compose.yml) | A busybox server and a client that fetches from it by service name | Services reach each other by name, over the network Docker gives the project, the same as on any host |
 | [compose/clickhouse](compose/clickhouse/docker-compose.yml) | A ClickHouse server and a client that queries it | A real database server in a machine. `config.xml` replaces the image's: IPv4 only, because the machine's kernel has no IPv6, and every background pool capped, because the defaults hang startup in a small VM without an error |
+| [compose/postgres](compose/postgres/docker-compose.yml) | A PostgreSQL server and a client that runs `queries.sql` against it | Queries that run and end the machine. The client waits for a healthcheck over TCP, because the image first starts a temporary server on its socket alone, and `ON_ERROR_STOP` makes a failed query the machine's exit code |
 | [compose/clickhouse-regression](compose/clickhouse-regression/README.md) | Altinity's ClickHouse regression suite, which brings up its own Compose project inside the machine | A test suite that drives Docker Compose itself. The runner binds the machine's Docker socket, the sources sit at one path both sides of it agree on, and `scale: 0` carries the images the suite starts but no service here names |
 
 ```
