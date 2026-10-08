@@ -92,8 +92,8 @@ the suite itself writes, which no footprint predicts: it copies the 600MB
 clickhouse binary out of its own container.
 
 The 8192MB machine needs 8576MB of session memory: its own, 128MB for its
-process and 256MB the session keeps. The 12GB here leaves room for the copy of
-its latest checkpoint that a machine keeps in memory. `run` returns several
+process and 256MB the session keeps. The 12GB session here holds it with room
+to spare. `run` returns several
 times while the machine boots, so the loop keeps it running until the machine
 halts. The machine runs the project with `--abort-on-container-exit`, so it
 powers off when the suite exits and the run lands in `halted`.
