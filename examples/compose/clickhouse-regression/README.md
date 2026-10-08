@@ -65,7 +65,7 @@ packs them. They never start.
 ```bash
 machine disks build --compose . chreg --dry-run
 machine disks build --compose . chreg --size 6144
-machine sessions create --cpus 6 --mem 24G
+machine sessions create --cpus 3 --mem 12G
 machine create --disk chreg --mem 8192 --cpus 2 --daemon
 until machine --timeout 0 wait <run> --for halted; do
     machine run <run> --iters 200000000 --mode free
@@ -91,7 +91,9 @@ smaller `--size` is refused before anything uploads. The 6144 here is for what
 the suite itself writes, which no footprint predicts: it copies the 600MB
 clickhouse binary out of its own container.
 
-The 8192MB machine needs a session with at least 24GB. `run` returns several
+The 8192MB machine needs 8576MB of session memory: its own, 128MB for its
+process and 256MB the session keeps. The 12GB here leaves room for the copy of
+its latest checkpoint that a machine keeps in memory. `run` returns several
 times while the machine boots, so the loop keeps it running until the machine
 halts. The machine runs the project with `--abort-on-container-exit`, so it
 powers off when the suite exits and the run lands in `halted`.
