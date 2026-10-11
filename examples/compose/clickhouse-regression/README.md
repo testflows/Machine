@@ -70,7 +70,7 @@ machine create --disk chreg --mem 8192 --cpus 2 --daemon
 until machine --timeout 0 wait <run> --for halted; do
     machine run <run> --iters 200000000 --mode free
 done
-machine console <run> -f
+machine output <run> -f
 ```
 
 `--dry-run` reports what the disk holds and builds nothing:

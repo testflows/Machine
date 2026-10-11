@@ -47,7 +47,7 @@ Each example then takes five commands:
 2. `machine create` creates a run from the disk and waits for commands.
 3. `machine run --until halted` drives the run until the program exits and the
    machine powers off.
-4. `machine console` shows what the machine printed; the program's own lines
+4. `machine output` shows what the machine printed; the program's own lines
    start with `app-1`.
 5. `machine stop` ends the machine, which holds its memory until it is
    stopped.
@@ -60,7 +60,7 @@ Each program's arguments and defaults are at the top of its source.
 machine disks build --image testflows/machine-examples --entrypoint /examples/hello-world hello-world
 machine create hello-world --disk hello-world
 machine run hello-world --until halted
-machine console hello-world | grep app-1
+machine output hello-world | grep app-1
 machine stop hello-world
 ```
 
@@ -72,7 +72,7 @@ Eight threads, each incrementing the counter 100000 times:
 machine disks build --image testflows/machine-examples --entrypoint /examples/data-race data-race -- 8
 machine create data-race --disk data-race --cpus 2
 machine run data-race --until halted
-machine console data-race | grep app-1
+machine output data-race | grep app-1
 machine stop data-race
 ```
 
@@ -82,7 +82,7 @@ machine stop data-race
 machine disks build --image testflows/machine-examples --entrypoint /examples/timeout-starve timeout-starve -- 200 20
 machine create timeout-starve --disk timeout-starve
 machine run timeout-starve --until halted
-machine console timeout-starve | grep app-1
+machine output timeout-starve | grep app-1
 machine stop timeout-starve
 ```
 
@@ -92,7 +92,7 @@ machine stop timeout-starve
 machine disks build --image testflows/machine-examples --entrypoint /examples/pipe-wakeup pipe-wakeup -- 200 20
 machine create pipe-wakeup --disk pipe-wakeup
 machine run pipe-wakeup --until halted
-machine console pipe-wakeup | grep app-1
+machine output pipe-wakeup | grep app-1
 machine stop pipe-wakeup
 ```
 
@@ -102,7 +102,7 @@ machine stop pipe-wakeup
 machine disks build --image testflows/machine-examples --entrypoint /examples/futex-wakeup futex-wakeup -- 200 20
 machine create futex-wakeup --disk futex-wakeup
 machine run futex-wakeup --until halted
-machine console futex-wakeup | grep app-1
+machine output futex-wakeup | grep app-1
 machine stop futex-wakeup
 ```
 
@@ -114,7 +114,7 @@ Two vCPUs, so the consumer spins while the producer opens windows:
 machine disks build --image testflows/machine-examples --entrypoint /examples/narrow-window narrow-window -- 2000
 machine create narrow-window --disk narrow-window --cpus 2
 machine run narrow-window --until halted
-machine console narrow-window | grep app-1
+machine output narrow-window | grep app-1
 machine stop narrow-window
 ```
 
@@ -124,7 +124,7 @@ machine stop narrow-window
 machine disks build --image testflows/machine-examples --entrypoint /examples/missed-wakeup missed-wakeup -- 2000
 machine create missed-wakeup --disk missed-wakeup
 machine run missed-wakeup --until halted
-machine console missed-wakeup | grep app-1
+machine output missed-wakeup | grep app-1
 machine stop missed-wakeup
 ```
 
@@ -134,7 +134,7 @@ machine stop missed-wakeup
 machine disks build --image testflows/machine-examples --entrypoint /examples/lease lease -- 50 200
 machine create lease --disk lease
 machine run lease --until halted
-machine console lease | grep app-1
+machine output lease | grep app-1
 machine stop lease
 ```
 
@@ -146,7 +146,7 @@ machine stop lease
 machine disks build --image testflows/machine-examples --entrypoint /examples/memstress memstress -- 256 4 10
 machine create memstress --disk memstress --mem 512
 machine run memstress --until halted
-machine console memstress | grep app-1
+machine output memstress | grep app-1
 machine stop memstress
 ```
 
@@ -158,7 +158,7 @@ machine stop memstress
 machine disks build --image testflows/machine-examples --entrypoint /examples/memswapstress memswapstress -- 768 4 5
 machine create memswapstress --disk memswapstress --mem 512
 machine run memswapstress --until halted
-machine console memswapstress | grep app-1
+machine output memswapstress | grep app-1
 machine stop memswapstress
 ```
 
