@@ -77,7 +77,11 @@ machine disks build --image clickhouse-gdb:26.8.31.2 clickhouse-gdb
 ```
 
 For the debug information, build `clickhouse-gdb-debug:26.8.31.2` into a disk
-of that name, and use it in place of `clickhouse-gdb` below.
+of that name, and use it in place of `clickhouse-gdb` below, with
+`--mem 12288`. GDB holds about 3.8GB once it has read the server's 1.7GB of
+debug information, and a 4GB machine kills it. Reading it takes about 19
+minutes of machine time, 13 minutes on the clock, before the first breakpoint;
+the server's symbol table alone takes seconds.
 
 ## 🚀 4. Up to the Server
 
