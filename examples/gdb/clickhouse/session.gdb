@@ -33,6 +33,9 @@ continue
 echo == at the breakpoint\n
 x/i $pc
 bt 3
+# The function's entry, for the hardware breakpoint below: by its name it
+# is every inlined copy too, more places than there are registers.
+set $query = $pc
 delete
 
 echo == stepi 20\n
@@ -54,7 +57,7 @@ finish
 x/i $pc
 
 echo == hbreak\n
-hbreak DB::executeQuery
+hbreak *$query
 continue
 x/i $pc
 bt 1

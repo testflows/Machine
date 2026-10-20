@@ -13,9 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# The container's entrypoint: the image's own server, a line on the console
-# once it answers, and a query every second, so a breakpoint in the query
-# path is reached without sending one.
+# The container's entrypoint: the image's own server, its version and the
+# source it was built from on the console once it answers, then a query every
+# second, so a breakpoint in the query path is reached without sending one.
 
 /entrypoint.sh "$@" &
 server=$!
@@ -27,6 +27,12 @@ until clickhouse-client -q "SELECT 1" >/dev/null 2>&1; do
     fi
     sleep 1
 done
+# The commit the server was built from: the source GDB's lines and frames
+# name.
+commit=$(clickhouse-client -q \
+    "SELECT value FROM system.build_options WHERE name = 'GIT_HASH'")
+echo "clickhouse-gdb: $(clickhouse-client -q 'SELECT version()'), commit $commit"
+echo "clickhouse-gdb: source https://github.com/ClickHouse/ClickHouse/tree/$commit"
 echo "clickhouse-gdb: ready"
 
 while kill -0 "$server" 2>/dev/null; do
