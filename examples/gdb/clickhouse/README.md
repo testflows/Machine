@@ -95,8 +95,12 @@ and the next session starts from the same instruction, with the same queries:
 ## 📌 Good to Know
 
 - A run holds 3 hardware breakpoints and watchpoints. GDB's `hbreak` and
-  `watch` share them with `machine break` and `machine watch`.
+  `watch` share them with `machine break` and `machine watch`. One more
+  makes GDB say `Couldn't write debug register: No space left on device`
+  at the `continue` that inserts it. GDB's `break` takes none of them.
 - GDB on the host compares line by line with GDB in the machine. Run the
   image with `docker run --cap-add SYS_PTRACE` and the same `gdb.sh` as root.
+- The machine has a debugger of its own, which needs nothing on the disk:
+  see [Debugging](https://testflows.com/docs/machine/#debugging).
 - For a GDB that stays attached between commands, see
   [Input for a program you started](https://testflows.com/docs/machine/#input-for-a-program-you-started).
