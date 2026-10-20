@@ -40,33 +40,8 @@ it first. A machine is x86_64, so ask for `linux/amd64` even on an ARM computer:
 docker pull --platform linux/amd64 testflows/machine-examples
 ```
 
-Each example then takes five commands:
-
-1. `machine disks build` builds a disk that runs the program. `--entrypoint`
-   names it, and arguments after `--` are its arguments.
-2. `machine create` creates a run from the disk and waits for commands.
-3. `machine run --until halted` drives the run until the program exits and the
-   machine powers off.
-4. `machine output` shows what the machine printed; the program's own lines
-   start with `app-1`.
-5. `machine stop` ends the machine, which holds its memory until it is
-   stopped.
-
-Each program's arguments and defaults are at the top of its source.
-
-### 👋 hello-world
-
-```bash
-machine disks build --image testflows/machine-examples --entrypoint /examples/hello-world hello-world
-machine create hello-world --disk hello-world
-machine run hello-world --until halted
-machine output hello-world | grep app-1
-machine stop hello-world
-```
-
-### 🏁 data-race
-
-Eight threads, each incrementing the counter 100000 times:
+Every example runs with the same five commands. Here they are for `data-race`,
+eight threads incrementing the counter:
 
 ```bash
 machine disks build --image testflows/machine-examples --entrypoint /examples/data-race data-race -- 8
@@ -76,91 +51,31 @@ machine output data-race | grep app-1
 machine stop data-race
 ```
 
-### ⏱️ timeout-starve
+1. `disks build` builds a disk that runs the program. `--entrypoint` names it,
+   and the words after `--` are its arguments.
+2. `create` creates a run from the disk and waits for commands.
+3. `run --until halted` drives the run until the program exits and the
+   machine powers off.
+4. `output` shows what the machine printed. The program's own lines start
+   with `app-1`.
+5. `stop` ends the machine, which holds its memory until it is stopped.
 
-```bash
-machine disks build --image testflows/machine-examples --entrypoint /examples/timeout-starve timeout-starve -- 200 20
-machine create timeout-starve --disk timeout-starve
-machine run timeout-starve --until halted
-machine output timeout-starve | grep app-1
-machine stop timeout-starve
-```
+For another example, replace the name, the program's arguments and the options
+of `create` with its row below. Each program's arguments and defaults are at
+the top of its source.
 
-### 🚰 pipe-wakeup
-
-```bash
-machine disks build --image testflows/machine-examples --entrypoint /examples/pipe-wakeup pipe-wakeup -- 200 20
-machine create pipe-wakeup --disk pipe-wakeup
-machine run pipe-wakeup --until halted
-machine output pipe-wakeup | grep app-1
-machine stop pipe-wakeup
-```
-
-### 🔒 futex-wakeup
-
-```bash
-machine disks build --image testflows/machine-examples --entrypoint /examples/futex-wakeup futex-wakeup -- 200 20
-machine create futex-wakeup --disk futex-wakeup
-machine run futex-wakeup --until halted
-machine output futex-wakeup | grep app-1
-machine stop futex-wakeup
-```
-
-### 🪟 narrow-window
-
-Two vCPUs, so the consumer spins while the producer opens windows:
-
-```bash
-machine disks build --image testflows/machine-examples --entrypoint /examples/narrow-window narrow-window -- 2000
-machine create narrow-window --disk narrow-window --cpus 2
-machine run narrow-window --until halted
-machine output narrow-window | grep app-1
-machine stop narrow-window
-```
-
-### 📭 missed-wakeup
-
-```bash
-machine disks build --image testflows/machine-examples --entrypoint /examples/missed-wakeup missed-wakeup -- 2000
-machine create missed-wakeup --disk missed-wakeup
-machine run missed-wakeup --until halted
-machine output missed-wakeup | grep app-1
-machine stop missed-wakeup
-```
-
-### 📜 lease
-
-```bash
-machine disks build --image testflows/machine-examples --entrypoint /examples/lease lease -- 50 200
-machine create lease --disk lease
-machine run lease --until halted
-machine output lease | grep app-1
-machine stop lease
-```
-
-### 🧠 memstress
-
-256MB across four threads, ten iterations, in a 512MB machine:
-
-```bash
-machine disks build --image testflows/machine-examples --entrypoint /examples/memstress memstress -- 256 4 10
-machine create memstress --disk memstress --mem 512
-machine run memstress --until halted
-machine output memstress | grep app-1
-machine stop memstress
-```
-
-### 💽 memswapstress
-
-768MB, more than the 512MB machine holds, so the kernel swaps:
-
-```bash
-machine disks build --image testflows/machine-examples --entrypoint /examples/memswapstress memswapstress -- 768 4 5
-machine create memswapstress --disk memswapstress --mem 512
-machine run memswapstress --until halted
-machine output memswapstress | grep app-1
-machine stop memswapstress
-```
+| Example | Arguments after `--` | `create` options |
+|---|---|---|
+| hello-world | none | none |
+| data-race | `8`: threads | `--cpus 2` |
+| timeout-starve | `200 20`: trials, timeout in ms | none |
+| pipe-wakeup | `200 20`: trials, timeout in ms | none |
+| futex-wakeup | `200 20`: trials, timeout in ms | none |
+| narrow-window | `2000`: cycles | `--cpus 2`, so the consumer spins while the producer opens windows |
+| missed-wakeup | `2000`: trials | none |
+| lease | `50 200`: trials, lease in ms | none |
+| memstress | `256 4 10`: MB, threads, iterations | `--mem 512` |
+| memswapstress | `768 4 5`: MB, threads, iterations | `--mem 512`, less than the program allocates, so the kernel swaps |
 
 ## 🔨 Build Them Yourself
 
@@ -210,6 +125,13 @@ waiting for a boot:
 ```
 cd compose/clickhouse && docker compose up --abort-on-container-exit
 ```
+
+## 🐞 GDB Inside the Machine
+
+[gdb/clickhouse](gdb/clickhouse/README.md) is a ClickHouse server with GDB
+beside it. GDB attaches to the server in the machine as it does on any Linux
+host, with breakpoints, stepping, hardware breakpoints and watchpoints, and
+the run records the whole session.
 
 ## 📚 Learn More
 
