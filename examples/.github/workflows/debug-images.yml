@@ -1,0 +1,80 @@
+# Copyright 2026 Katteli Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Builds the database images of debug/ and pushes each to Docker Hub as a
+# tag of testflows/machine-examples, by name and version:
+#
+#   :clickhouse-server-26.8.31.2   :clickhouse-debug-26.8.31.2
+#   :postgresql-server-17.11       :postgresql-debug-17.11
+#
+# and the same with -YYYYMMDD-HHMM, so a rebuild of one version keeps the
+# builds before it. The version is the server's, from its Dockerfile's FROM
+# line: a new server release is a new tag beside the old ones. Run by hand: a
+# new image is a release.
+name: 🐳 Publish debug images
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  IMAGE: testflows/machine-examples
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        example: [clickhouse, postgresql]
+        target: [server, debug]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Version
+        id: version
+        working-directory: debug/${{ matrix.example }}
+        run: |
+          version=$(sed -n 's/^FROM .*:\([0-9][0-9.]*\) AS server$/\1/p' Dockerfile)
+          test -n "$version"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "built=$(date -u +%Y%m%d-%H%M)" >> "$GITHUB_OUTPUT"
+
+      # The debug images are gigabytes: room for them on the runner.
+      - name: Disk space
+        run: sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc
+
+      - uses: docker/setup-buildx-action@v3
+
+      - uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - uses: docker/build-push-action@v6
+        with:
+          context: debug/${{ matrix.example }}
+          target: ${{ matrix.target }}
+          platforms: linux/amd64
+          push: true
+          tags: |
+            ${{ env.IMAGE }}:${{ matrix.example }}-${{ matrix.target }}-${{ steps.version.outputs.version }}
+            ${{ env.IMAGE }}:${{ matrix.example }}-${{ matrix.target }}-${{ steps.version.outputs.version }}-${{ steps.version.outputs.built }}
+
+      - name: Summary
+        run: |
+          tag="${{ matrix.example }}-${{ matrix.target }}-${{ steps.version.outputs.version }}"
+          echo "### Published $IMAGE:$tag and :$tag-${{ steps.version.outputs.built }}" >> "$GITHUB_STEP_SUMMARY"

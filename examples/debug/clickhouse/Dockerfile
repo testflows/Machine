@@ -12,27 +12,29 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# ClickHouse server with GDB, in two targets:
+# ClickHouse server, in two targets:
 #
-#   docker build --target gdb -t clickhouse-gdb:26.8.31.2 .
-#   docker build --target gdb-debug -t clickhouse-gdb-debug:26.8.31.2 .
+#   docker build --target server -t clickhouse-server:26.8.31.2 .
+#   docker build --target debug -t clickhouse-debug:26.8.31.2 .
 #
-# gdb has the binary's symbol table: function names, no arguments or lines.
-# gdb-debug adds the server's debug information: arguments, locals, types and
-# source lines. The server's image is Ubuntu 22.04, whose GDB 12 reads the
-# DWARF 5 the debug information is in.
+# server is the server as it ships: its symbol table, function names and no
+# arguments or lines. debug adds the server's debug information from
+# clickhouse-common-static-dbg: arguments, locals, types and source lines.
+# Both carry GDB, for a session of GDB inside the machine; the machine's own
+# debugger needs none. The server's image is Ubuntu 22.04, whose GDB 12 reads
+# the DWARF 5 the debug information is in.
 
-FROM --platform=linux/amd64 clickhouse/clickhouse-server:26.8.31.2 AS gdb
+FROM --platform=linux/amd64 clickhouse/clickhouse-server:26.8.31.2 AS server
 RUN apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
       gdb procps \
  && rm -rf /var/lib/apt/lists/*
-COPY start.sh gdb.sh session.gdb /examples/gdb/
-ENTRYPOINT ["/examples/gdb/start.sh"]
+COPY start.sh gdb.sh session.gdb /examples/debug/
+ENTRYPOINT ["/examples/debug/start.sh"]
 
 # The debug information must be of the server's exact version: GDB loads
 # /usr/lib/debug/usr/bin/clickhouse.debug only when its build-id matches.
-FROM gdb AS gdb-debug
+FROM server AS debug
 RUN apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
       clickhouse-common-static-dbg=$(clickhouse local -q "SELECT version()") \

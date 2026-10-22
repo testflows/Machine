@@ -126,12 +126,23 @@ waiting for a boot:
 cd compose/clickhouse && docker compose up --abort-on-container-exit
 ```
 
-## 🐞 GDB Inside the Machine
+## 🐞 Debugging a Database
 
-[gdb/clickhouse](gdb/clickhouse/README.md) is a ClickHouse server with GDB
-beside it. GDB attaches to the server in the machine as it does on any Linux
-host, with breakpoints, stepping, hardware breakpoints and watchpoints, and
-the run records the whole session.
+[debug/](debug/README.md) has two database servers to debug in a machine,
+each as it ships and with its debug information:
+[ClickHouse](debug/clickhouse/README.md) and
+[PostgreSQL](debug/postgresql/README.md). The machine's own debugger stops
+a query's thread from outside the guest, prints its arguments and watches
+its variables, and GDB in the image attaches from inside. The run records
+every stop, so a rewind returns to it.
+
+The images are on Docker Hub as tags of `testflows/machine-examples`, by name
+and version:
+
+```bash
+docker pull --platform linux/amd64 testflows/machine-examples:postgresql-debug-17.11
+machine disks build --image testflows/machine-examples:postgresql-debug-17.11 postgresql-debug
+```
 
 ## 📚 Learn More
 

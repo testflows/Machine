@@ -22,7 +22,7 @@ server=$!
 
 until clickhouse-client -q "SELECT 1" >/dev/null 2>&1; do
     if ! kill -0 "$server" 2>/dev/null; then
-        echo "clickhouse-gdb: the server exited" >&2
+        echo "clickhouse: the server exited" >&2
         exit 1
     fi
     sleep 1
@@ -31,9 +31,9 @@ done
 # name.
 commit=$(clickhouse-client -q \
     "SELECT value FROM system.build_options WHERE name = 'GIT_HASH'")
-echo "clickhouse-gdb: $(clickhouse-client -q 'SELECT version()'), commit $commit"
-echo "clickhouse-gdb: source https://github.com/ClickHouse/ClickHouse/tree/$commit"
-echo "clickhouse-gdb: ready"
+echo "clickhouse: $(clickhouse-client -q 'SELECT version()'), commit $commit"
+echo "clickhouse: source https://github.com/ClickHouse/ClickHouse/tree/$commit"
+echo "clickhouse: ready"
 
 while kill -0 "$server" 2>/dev/null; do
     clickhouse-client -q "SELECT sum(number) FROM numbers(1000000)" >/dev/null 2>&1
