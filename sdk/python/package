@@ -23,6 +23,7 @@ twine should not publish. Needs the `build` package: pip install build.
 """
 
 import argparse
+import importlib.util
 import shutil
 import subprocess
 import sys
@@ -37,22 +38,35 @@ DIST_NAME = "testflows_machine"
 #: The one package the SDK ships.
 PACKAGE = "testflows/machine/v1/"
 #: Files the source archive may carry beside the package, at its top level.
-SDIST_FILES = {"README.md", "LICENSE", "NOTICE", "pyproject.toml", "PKG-INFO", "setup.cfg"}
+SDIST_FILES = {
+    "README.md",
+    "LICENSE",
+    "NOTICE",
+    "pyproject.toml",
+    "PKG-INFO",
+    "setup.cfg",
+}
 
 
 def build() -> None:
     """Build the wheel and the source archive into a fresh dist/."""
+    # Stale output first: a build/ left here would pass for the build package.
     for stale in (DIST, HERE / "build"):
         shutil.rmtree(stale, ignore_errors=True)
     for info in HERE.glob("*.egg-info"):
         shutil.rmtree(info)
+    if importlib.util.find_spec("build") is None:
+        raise SystemExit(
+            "The build package is not installed.\n"
+            f"  Install it {sys.executable} -m pip install build"
+        )
     try:
         subprocess.run(
             [sys.executable, "-m", "build", "--outdir", str(DIST), str(HERE)],
             check=True,
         )
     except subprocess.CalledProcessError as exc:
-        raise SystemExit(f"build failed: {exc}") from exc
+        raise SystemExit(f"The build failed: {exc}") from exc
 
 
 def one(pattern: str) -> Path:

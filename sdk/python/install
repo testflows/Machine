@@ -39,7 +39,10 @@ def main() -> None:
     args = parser.parse_args()
     wheels = sorted((HERE / "dist").glob(f"{DIST_NAME}-*.whl"))
     if len(wheels) != 1:
-        raise SystemExit(f"expected one SDK wheel in dist/, found {wheels}. Build it ./package")
+        raise SystemExit(
+            f"Expected one SDK wheel in dist/, found {len(wheels)}.\n"
+            "  Build it ./package"
+        )
     pip = [sys.executable, "-m", "pip"]
     subprocess.run([*pip, "uninstall", "-y", "testflows.machine"], check=True)
     subprocess.run(
