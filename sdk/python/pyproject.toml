@@ -11,12 +11,13 @@ license = "Apache-2.0"
 license-files = ["LICENSE", "NOTICE"]
 authors = [{ name = "Katteli Inc.", email = "info@testflows.com" }]
 dynamic = ["version"]
-# No dependencies. The core the SDK runs on is not on PyPI: the TestFlows™
-# Machine client's installer installs it, under the client's license.
+# No dependencies. The SDK Core it runs on is not on PyPI: the TestFlows™
+# Machine client's installer installs it, under the Client EULA.
 dependencies = []
 classifiers = [
     "Programming Language :: Python :: 3",
     "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS",
 ]
 
 [project.urls]

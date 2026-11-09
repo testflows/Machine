@@ -14,7 +14,7 @@ https://testflows.com/docs/machine/#python-sdk.
 
 ## Supported environment
 
-* Linux x86_64
+* Linux x86_64 or arm64, or macOS on Apple Silicon
 * [Python 3] >= 3.11
 * [TestFlows™ Machine client], which installs the SDK Core
 
