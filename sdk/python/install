@@ -14,10 +14,10 @@
 # limitations under the License.
 """Install the SDK wheel ./package built, into this interpreter.
 
-    ./install               the SDK and the core it depends on, from PyPI
-    ./install --no-deps     the SDK alone, beside a core installed otherwise
+    ./install
 
-Replaces an installed testflows.machine.
+Replaces an installed testflows.machine. The core the SDK runs on comes from
+the TestFlows™ Machine client's installer, not from here.
 """
 
 import argparse
@@ -30,13 +30,7 @@ DIST_NAME = "testflows_machine"
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description=(__doc__ or "").splitlines()[0])
-    parser.add_argument(
-        "--no-deps",
-        action="store_true",
-        help="Install the SDK alone, without the core from PyPI",
-    )
-    args = parser.parse_args()
+    argparse.ArgumentParser(description=(__doc__ or "").splitlines()[0]).parse_args()
     wheels = sorted((HERE / "dist").glob(f"{DIST_NAME}-*.whl"))
     if len(wheels) != 1:
         raise SystemExit(
@@ -45,10 +39,7 @@ def main() -> None:
         )
     pip = [sys.executable, "-m", "pip"]
     subprocess.run([*pip, "uninstall", "-y", "testflows.machine"], check=True)
-    subprocess.run(
-        [*pip, "install", *(["--no-deps"] if args.no_deps else []), str(wheels[0])],
-        check=True,
-    )
+    subprocess.run([*pip, "install", str(wheels[0])], check=True)
 
 
 if __name__ == "__main__":
