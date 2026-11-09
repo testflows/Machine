@@ -1,0 +1,120 @@
+#!/usr/bin/env python3
+# Copyright 2026 Katteli Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+"""Build the testflows.machine SDK into dist/: a wheel and a source archive.
+
+    ./package
+    twine upload dist/*
+
+The version is testflows/machine/v1/_version.py. Both files are checked for
+exactly what they may carry, the SDK's own sources, so dist/ holds nothing
+twine should not publish. Needs the `build` package: pip install build.
+"""
+
+import argparse
+import shutil
+import subprocess
+import sys
+import tarfile
+import zipfile
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+DIST = HERE / "dist"
+#: The distribution's name in file names, as the wheel and archive spell it.
+DIST_NAME = "testflows_machine"
+#: The one package the SDK ships.
+PACKAGE = "testflows/machine/v1/"
+#: Files the source archive may carry beside the package, at its top level.
+SDIST_FILES = {"README.md", "LICENSE", "NOTICE", "pyproject.toml", "PKG-INFO", "setup.cfg"}
+
+
+def build() -> None:
+    """Build the wheel and the source archive into a fresh dist/."""
+    for stale in (DIST, HERE / "build"):
+        shutil.rmtree(stale, ignore_errors=True)
+    for info in HERE.glob("*.egg-info"):
+        shutil.rmtree(info)
+    try:
+        subprocess.run(
+            [sys.executable, "-m", "build", "--outdir", str(DIST), str(HERE)],
+            check=True,
+        )
+    except subprocess.CalledProcessError as exc:
+        raise SystemExit(f"build failed: {exc}") from exc
+
+
+def one(pattern: str) -> Path:
+    found = sorted(DIST.glob(pattern))
+    if len(found) != 1:
+        raise SystemExit(f"expected one {pattern} in dist/, found {found}")
+    return found[0]
+
+
+def check_wheel(wheel: Path) -> None:
+    """Refuse a wheel that is not pure Python with only the SDK's package."""
+    if not wheel.name.endswith("-py3-none-any.whl"):
+        raise SystemExit(f"the wheel is not pure Python: {wheel.name}")
+    names = [
+        n
+        for n in zipfile.ZipFile(wheel).namelist()
+        if not n.endswith("/") and not n.startswith(f"{DIST_NAME}-")
+    ]
+    stray = [n for n in names if not (n.startswith(PACKAGE) and n.endswith(".py"))]
+    if stray or not names:
+        raise SystemExit(f"the wheel carries files outside {PACKAGE}: {stray}")
+
+
+def check_sdist(sdist: Path) -> None:
+    """Refuse a source archive carrying anything but the SDK's sources."""
+    with tarfile.open(sdist) as archive:
+        members = [m.name for m in archive.getmembers() if m.isfile()]
+    stray = []
+    for name in members:
+        inside = name.split("/", 1)[1] if "/" in name else name
+        if inside.startswith(PACKAGE) and inside.endswith(".py"):
+            continue
+        if inside.startswith("examples/") and inside.endswith(".py"):
+            continue
+        if inside in SDIST_FILES or inside.split("/", 1)[0].endswith(".egg-info"):
+            continue
+        stray.append(inside)
+    if stray:
+        raise SystemExit(f"the source archive carries files it may not: {stray}")
+
+
+def check_dist() -> None:
+    """Refuse a dist/ holding anything but the one wheel and one archive."""
+    others = sorted(
+        p.name for p in DIST.iterdir() if not p.name.endswith((".whl", ".tar.gz"))
+    )
+    if others:
+        raise SystemExit(f"dist/ holds files that are not packages: {others}")
+
+
+def main() -> None:
+    argparse.ArgumentParser(description=(__doc__ or "").splitlines()[0]).parse_args()
+    build()
+    wheel = one(f"{DIST_NAME}-*.whl")
+    sdist = one(f"{DIST_NAME}-*.tar.gz")
+    check_wheel(wheel)
+    check_sdist(sdist)
+    check_dist()
+    print(wheel.relative_to(HERE))
+    print(sdist.relative_to(HERE))
+    print("Publish them twine upload dist/*")
+
+
+if __name__ == "__main__":
+    main()

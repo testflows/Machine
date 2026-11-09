@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=80"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "testflows.machine"
+description = "Python SDK for TestFlows™ Machine, the deterministic execution environment"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+authors = [{ name = "Katteli Inc.", email = "info@testflows.com" }]
+dynamic = ["version"]
+# The engine the SDK runs on, published separately under its own license.
+dependencies = ["testflows.machine.core>=0.1,<0.2"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: POSIX :: Linux",
+]
+
+[project.urls]
+Homepage = "https://testflows.com/machine"
+
+[tool.setuptools.packages.find]
+include = ["testflows.machine.v1*"]
+namespaces = true
+
+[tool.setuptools.dynamic]
+version = { attr = "testflows.machine.v1._version.__version__" }
