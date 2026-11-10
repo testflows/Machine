@@ -38,7 +38,7 @@ env:
 
 jobs:
   publish:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     # Docker Hub's credentials are the environment's, which only main
     # deploys to: a workflow of another branch cannot read them.
     environment: dockerhub
