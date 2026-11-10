@@ -6,9 +6,9 @@ contact_links:
   - name: Documentation
     url: https://testflows.com/docs/machine/
     about: Read how to use the client, the Python SDK and sessions.
-  - name: Account, billing or data
+  - name: Account, billing or privacy
     url: https://github.com/testflows/Machine/blob/main/SUPPORT.md
-    about: Email support privately. Never post account details in a public issue.
+    about: Email support or privacy privately. Never post account details in a public issue.
   - name: Security vulnerability
     url: https://github.com/testflows/Machine/security/advisories/new
     about: Report a vulnerability privately, never in a public issue.

@@ -8,6 +8,9 @@
 * **I have an idea.**
   [Open a feature request](https://github.com/testflows/Machine/issues/new/choose),
   or start a discussion.
-* **My account, billing or data.** Email `support@testflows.com`. Don't post
+* **My account or billing.** Email `support@testflows.com`. Don't post
   account details in a public issue or discussion.
-* **A security vulnerability.** See [SECURITY.md](SECURITY.md).
+* **A privacy question.** Email `privacy@testflows.com`.
+* **Abuse of the service or this community.** Email `abuse@testflows.com`.
+* **A security vulnerability.** Email `security@testflows.com`, or see
+  [SECURITY.md](SECURITY.md).
