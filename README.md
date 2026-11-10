@@ -9,8 +9,7 @@
 <h3>TestFlows™ Machine is a deterministic hypervisor and execution environment.</h3>
 
 Record a run of your software, replay it exactly, and branch it from any point
-to explore what else could have happened. It runs in the cloud as a self-serve
-service, with a free plan and paid plans.
+to explore what else could have happened.
 
 [Website](https://testflows.com/machine) ·
 [Documentation](https://testflows.com/docs/machine/) ·
@@ -20,6 +19,15 @@ service, with a free plan and paid plans.
 [Discussions](https://github.com/testflows/Machine/discussions)
 
 </div>
+
+Steer threads into the order a race needs, and inject faults into system
+calls, memory, disks, containers, clocks and networks. Debug with time travel:
+go back to the point of failure and run debugging commands right there, step
+backwards as well as forwards, add logging after the fact, or use GDB inside
+the machine. Time compression skips idle waits, so sleeps and timeouts take
+almost no time.
+
+It runs in the cloud as a self-serve service, with a free plan and paid plans.
 
 > [!NOTE]
 > TestFlows™ Machine is in public beta. We're improving it quickly with
