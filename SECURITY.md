@@ -9,7 +9,7 @@ Report it privately, in either of these ways:
 * Use GitHub's
   [private vulnerability reporting](https://github.com/testflows/Machine/security/advisories/new)
   for this repository.
-* Email `support@testflows.com` with "Security" in the subject.
+* Email `security@testflows.com`.
 
 Include what is affected, such as the client, the Python SDK, the installer or
 the service, the steps to reproduce the problem, and its impact as you see it.
