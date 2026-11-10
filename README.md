@@ -28,46 +28,51 @@ service, with a free plan and paid plans.
 
 ## Features
 
-* **[Record and replay](https://testflows.com/docs/machine/#replay)**
-  * [Every difference found, at the entry it happens](https://testflows.com/docs/machine/#comparing-entries)
-  * [Two machines compared, state by state](https://testflows.com/docs/machine/#comparing-two-machines)
-  * [Recordings that repeat](https://testflows.com/docs/machine/#recording-that-repeats)
+* **[Replay](https://testflows.com/docs/machine/#replay)**
+  * [Comparing entries](https://testflows.com/docs/machine/#comparing-entries)
+  * [Comparing two machines](https://testflows.com/docs/machine/#comparing-two-machines)
+  * [Recording that repeats](https://testflows.com/docs/machine/#recording-that-repeats)
 * **[Checkpoints and branches](https://testflows.com/docs/machine/#checkpoints-and-branches)**
   * [Checkpoints](https://testflows.com/docs/machine/#checkpoints)
-  * [Branches that share their parent's history](https://testflows.com/docs/machine/#starting-a-branch)
-  * [Switching the machine between branches](https://testflows.com/docs/machine/#switching-the-machine)
-  * [The tree of a run](https://testflows.com/docs/machine/#the-tree)
-* **[Your software, unchanged](https://testflows.com/docs/machine/#disks)**
-  * [Docker images](https://testflows.com/docs/machine/#docker-and-compose)
+  * [Starting a branch](https://testflows.com/docs/machine/#starting-a-branch)
+  * [Switching the machine](https://testflows.com/docs/machine/#switching-the-machine)
+  * [The tree](https://testflows.com/docs/machine/#the-tree)
+  * [Marks](https://testflows.com/docs/machine/#marks)
+* **[Disks](https://testflows.com/docs/machine/#disks)**
+  * [Docker and Compose](https://testflows.com/docs/machine/#docker-and-compose)
   * [Programs that need a runtime](https://testflows.com/docs/machine/#programs-that-need-a-runtime)
-  * [Docker Compose projects](https://testflows.com/docs/machine/#compose-projects)
+  * [Compose projects](https://testflows.com/docs/machine/#compose-projects)
+* **[Running a machine](https://testflows.com/docs/machine/#running-a-machine)**
   * [Multiple vCPUs](https://testflows.com/docs/machine/#multiple-vcpus)
-* **[Steering programs](https://testflows.com/docs/machine/#steering-programs)**
-  * [Holding threads](https://testflows.com/docs/machine/#holding-threads)
-  * [Focus on a task](https://testflows.com/docs/machine/#focus)
-  * [Schedules drawn from a plan](https://testflows.com/docs/machine/#plans)
-  * [Delayed interrupts](https://testflows.com/docs/machine/#interrupts)
-  * [Machine time](https://testflows.com/docs/machine/#machine-time), and [idle waits that take almost no time](https://testflows.com/docs/machine/#time-compression)
-* **[Fault injection](https://testflows.com/docs/machine/#fault-injection)**
-  * [System calls](https://testflows.com/docs/machine/#system-call-faults) and [functions](https://testflows.com/docs/machine/#function-faults)
-  * [Memory](https://testflows.com/docs/machine/#memory-faults) and [resource exhaustion](https://testflows.com/docs/machine/#resource-exhaustion)
-  * [Kernel](https://testflows.com/docs/machine/#kernel-faults) and [disk](https://testflows.com/docs/machine/#disk-faults): corrupt, torn and lost writes
-  * [Containers](https://testflows.com/docs/machine/#container-faults): killed, crashed, paused, throttled
-  * [Clocks](https://testflows.com/docs/machine/#clock-faults): jumps, drift, jitter, leap seconds
-  * [Networks](https://testflows.com/docs/machine/#network-faults): delay, loss, partitions, held packets
-* **[Debugging](https://testflows.com/docs/machine/#debugging)**
-  * [Breakpoints, watchpoints, catchpoints and stepping](https://testflows.com/docs/machine/#the-machine%E2%80%99s-debugger), backwards too
-  * [GDB inside the machine](https://testflows.com/docs/machine/#gdb-inside-the-machine)
-  * [Core dumps](https://testflows.com/docs/machine/#core-dumps)
-  * [Profiling a stretch already recorded](https://testflows.com/docs/machine/#profiling)
-* **[Inspecting a run](https://testflows.com/docs/machine/#inspecting-a-run)**
+  * [Time compression](https://testflows.com/docs/machine/#time-compression)
+  * [Inspecting a run](https://testflows.com/docs/machine/#inspecting-a-run)
   * [Commands in the guest](https://testflows.com/docs/machine/#commands-in-the-guest)
-  * [Copying files in and out](https://testflows.com/docs/machine/#copying-files)
-  * [Reading its disk at any checkpoint](https://testflows.com/docs/machine/#reading-the-disk)
-  * [An interactive prompt](https://testflows.com/docs/machine/#interactive-mode)
-* **Automation**
-  * [JSON from every command, for scripts](https://testflows.com/docs/machine/#scripting)
-  * [The Python SDK](https://testflows.com/docs/machine/#python-sdk)
+  * [Copying files](https://testflows.com/docs/machine/#copying-files)
+  * [Core dumps](https://testflows.com/docs/machine/#core-dumps)
+  * [Profiling](https://testflows.com/docs/machine/#profiling)
+  * [Interactive mode](https://testflows.com/docs/machine/#interactive-mode)
+* **[Steering programs](https://testflows.com/docs/machine/#steering-programs)**
+  * [Focus](https://testflows.com/docs/machine/#focus)
+  * [Holding threads](https://testflows.com/docs/machine/#holding-threads)
+  * [Plans](https://testflows.com/docs/machine/#plans)
+  * [Interrupts](https://testflows.com/docs/machine/#interrupts)
+  * [Machine time](https://testflows.com/docs/machine/#machine-time)
+* **[Fault injection](https://testflows.com/docs/machine/#fault-injection)**
+  * [System call faults](https://testflows.com/docs/machine/#system-call-faults)
+  * [Function faults](https://testflows.com/docs/machine/#function-faults)
+  * [Memory faults](https://testflows.com/docs/machine/#memory-faults)
+  * [Resource exhaustion](https://testflows.com/docs/machine/#resource-exhaustion)
+  * [Kernel faults](https://testflows.com/docs/machine/#kernel-faults)
+  * [Disk faults](https://testflows.com/docs/machine/#disk-faults)
+  * [Container faults](https://testflows.com/docs/machine/#container-faults)
+  * [Clock faults](https://testflows.com/docs/machine/#clock-faults)
+  * [Network faults](https://testflows.com/docs/machine/#network-faults)
+* **[Debugging](https://testflows.com/docs/machine/#debugging)**
+  * [The machine's debugger](https://testflows.com/docs/machine/#the-machine%E2%80%99s-debugger)
+  * [GDB inside the machine](https://testflows.com/docs/machine/#gdb-inside-the-machine)
+* **[Reading the disk](https://testflows.com/docs/machine/#reading-the-disk)**
+* **[Scripting](https://testflows.com/docs/machine/#scripting)**
+* **[Python SDK](https://testflows.com/docs/machine/#python-sdk)**
 
 ## Install the client
 
