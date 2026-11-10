@@ -30,7 +30,7 @@ almost no time.
 It runs in the cloud as a self-serve service, with a free plan and paid plans.
 
 > [!NOTE]
-> TestFlows™ Machine is in public beta. We're improving it quickly with
+> Machine is in public beta. We're improving it quickly with
 > feedback from users like you. Backward compatibility isn't guaranteed yet,
 > and you may need to update the client and the SDK Core often.
 
