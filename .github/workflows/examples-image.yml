@@ -14,7 +14,7 @@
 
 # Builds testflows/machine-examples and pushes it to Docker Hub as
 # :<YYYYMMDD-HHMM> and :latest. Run by hand: a new image is a release.
-name: 🐳 Publish image
+name: 🐳 Publish the examples image
 
 on:
   workflow_dispatch:
@@ -47,7 +47,7 @@ jobs:
 
       - uses: docker/build-push-action@v6
         with:
-          context: .
+          context: examples
           platforms: linux/amd64
           build-args: VERSION=${{ steps.version.outputs.version }}
           push: true

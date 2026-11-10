@@ -49,7 +49,7 @@ jobs:
 
       - name: Version
         id: version
-        working-directory: debug/${{ matrix.example }}
+        working-directory: examples/debug/${{ matrix.example }}
         run: |
           version=$(sed -n 's/^FROM .*:\([0-9][0-9.]*\) AS server$/\1/p' Dockerfile)
           test -n "$version"
@@ -69,7 +69,7 @@ jobs:
 
       - uses: docker/build-push-action@v6
         with:
-          context: debug/${{ matrix.example }}
+          context: examples/debug/${{ matrix.example }}
           target: ${{ matrix.target }}
           platforms: linux/amd64
           push: true

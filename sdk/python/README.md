@@ -38,8 +38,8 @@ $ pip3 install testflows.machine
 or from sources
 
 ```bash
-$ git clone https://github.com/testflows/Machine-SDK.git
-$ cd Machine-SDK/python
+$ git clone https://github.com/testflows/Machine.git
+$ cd Machine/sdk/python
 $ ./package && ./install
 ```
 
@@ -81,7 +81,7 @@ once the console shows `hello, world`. Leaving a `with` block deletes what it
 created, so the session never outlives the program. You build a disk once and
 create as many runs from it as you like.
 
-More scripts are in [examples](https://github.com/testflows/Machine-SDK/tree/main/python/examples).
+More scripts are in [examples](https://github.com/testflows/Machine/tree/main/sdk/python/examples).
 
 ## Want to know more?
 

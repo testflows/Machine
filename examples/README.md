@@ -5,8 +5,8 @@ Programs and Compose projects to run on [TestFlows™ Machine](https://testflows
 ## ✨ Getting Started
 
 ```bash
-git clone https://github.com/testflows/Machine-Examples.git
-cd Machine-Examples
+git clone https://github.com/testflows/Machine.git
+cd Machine/examples
 ```
 
 ## 🧪 Programs
