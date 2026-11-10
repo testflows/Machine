@@ -1,0 +1,81 @@
+name: Bug report
+description: Something in TestFlows™ Machine does not work as documented.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug.
+
+        **Issues are public.** Never include an API key, a token, a password or other secrets, and remove them from any output you paste. For account, billing or security problems, see the links on the previous page instead.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before you submit
+      options:
+        - label: I searched the existing issues and this bug is not reported yet.
+          required: true
+        - label: I removed all secrets from what I am about to post.
+          required: true
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where it happens
+      options:
+        - Client, the machine command
+        - Python SDK
+        - Examples
+        - Installer
+        - Sessions or the service
+        - Account or portal
+        - Documentation
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: The commands you ran or the code you called, and the output you got.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: textarea
+    id: version
+    attributes:
+      label: Client version
+      description: The output of `machine --version`.
+      render: shell
+    validations:
+      required: true
+  - type: input
+    id: sdk
+    attributes:
+      label: Python SDK version
+      description: The output of `pip3 show testflows.machine`, if you use the Python SDK.
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Your system
+      options:
+        - Linux x86_64
+        - Linux arm64
+        - macOS on Apple Silicon
+        - Windows with WSL
+    validations:
+      required: true
+  - type: input
+    id: run
+    attributes:
+      label: Session and run
+      description: The session and run names, if the problem is with a run in a session. They help us find it.
+  - type: textarea
+    id: more
+    attributes:
+      label: Anything else
+      description: Logs, screenshots, or how often it happens.

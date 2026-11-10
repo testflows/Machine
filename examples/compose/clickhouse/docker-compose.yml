@@ -1,0 +1,50 @@
+# Copyright 2026 Katteli Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+services:
+  # The mount path stays inside the project: one anywhere else arrives empty
+  # in the guest, and `disks build` refuses it before it packs anything.
+  clickhouse:
+    image: clickhouse/clickhouse-server:24.8.14.39-alpine
+    environment:
+      # The users are in config.xml. Without this the entrypoint writes a
+      # users.d file restricting `default` to loopback, which would refuse
+      # the other service if anything ever loaded users.d.
+      CLICKHOUSE_SKIP_USER_SETUP: "1"
+    volumes:
+      - ./config.xml:/etc/clickhouse-server/config.xml:ro
+    healthcheck:
+      # ClickHouse takes tens of seconds of guest time to accept connections;
+      # a client that sleeps and retries races it.
+      test: ["CMD", "clickhouse-client", "-q", "SELECT 1"]
+      interval: 2s
+      timeout: 5s
+      retries: 60
+      start_period: 5s
+
+  # On the same image, so the pack carries one tar. Exiting ends the project:
+  # the machine runs compose with --abort-on-container-exit.
+  client:
+    image: clickhouse/clickhouse-server:24.8.14.39-alpine
+    depends_on:
+      clickhouse:
+        condition: service_healthy
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - >
+        echo "rows: $$(clickhouse-client --host clickhouse -q
+        'SELECT count() FROM numbers(1000)')";
+        echo "version: $$(clickhouse-client --host clickhouse -q
+        'SELECT version()')";
+        echo CLICKHOUSE-OK

@@ -1,0 +1,44 @@
+# Copyright 2026 Katteli Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# A test suite that drives docker compose ITSELF. `regression.py` brings up its
+# own project inside the guest, so the runner needs this machine's docker, and
+# the sources at the SAME path the daemon sees: compose resolves a bind source
+# on the daemon's filesystem, not in the container that asked for it.
+services:
+  regression:
+    image: regression-runner:local
+    working_dir: /opt/compose
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./:/opt/compose
+    command:
+      - python3
+      - suite/example/regression.py
+      - --clickhouse
+      - docker://clickhouse/clickhouse-server:24.8.14.39-alpine
+
+  # Carried, never started. The images the suite starts are named by no service
+  # here, so `scale: 0` is how they reach the disk: the build packs every image
+  # the project names, and compose starts none of these. Another suite that
+  # needs ZooKeeper or MinIO adds another entry.
+  carried_prepared:
+    image: clickhouse-regression/clickhouse/clickhouse-server:24.8.14.39-alpine
+    scale: 0
+  carried_server:
+    image: clickhouse/clickhouse-server:24.8.14.39-alpine
+    scale: 0
+  carried_ready:
+    image: hello-world:latest
+    scale: 0
