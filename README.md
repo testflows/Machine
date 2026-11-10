@@ -35,9 +35,11 @@ curl https://testflows.com/machine/install -fsS | bash
 ```
 
 The installer signs you in, or creates your account, with a code sent to your
-email. It checks the client's checksum and signature, and puts `machine` and
-`machine-env` in `~/.local/bin`. Run the same command again to update. On a
-Mac, start `machine-env` first: macOS has its own `/usr/bin/machine`. See the
+email. It checks the client's checksum and signature, puts `machine-env` in
+`~/.local/bin`, and puts `machine` beside it unless another program already
+has that name. macOS has its own `/usr/bin/machine`, so on a Mac start
+`machine-env` first, which gives you the client as `machine`. Run the same
+command again to update. See the
 [download page](https://testflows.com/machine/download/) for details and for
 checking the download yourself.
 
