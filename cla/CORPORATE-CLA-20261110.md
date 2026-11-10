@@ -1,6 +1,6 @@
 # TestFlows™ Corporate Contributor License Agreement
 
-Version 2026-11-10, DRAFT for legal review. Adapted from the Apache Software Foundation's Software
+Version 2026-11-10. Adapted from the Apache Software Foundation's Software
 Grant and Corporate Contributor License Agreement, version r190612, without its
 software grant schedule.
 
@@ -110,9 +110,32 @@ reserve all right, title, and interest in and to Your Contributions.
    behalf of the Corporation, or to the Corporation's Point of Contact with
    Katteli.
 
-9. This Agreement is governed by the laws of the Province of Ontario and the
-   federal laws of Canada applicable therein, without regard to
-   conflict-of-law principles.
+9. Moral Rights. To the extent permitted by applicable law, You waive, and
+   agree not to assert, any moral rights You have in Your Contributions,
+   including the rights of attribution and integrity, against Katteli, its
+   licensees and recipients of software distributed by Katteli. You represent
+   that each employee designated on Schedule A has waived, or has agreed not
+   to assert, the same rights in the Contributions they submit on behalf of
+   the Corporation.
+
+10. No Obligation. Katteli is not obligated to use, include or distribute any
+    of Your Contributions, and may remove a Contribution from the Work at any
+    time.
+
+11. Versions. Katteli may publish new versions of this Agreement, each
+    identified by the date it takes effect. A new version applies to
+    Contributions You submit after You accept it. Contributions You submitted
+    before remain under the version You accepted for them.
+
+12. Governing Law. This Agreement is governed by the laws of the Province of
+    Ontario and the federal laws of Canada applicable therein, without regard
+    to conflict-of-law principles. The parties submit to the exclusive
+    jurisdiction of the courts of the Province of Ontario.
+
+13. Entire Agreement. This Agreement is the entire agreement between You and
+    Katteli regarding Your Contributions, and supersedes any prior
+    understanding about them. If a provision of this Agreement is held
+    unenforceable, the remaining provisions remain in effect.
 
 Please sign: __________________________________ Date: ___________________
 
@@ -130,3 +153,8 @@ particular Contributions.
 | | |
 | | |
 | | |
+
+Katteli keeps this Agreement, its signatory, its Point of Contact and the
+designated employees listed above to administer Contributions and for no other
+purpose. Questions about this Agreement go to `legal@testflows.com`, and about
+personal information to `privacy@testflows.com`.
