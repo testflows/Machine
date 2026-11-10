@@ -19,6 +19,7 @@ import builtins
 from typing import TYPE_CHECKING, Any, Generator, Literal, Optional, overload
 
 from testflows.machine._core import api
+from testflows.machine._core import migration as _migration
 from testflows.machine._core import sessions as _sessions
 
 from . import _args
@@ -239,6 +240,42 @@ class Session:
         client, creds = self._client._account()
         with _translated():
             self._row = _sessions.keep(client, creds, self.id, minutes)
+        return self
+
+    def migrate(self) -> "Session":
+        """Move the session to a new session with its runs, as `machine
+        sessions migrate` does.
+
+        A session of the same class and size is created. Each running machine
+        is stopped, which checkpoints it, and started in the new session at
+        that checkpoint, in the same state. The new session takes the name,
+        and the old one is deleted. A command running on a machine ends, as
+        `stop` ends it.
+
+        This object becomes the new session. When it was the client's current
+        session, the client uses the new one.
+
+        Example:
+            >>> session = client.sessions.show("ci-1")
+            >>> session.migrate().name
+            'ci-1'
+
+        Returns:
+            Session: This session, moved.
+
+        Raises:
+            ApiError: The move failed. Every machine was put back in the
+                session and the new one was deleted; or a machine started in
+                another state, which is a divergence, and both sessions are
+                kept.
+        """
+        client, creds = self._client._account()
+        old_id = self.id
+        with _translated():
+            planned = _migration.plan(client, creds, old_id)
+            moved = _migration.migrate(client, creds, planned)
+        self._row = moved.session
+        self._client._moved(old_id, self)
         return self
 
     def delete(self, *, wait: bool = True, timeout: Optional[float] = None) -> None:
@@ -504,6 +541,24 @@ class Sessions:
                 self._client._use(known)
                 return known
         return self.connect(known, wait=wait, timeout=timeout)
+
+    def migrate(self, session: "Session | str | None" = None) -> Session:
+        """Move a session to a new session with its runs, as `machine sessions
+        migrate` does. See `Session.migrate`.
+
+        Args:
+            session (Session or str, optional): The session; defaults to the
+                only one.
+
+        Returns:
+            Session: The session, moved.
+
+        Raises:
+            NotFound: No session matches.
+            ApiError: The move failed. See `Session.migrate`.
+        """
+        target = session if isinstance(session, Session) else self.show(session)
+        return target.migrate()
 
     def show(self, session: "Session | str | None" = None) -> Session:
         """Read a session, as `machine sessions show` does.

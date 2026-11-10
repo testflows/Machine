@@ -867,6 +867,12 @@ class Client:
         self._session_ref = session.id
         self._session = session
 
+    def _moved(self, old_id: str, session: Session) -> None:
+        """`old_id` moved to `session`: use it in its place when it was current."""
+        self._services.pop(old_id, None)
+        if self._session is not None and self._session.id == old_id:
+            self._use(session)
+
     def _forget(self, session_id: str) -> None:
         """Drop `session_id` as current, when it is: it was deleted."""
         self._services.pop(session_id, None)
