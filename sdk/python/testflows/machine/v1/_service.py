@@ -43,11 +43,15 @@ class _Service:
         disks: Optional[Callable[[], list[dict[str, Any]]]],
         label: str,
         renew: Optional[Callable[[], None]] = None,
+        follow: Optional[Callable[[], Optional[Path]]] = None,
     ) -> None:
         self.socket = socket
         self.disks = disks
         self.label = label
         self.renew = renew
+        #: Follows the session when it moved, `sessions migrate`, and gives the
+        #: socket of where it went: a call that meets the move goes on there.
+        self.follow = follow
 
     @contextlib.contextmanager
     def client(self) -> Generator[ipc.Client, None, None]:
@@ -58,7 +62,7 @@ class _Service:
                 raise ServiceUnavailable(f"The {self.label} is not running.")
             if self.renew is not None:
                 self.renew()
-            client = ipc.Client(socket_path=self.socket)
+            client = ipc.Client(socket_path=self.socket, follow=self.follow)
             try:
                 client.connect()
             except OSError as exc:
@@ -86,7 +90,11 @@ def local() -> _Service:
 
 
 def of_session(
-    client: api.client.Client, creds: dict[str, Any], session_id: str, name: str
+    client: api.client.Client,
+    creds: dict[str, Any],
+    session_id: str,
+    name: str,
+    follow: Optional[Callable[[], Optional[Path]]] = None,
 ) -> _Service:
     """A cloud session's service, through this machine's tunnel to it.
 
@@ -106,4 +114,5 @@ def of_session(
         lambda: api.auth.authed(creds, client.disk_list),
         f"service of session {name}",
         renew,
+        follow,
     )

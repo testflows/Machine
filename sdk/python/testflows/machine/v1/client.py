@@ -26,6 +26,7 @@ import contextlib
 import dataclasses
 import time
 import os
+from pathlib import Path
 from typing import Any, Generator, Literal, Optional, Sequence, overload
 
 from testflows.machine._core import api
@@ -38,6 +39,7 @@ from testflows.machine._core import parsers as _parsers
 from testflows.machine._core import ping as _ping
 from testflows.machine._core import storage_ops as _storage_ops
 from testflows.machine._core import run_source as _run_source
+from testflows.machine._core import sessions as _sessions
 from testflows.machine._core import sorting as _sorting
 from testflows.machine._core import wait as _wait
 from testflows.machine._core import wire as _wire
@@ -126,6 +128,9 @@ class Client:
         self._local = local
         self._session_ref = session
         self._session: Optional[Session] = None
+        #: The session each moved one went to, `sessions migrate`, so every
+        #: Session object of a moved session names where it went.
+        self._moved_ids: dict[str, str] = {}
         self._api_url = api_url
         self._api: Optional[tuple[api.client.Client, dict[str, Any]]] = None
         self._services: dict[str, _service._Service] = {}
@@ -868,9 +873,11 @@ class Client:
         self._session = session
 
     def _moved(self, old_id: str, session: Session) -> None:
-        """`old_id` moved to `session`: use it in its place when it was current."""
+        """`old_id` moved to `session`: every Session object of `old_id` names it
+        now, and the client uses it in its place when it was current."""
+        self._moved_ids[old_id] = session.id
         self._services.pop(old_id, None)
-        if self._session is not None and self._session.id == old_id:
+        if self._session is not None and self._session.id == session.id:
             self._use(session)
 
     def _forget(self, session_id: str) -> None:
@@ -900,15 +907,53 @@ class Client:
         if session.id not in self._services:
             client, creds = self._account()
             self._services[session.id] = _service.of_session(
-                client, creds, session.id, session.name
+                client, creds, session.id, session.name, follow=self._follow_socket
             )
         return self._services[session.id]
 
     @contextlib.contextmanager
     def _connection(self) -> Generator[_ipc.Client, None, None]:
-        """A connection to the current session's service."""
-        with self._service().client() as client:
-            yield client
+        """A connection to the current session's service.
+
+        A call that fails because the session moved, `sessions migrate`, makes
+        the client follow it: the next call goes to where the session went. The
+        failed call is raised as it failed, since it may have done its work."""
+        try:
+            with self._service().client() as client:
+                yield client
+        except Exception as err:
+            if not self._local and _sessions.moved_away(err):
+                self._follow()
+            raise
+
+    def _follow(self) -> None:
+        """Use the session the current one moved to, when it moved."""
+        self._follow_socket()
+
+    def _follow_socket(self) -> Optional[Path]:
+        """Follow the current session to where it moved: use it in its place, and
+        give its socket; None when it did not move."""
+        session = self._session
+        if session is None:
+            return None
+        client, creds = self._account()
+        old_id = session.id
+        try:
+            info = _sessions.follow(client, creds, old_id)
+        except Exception:  # the error that led here is the one to report
+            return None
+        if info is None:
+            return None
+        moved = Session(self, info)
+        self._moved(old_id, moved)
+        return api.store.session_socket(moved.id)
+
+    def _now_id(self, session_id: str) -> str:
+        """The id a session has now: the session it moved to, after every move this
+        client followed."""
+        while session_id in self._moved_ids:
+            session_id = self._moved_ids[session_id]
+        return session_id
 
     @contextlib.contextmanager
     def _catalog(self) -> Generator[_run_source.RunSource, None, None]:

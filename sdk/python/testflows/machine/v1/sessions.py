@@ -76,8 +76,9 @@ class Session:
 
     @property
     def id(self) -> str:
-        """str: The session's id, which never changes."""
-        return str(self._row["session_id"])
+        """str: The session's id. A session moved with `migrate` has a new id,
+        which this follows, whichever client or object moved it."""
+        return self._client._now_id(str(self._row["session_id"]))
 
     @property
     def name(self) -> str:
