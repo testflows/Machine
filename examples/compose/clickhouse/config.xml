@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<!--
+  Copyright 2026 Katteli Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!--
+  Replaces the image's config.xml, and holds the users too so the project is
+  one file.
+
+  The image's entrypoint reads logger.log, logger.errorlog, format_schema_path
+  and user_directories.users_xml.path out of this file and exits 232 without
+  any one of them.
+-->
+<clickhouse>
+    <logger>
+        <level>information</level>
+        <console>1</console>
+        <log>/var/log/clickhouse-server/clickhouse-server.log</log>
+        <errorlog>/var/log/clickhouse-server/clickhouse-server.err.log</errorlog>
+    </logger>
+
+    <http_port>8123</http_port>
+    <tcp_port>9000</tcp_port>
+    <!-- IPv4 only: the guest kernel has no CONFIG_IPV6. -->
+    <listen_host>0.0.0.0</listen_host>
+    <listen_try>1</listen_try>
+
+    <max_connections>16</max_connections>
+    <max_concurrent_queries>8</max_concurrent_queries>
+    <max_server_memory_usage>536870912</max_server_memory_usage>
+    <!-- No max_thread_pool_size: the server holds long-lived workers in the
+         global pool, and a job past the cap is queued and never runs. 16 hung
+         startup silently (ClickHouse #81500, PR #112928). -->
+    <max_thread_pool_free_size>4</max_thread_pool_free_size>
+
+    <!-- Every background pool capped: the defaults are >=16 and
+         background_schedule_pool_size defaults to 512 threads. 13 is the
+         least background_pool_size the MergeTree defaults accept, because 13
+         x background_merges_mutations_concurrency_ratio 2 = 26 covers
+         number_of_free_entries_in_pool_to_execute_optimize_entire_partition
+         25, or startup throws. -->
+    <background_pool_size>13</background_pool_size>
+    <background_move_pool_size>2</background_move_pool_size>
+    <background_fetches_pool_size>2</background_fetches_pool_size>
+    <background_common_pool_size>4</background_common_pool_size>
+    <background_schedule_pool_size>4</background_schedule_pool_size>
+    <background_message_broker_schedule_pool_size>4</background_message_broker_schedule_pool_size>
+    <background_distributed_schedule_pool_size>4</background_distributed_schedule_pool_size>
+    <background_buffer_flush_schedule_pool_size>4</background_buffer_flush_schedule_pool_size>
+
+    <mark_cache_size>16777216</mark_cache_size>
+    <uncompressed_cache_size>0</uncompressed_cache_size>
+
+    <path>/var/lib/clickhouse/</path>
+    <tmp_path>/var/lib/clickhouse/tmp/</tmp_path>
+    <user_files_path>/var/lib/clickhouse/user_files/</user_files_path>
+    <format_schema_path>/var/lib/clickhouse/format_schemas/</format_schema_path>
+    <user_directories>
+        <users_xml><path>/etc/clickhouse-server/config.xml</path></users_xml>
+    </user_directories>
+
+    <timezone>UTC</timezone>
+    <mlock_executable>false</mlock_executable>
+    <!-- The VM has no route off itself; a report only costs a startup timeout. -->
+    <send_crash_reports><enabled>false</enabled></send_crash_reports>
+
+    <!-- No password, open to every address: only for this example, where
+         the server is reachable from nothing but the other service in the
+         same VM. Never copy this into a server anything else can reach. -->
+    <users>
+        <default>
+            <password></password>
+            <networks><ip>0.0.0.0/0</ip></networks>
+            <profile>default</profile>
+            <quota>default</quota>
+        </default>
+    </users>
+    <profiles>
+        <default>
+            <max_memory_usage>268435456</max_memory_usage>
+            <use_uncompressed_cache>0</use_uncompressed_cache>
+        </default>
+    </profiles>
+    <quotas><default><interval><duration>3600</duration></interval></default></quotas>
+</clickhouse>
