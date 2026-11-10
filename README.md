@@ -28,10 +28,14 @@ service, with a free plan and paid plans.
 
 ## Features
 
-* **[Replay](https://testflows.com/docs/machine/#replay)**
+* **[Deterministic runs](https://testflows.com/docs/machine/#running-a-machine)**
+  * [Random numbers](https://testflows.com/docs/machine/#random-numbers)
+  * [Multiple vCPUs](https://testflows.com/docs/machine/#multiple-vcpus)
+  * [Recording that repeats](https://testflows.com/docs/machine/#recording-that-repeats)
+  * [Time compression](https://testflows.com/docs/machine/#time-compression)
+* **[Deterministic replay](https://testflows.com/docs/machine/#replay)**
   * [Comparing entries](https://testflows.com/docs/machine/#comparing-entries)
   * [Comparing two machines](https://testflows.com/docs/machine/#comparing-two-machines)
-  * [Recording that repeats](https://testflows.com/docs/machine/#recording-that-repeats)
 * **[Checkpoints and branches](https://testflows.com/docs/machine/#checkpoints-and-branches)**
   * [Checkpoints](https://testflows.com/docs/machine/#checkpoints)
   * [Starting a branch](https://testflows.com/docs/machine/#starting-a-branch)
@@ -42,15 +46,6 @@ service, with a free plan and paid plans.
   * [Docker and Compose](https://testflows.com/docs/machine/#docker-and-compose)
   * [Programs that need a runtime](https://testflows.com/docs/machine/#programs-that-need-a-runtime)
   * [Compose projects](https://testflows.com/docs/machine/#compose-projects)
-* **[Running a machine](https://testflows.com/docs/machine/#running-a-machine)**
-  * [Multiple vCPUs](https://testflows.com/docs/machine/#multiple-vcpus)
-  * [Time compression](https://testflows.com/docs/machine/#time-compression)
-  * [Inspecting a run](https://testflows.com/docs/machine/#inspecting-a-run)
-  * [Commands in the guest](https://testflows.com/docs/machine/#commands-in-the-guest)
-  * [Copying files](https://testflows.com/docs/machine/#copying-files)
-  * [Core dumps](https://testflows.com/docs/machine/#core-dumps)
-  * [Profiling](https://testflows.com/docs/machine/#profiling)
-  * [Interactive mode](https://testflows.com/docs/machine/#interactive-mode)
 * **[Steering programs](https://testflows.com/docs/machine/#steering-programs)**
   * [Focus](https://testflows.com/docs/machine/#focus)
   * [Holding threads](https://testflows.com/docs/machine/#holding-threads)
@@ -70,6 +65,12 @@ service, with a free plan and paid plans.
 * **[Debugging](https://testflows.com/docs/machine/#debugging)**
   * [The machine's debugger](https://testflows.com/docs/machine/#the-machine%E2%80%99s-debugger)
   * [GDB inside the machine](https://testflows.com/docs/machine/#gdb-inside-the-machine)
+* **[Inspecting a run](https://testflows.com/docs/machine/#inspecting-a-run)**
+  * [Commands in the guest](https://testflows.com/docs/machine/#commands-in-the-guest)
+  * [Copying files](https://testflows.com/docs/machine/#copying-files)
+  * [Core dumps](https://testflows.com/docs/machine/#core-dumps)
+  * [Profiling](https://testflows.com/docs/machine/#profiling)
+  * [Interactive mode](https://testflows.com/docs/machine/#interactive-mode)
 * **[Reading the disk](https://testflows.com/docs/machine/#reading-the-disk)**
 * **[Scripting](https://testflows.com/docs/machine/#scripting)**
 * **[Python SDK](https://testflows.com/docs/machine/#python-sdk)**
