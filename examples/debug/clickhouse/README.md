@@ -13,7 +13,7 @@ it.
 | [gdb.sh](gdb.sh) | Attaches GDB to the server |
 | [session.gdb](session.gdb) | A GDB session to show: a breakpoint, `stepi`, `next`, `finish`, `hbreak`, a hardware `watch` and `detach` |
 
-## 📦 1. The Image
+## 1. The image
 
 ClickHouse 26.8.31.2 on the server's own image, Ubuntu 22.04.
 
@@ -28,7 +28,7 @@ docker build --target debug -t clickhouse-debug:26.8.31.2 .
 | `clickhouse-server` | 1.3GB | Every function by name, from the server binary's own symbol table |
 | `clickhouse-debug` | 6.5GB | Also arguments, locals, types and source lines, from `clickhouse-common-static-dbg` of the same build: 1.7GB of DWARF 5 |
 
-## 📖 2. The Source
+## 2. The source
 
 The server is built from ClickHouse commit
 [bb452427e21b](https://github.com/ClickHouse/ClickHouse/tree/bb452427e21b3693aef652d597bb7fe4437b088a),
@@ -44,14 +44,14 @@ clickhouse: source https://github.com/ClickHouse/ClickHouse/tree/bb452427e21b369
 clickhouse: ready
 ```
 
-## 💾 3. The Disks
+## 3. The disks
 
 ```bash
 machine disks build --image clickhouse-server:26.8.31.2 clickhouse-server
 machine disks build --image clickhouse-debug:26.8.31.2 clickhouse-debug
 ```
 
-## 🚀 4. Up to the Server
+## 4. Up to the server
 
 ```bash
 machine create ch --disk clickhouse-debug --mem 8192 --cpus 2
@@ -69,7 +69,7 @@ machine tasks ch
 The server is tgid 212 here. A query runs in one of its threads, which a stop
 names.
 
-## 🐞 5. The Machine's Debugger
+## 5. The machine's debugger
 
 Run the server until a query reaches a line of `executeQuery`, and keep a
 checkpoint there:
@@ -189,7 +189,7 @@ machine run cs --until 'tgid=211:write=*(long *)&CurrentMetrics::values'
 Value = 1, 0x1
 ```
 
-## 🔧 6. GDB, a Command at a Time
+## 6. GDB, a command at a time
 
 `machine exec run` runs GDB in the server's container. `gdb.sh` attaches to
 the server, runs its commands and detaches:
@@ -221,12 +221,12 @@ it holds about 3.8GB, so give the machine `--mem 12288`, and the first
 breakpoint takes about 13 minutes. The machine's debugger reads a unit of it
 at a time and needs no memory of the machine.
 
-## 🔗 7. GDB That Stays Attached
+## 7. GDB that stays attached
 
 For one GDB session that several commands feed, see
 [A session that stays attached](https://testflows.com/docs/machine/#a-session-that-stays-attached).
 
-## 🔁 8. Again, From the Same State
+## 8. Again, from the same state
 
 The checkpoints hold the machine as it was. Rewind to one, and the next
 session starts from the same instruction, with the same queries:
@@ -235,7 +235,7 @@ session starts from the same instruction, with the same queries:
 machine rewind ch to ^query
 ```
 
-## 📌 Good to Know
+## Good to know
 
 - The debug package must be of the server's exact build. A debugger takes
   `/usr/lib/debug/usr/bin/clickhouse.debug` only when its build id is the

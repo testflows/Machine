@@ -12,7 +12,7 @@ Each example builds an image in two targets, a disk of each, and runs the
 server to a checkpoint where it answers queries. A client in the image sends
 a query every second, so the query path runs without one being sent.
 
-## 🐞 Three Ways to Debug
+## Three ways to debug
 
 | Way | What it needs | What it is for |
 |---|---|---|
@@ -23,7 +23,7 @@ a query every second, so the query path runs without one being sent.
 The machine's debugger reads the program files on the machine's disk, and
 GDB reads them in the container. Both read the same debug information.
 
-## 📦 With and Without Debug Information
+## With and without debug information
 
 | On the disk | What a debugger shows |
 |---|---|

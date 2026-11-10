@@ -11,7 +11,7 @@ run records every stop, so a checkpoint, a rewind or a replay returns to it.
 | [start.sh](start.sh) | The entrypoint. It starts the server, prints its version, starts one client session that sends a query every second, then prints `postgresql: ready` once that session's backend runs |
 | [gdb.sh](gdb.sh) | Attaches GDB to the session's backend |
 
-## 📦 1. The Image
+## 1. The image
 
 PostgreSQL 17.11 on the official image, Debian 13, from PGDG's packages.
 
@@ -26,14 +26,14 @@ docker build --target debug -t postgresql-debug:17.11 .
 | `postgresql-server` | The server binary's exported functions by name. Debian strips its static ones, as `exec_simple_query` |
 | `postgresql-debug` | Every function, its arguments, locals, types and source lines, from PGDG's `postgresql-17-dbgsym` of the same build |
 
-## 💾 2. The Disks
+## 2. The disks
 
 ```bash
 machine disks build --image postgresql-server:17.11 postgresql-server
 machine disks build --image postgresql-debug:17.11 postgresql-debug
 ```
 
-## 🚀 3. Up to the Server
+## 3. Up to the server
 
 ```bash
 machine create pg --disk postgresql-debug --mem 2048 --cpus 2
@@ -53,7 +53,7 @@ machine tasks pg
 The client session is `psql`, and its backend is the `postgres` task after
 it: tid 292 here. The commands below name it.
 
-## 🐞 4. The Machine's Debugger
+## 4. The machine's debugger
 
 Run the backend to the function that runs a simple query, and keep a
 checkpoint there:
@@ -160,7 +160,7 @@ package names.
 The query is the function's first argument, in `rdi`, and `mem` reads it as a
 string.
 
-## 🔧 5. GDB, a Command at a Time
+## 5. GDB, a command at a time
 
 `machine exec run` runs GDB in the server's container. `gdb.sh` attaches to
 the backend, runs its commands and detaches:
@@ -187,13 +187,13 @@ GDB runs as `postgres`, the server's user. The container has no
 `CAP_SYS_PTRACE`, so only a process of the same user can attach. The process
 id GDB says is the backend's in the container.
 
-## 🔗 6. GDB That Stays Attached
+## 6. GDB that stays attached
 
 For one GDB session that several commands feed, see
 [A session that stays attached](https://testflows.com/docs/machine/#a-session-that-stays-attached).
 Its steps work here with `gdb.sh` and the `postgres` user.
 
-## 🔁 7. Again, From the Same State
+## 7. Again, from the same state
 
 The checkpoints hold the machine as it was. Rewind to one, and the next
 session starts from the same instruction, with the same queries:
@@ -202,7 +202,7 @@ session starts from the same instruction, with the same queries:
 machine rewind pg to ^query
 ```
 
-## 📌 Good to Know
+## Good to know
 
 - The debug package must be of the server's exact build. A debugger takes
   it only when its build id is the server's.

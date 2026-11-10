@@ -9,7 +9,7 @@ the machine starts at boot, and the suite's, which the suite starts.
 Only this project is here. The suite is copied into `suite/`, which
 `.gitignore` keeps untracked.
 
-## 📦 1. The Sources
+## 1. The sources
 
 The suite is used at a pinned commit of its `main`, with
 [prepare-env.patch](prepare-env.patch) applied. The patch is Altinity
@@ -35,13 +35,13 @@ directory, and that repository is 2.1GB of tracked files. A suite needs
 directory, which is about 1MB. `helpers` has to stay a sibling of the suite,
 because `regression.py` finds it at `..`.
 
-## 🐳 2. The Runner Image
+## 2. The runner image
 
 ```bash
 docker build -t regression-runner:local runner/
 ```
 
-## 🗂️ 3. The Images the Suite Starts
+## 3. The images the suite starts
 
 A machine reaches no registry, so everything the suite will run has to be in
 the local Docker under the names it asks for. `--prepare-env` builds and pulls
@@ -60,7 +60,7 @@ docker run --rm \
 The `carried_*` services in `docker-compose.yml` name those images so the build
 packs them. They never start.
 
-## 💾 4. The Disk
+## 4. The disk
 
 ```bash
 machine disks build --compose . chreg --dry-run
@@ -98,7 +98,7 @@ times while the machine boots, so the loop keeps it running until the machine
 halts. The machine runs the project with `--abort-on-container-exit`, so it
 powers off when the suite exits and the run lands in `halted`.
 
-## ➕ Another Suite
+## Another suite
 
 Copy that suite's directory into `suite/` as well and change `command:`. A
 suite whose environment names the same two images needs nothing else; one that
