@@ -21,6 +21,10 @@ in this repository. Report a problem with them in an issue.
 3. Keep a pull request to one change, and describe what it does and how you
    tested it.
 4. Never include an API key, a token, a password or other secrets.
+5. Sign your commits. The `main` branch accepts only commits GitHub can
+   verify. See GitHub's guide to
+   [signing commits](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits)
+   with an SSH or GPG key.
 
 **Pull requests do not run CI.** No workflow runs on a pull request, from a
 fork or otherwise. A maintainer reviews the change and tests it before merging.
