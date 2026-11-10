@@ -1,0 +1,32 @@
+name: Feature request
+description: Something TestFlows™ Machine could do for you.
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping shape TestFlows™ Machine. To talk an idea through first, start a discussion instead.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before you submit
+      options:
+        - label: I searched the existing issues and this request is not there yet.
+          required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What you're trying to do
+      description: The task, and where TestFlows™ Machine falls short of it today.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What would help
+      description: The command, option or SDK call you have in mind, if you have one.
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: What you do today instead
+      description: Any workaround you use now.
