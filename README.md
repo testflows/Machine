@@ -28,11 +28,11 @@ service, with a free plan and paid plans.
 
 ## Features
 
-* **[Record and replay](https://testflows.com/docs/machine/#replay)**: a replay repeats a run instruction for instruction
+* **[Record and replay](https://testflows.com/docs/machine/#replay)**
   * [Every difference found, at the entry it happens](https://testflows.com/docs/machine/#comparing-entries)
   * [Two machines compared, state by state](https://testflows.com/docs/machine/#comparing-two-machines)
   * [Recordings that repeat](https://testflows.com/docs/machine/#recording-that-repeats)
-* **[Checkpoints and branches](https://testflows.com/docs/machine/#checkpoints-and-branches)**: try something else from any point
+* **[Checkpoints and branches](https://testflows.com/docs/machine/#checkpoints-and-branches)**
   * [Checkpoints](https://testflows.com/docs/machine/#checkpoints)
   * [Branches that share their parent's history](https://testflows.com/docs/machine/#starting-a-branch)
   * [Switching the machine between branches](https://testflows.com/docs/machine/#switching-the-machine)
@@ -42,20 +42,20 @@ service, with a free plan and paid plans.
   * [Programs that need a runtime](https://testflows.com/docs/machine/#programs-that-need-a-runtime)
   * [Docker Compose projects](https://testflows.com/docs/machine/#compose-projects)
   * [Multiple vCPUs](https://testflows.com/docs/machine/#multiple-vcpus)
-* **[Steering programs](https://testflows.com/docs/machine/#steering-programs)**: pick the order a race needs
+* **[Steering programs](https://testflows.com/docs/machine/#steering-programs)**
   * [Holding threads](https://testflows.com/docs/machine/#holding-threads)
   * [Focus on a task](https://testflows.com/docs/machine/#focus)
   * [Schedules drawn from a plan](https://testflows.com/docs/machine/#plans)
   * [Delayed interrupts](https://testflows.com/docs/machine/#interrupts)
   * [Machine time](https://testflows.com/docs/machine/#machine-time), and [idle waits that take almost no time](https://testflows.com/docs/machine/#time-compression)
-* **[Fault injection](https://testflows.com/docs/machine/#fault-injection)**: every fault recorded, so a replay fails the same way
+* **[Fault injection](https://testflows.com/docs/machine/#fault-injection)**
   * [System calls](https://testflows.com/docs/machine/#system-call-faults) and [functions](https://testflows.com/docs/machine/#function-faults)
   * [Memory](https://testflows.com/docs/machine/#memory-faults) and [resource exhaustion](https://testflows.com/docs/machine/#resource-exhaustion)
   * [Kernel](https://testflows.com/docs/machine/#kernel-faults) and [disk](https://testflows.com/docs/machine/#disk-faults): corrupt, torn and lost writes
   * [Containers](https://testflows.com/docs/machine/#container-faults): killed, crashed, paused, throttled
   * [Clocks](https://testflows.com/docs/machine/#clock-faults): jumps, drift, jitter, leap seconds
   * [Networks](https://testflows.com/docs/machine/#network-faults): delay, loss, partitions, held packets
-* **[Debugging](https://testflows.com/docs/machine/#debugging)**: any program, from outside the guest
+* **[Debugging](https://testflows.com/docs/machine/#debugging)**
   * [Breakpoints, watchpoints, catchpoints and stepping](https://testflows.com/docs/machine/#the-machine%E2%80%99s-debugger), backwards too
   * [GDB inside the machine](https://testflows.com/docs/machine/#gdb-inside-the-machine)
   * [Core dumps](https://testflows.com/docs/machine/#core-dumps)
