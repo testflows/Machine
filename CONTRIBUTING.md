@@ -1,7 +1,24 @@
 # Contributing to TestFlows™ Machine
 
-Thank you for helping improve TestFlows™ Machine. You can contribute in
-several ways:
+TestFlows™ Machine is a product you can help shape in many ways: with bug
+reports, ideas, examples, and improvements to the Python SDK. We appreciate
+every effort that makes it better.
+
+Thank you!
+
+## Legal Info
+
+When you open your first pull request in this repository, a bot will ask you
+to accept the TestFlows™ Individual CLA (Contributor License Agreement).
+Please review and accept it. We can merge a pull request only after its author
+has accepted it.
+
+Optionally, to make contributions more legally binding, your employer as a
+legal entity may want to sign a TestFlows™ Corporate CLA with Katteli Inc. If
+you're interested in doing so, contact us at
+[legal@testflows.com](mailto:legal@testflows.com).
+
+## Ways to contribute
 
 * **Report a bug or request a feature.**
   [Open an issue](https://github.com/testflows/Machine/issues/new/choose).
@@ -29,7 +46,9 @@ in this repository. Report a problem with them in an issue.
 **Pull requests do not run CI.** No workflow runs on a pull request, from a
 fork or otherwise. A maintainer reviews the change and tests it before merging.
 
-## Examples
+## Technical Information
+
+### Examples
 
 An example is a small program or Compose project that shows something
 TestFlows™ Machine can find, record or replay. Each one:
@@ -39,22 +58,16 @@ TestFlows™ Machine can find, record or replay. Each one:
 * says in its README or its header comment what it does and what to look for;
 * starts with the Apache License 2.0 header the other examples carry.
 
-## Python SDK
+### Python SDK
 
 The SDK supports Python 3.11 and later. Format Python code with
 [black](https://github.com/psf/black), and keep the public API typed. See the
 [SDK's README](sdk/python/README.md) for building and installing it from
-source.
+source, and the [documentation](https://testflows.com/docs/machine/#python-sdk)
+for how it is used.
 
-## License
+## See Also
 
-The Python SDK in [`sdk/`](sdk/LICENSE) and the examples in
-[`examples/`](examples/LICENSE) are licensed under the Apache License 2.0. By
-submitting a contribution to either, you agree that it is licensed under the
-same license, as section 5 of the license states, and you confirm that you
-have the right to submit it.
-
-## Code of conduct
-
-Everyone taking part is expected to follow our
-[Code of Conduct](CODE_OF_CONDUCT.md).
+* [Code of Conduct](CODE_OF_CONDUCT.md)
+* [Security policy](SECURITY.md)
+* [Getting help](SUPPORT.md)
