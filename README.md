@@ -15,6 +15,7 @@ service, with a free plan and paid plans.
 [Website](https://testflows.com/machine) ·
 [Documentation](https://testflows.com/docs/machine/) ·
 [Pricing](https://testflows.com/machine/pricing/) ·
+[Examples](https://github.com/testflows/Machine-Examples) ·
 [Python SDK](https://github.com/testflows/Machine-SDK) ·
 [Discussions](https://github.com/testflows/Machine/discussions)
 
@@ -73,6 +74,15 @@ machine output hello-run -n -5 --plain
 
 [Getting started](https://testflows.com/docs/machine/#getting-started)
 continues with checkpoints, branches and replay.
+
+## Examples
+
+* [Machine-Examples](https://github.com/testflows/Machine-Examples) has small
+  programs that each hold a known kind of bug, such as data races, starvation
+  and missed wakeups, and Compose projects. Build disks from them and explore
+  them with branches and replay.
+* The [Python SDK examples](https://github.com/testflows/Machine-SDK/tree/main/python/examples)
+  are scripts that drive runs from Python.
 
 ## Python SDK
 
