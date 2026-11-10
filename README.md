@@ -2,7 +2,8 @@
 
 TestFlows™ Machine is a deterministic hypervisor and execution environment.
 Record a run of your software, replay it exactly, and branch it from any
-point to explore what else could have happened.
+point to explore what else could have happened. It runs in the cloud as a
+self-serve service, with a free plan and paid plans.
 
 This repository is where the TestFlows™ Machine community reports bugs,
 requests features and discusses the product. It does not contain source code.
