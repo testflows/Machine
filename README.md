@@ -136,7 +136,7 @@ The SDK runs on the SDK Core, which the client's installer installs. See the
 
 ## Community
 
-This repository is the home of the TestFlows™ Machine community: bug
+This repository is the home of the TestFlows Machine community: bug
 reports, feature requests, discussions, the examples and the Python SDK. The
 client, the SDK Core and the service are not open source.
 
@@ -169,8 +169,8 @@ The Python SDK in [`sdk/`](sdk/) and the examples in [`examples/`](examples/)
 are licensed under the Apache License 2.0; see the LICENSE file in each. No
 other file in this repository is licensed under it.
 
-The TestFlows™ Machine client, the SDK Core and the service are provided under
+The TestFlows Machine client, the SDK Core and the service are provided under
 the [Terms of Service](https://testflows.com/machine/legal/terms-of-service/)
 and the [Client EULA](https://testflows.com/machine/legal/client-eula/).
 
-TestFlows™ and the TestFlows logo are trademarks of Katteli Inc.
+TestFlows and the TestFlows Logo are trademarks of Katteli Inc.
