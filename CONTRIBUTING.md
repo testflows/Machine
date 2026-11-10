@@ -8,10 +8,11 @@ Thank you!
 
 ## Legal Info
 
-When you open your first pull request in this repository, a bot will ask you
-to accept the TestFlows™ Individual CLA (Contributor License Agreement).
-Please review and accept it. We can merge a pull request only after its author
-has accepted it.
+Every contribution needs the [TestFlows™ Individual CLA](CLA.md) (Contributor
+License Agreement). When you open a pull request, its description asks you to
+check a box that says you have read and agree to it. Please review it before
+you check the box. We can merge a pull request only after its author has
+checked it, and your agreement covers your later contributions too.
 
 Optionally, to make contributions more legally binding, your employer as a
 legal entity may want to sign a TestFlows™ Corporate CLA with Katteli Inc. If
