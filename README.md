@@ -125,10 +125,12 @@ Everyone taking part in this community is expected to follow our
 
 ## Legal
 
-TestFlows™ Machine is provided under the
-[Terms of Service](https://testflows.com/machine/legal/terms-of-service/)
-and the [Client EULA](https://testflows.com/machine/legal/client-eula/). The
-examples and the Python SDK in this repository are licensed under the
-[Apache License 2.0](LICENSE).
+The Python SDK in [`sdk/`](sdk/) and the examples in [`examples/`](examples/)
+are licensed under the Apache License 2.0; see the LICENSE file in each. No
+other file in this repository is licensed under it.
+
+The TestFlows™ Machine client, the SDK Core and the service are provided under
+the [Terms of Service](https://testflows.com/machine/legal/terms-of-service/)
+and the [Client EULA](https://testflows.com/machine/legal/client-eula/).
 
 TestFlows™ and the TestFlows logo are trademarks of Katteli Inc.

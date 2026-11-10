@@ -44,10 +44,11 @@ source.
 
 ## License
 
-The examples and the Python SDK are licensed under the
-[Apache License 2.0](LICENSE). By submitting a contribution, you agree that it
-is licensed under the same license, as section 5 of the license states, and
-you confirm that you have the right to submit it.
+The Python SDK in [`sdk/`](sdk/LICENSE) and the examples in
+[`examples/`](examples/LICENSE) are licensed under the Apache License 2.0. By
+submitting a contribution to either, you agree that it is licensed under the
+same license, as section 5 of the license states, and you confirm that you
+have the right to submit it.
 
 ## Code of conduct
 

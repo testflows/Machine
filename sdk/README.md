@@ -7,7 +7,7 @@ execution environment.
 |---|---|---|
 | [`python/`](python/) | `testflows.machine` | `pip install testflows.machine` |
 
-Licensed under the [Apache License 2.0](../LICENSE).
+Licensed under the [Apache License 2.0](LICENSE).
 
 ## Python
 
