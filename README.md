@@ -3,7 +3,7 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/testflows/Machine/main/.github/assets/testflows-logo-dark.png">
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/testflows/Machine/main/.github/assets/testflows-logo-light.png">
-  <img alt="TestFlows" src="https://raw.githubusercontent.com/testflows/Machine/main/.github/assets/testflows-logo-light.png" width="420">
+  <img alt="TestFlows" src="https://raw.githubusercontent.com/testflows/Machine/main/.github/assets/testflows-logo-light.png" width="460">
 </picture>
 
 <h3>TestFlows™ Machine is a deterministic hypervisor and execution environment.</h3>
