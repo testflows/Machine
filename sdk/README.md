@@ -1,24 +1,18 @@
 # TestFlows™ Machine SDK
 
 SDKs for [TestFlows™ Machine](https://testflows.com/machine), the deterministic
-execution environment.
+execution environment. An SDK does from a program what the `machine` command
+does: it drives runs, branches, replays and faults.
 
 | Directory | Package | Install |
 |---|---|---|
-| [`python/`](python/) | `testflows.machine` | `pip install testflows.machine` |
+| [`python/`](python/) | `testflows.machine` | `pip3 install testflows.machine` |
+
+An SDK runs on the SDK Core, which the
+[client's installer](https://testflows.com/machine/download/) installs. Install
+the client first, then the SDK. See the [Python SDK](python/) for its
+requirements and a first program, and the
+[documentation](https://testflows.com/docs/machine/#python-sdk) for how to use
+it.
 
 Licensed under the [Apache License 2.0](LICENSE).
-
-## Python
-
-Build the wheel and the source archive into `python/dist/`, then publish them:
-
-```bash
-cd python
-pip install build twine
-./package
-twine upload dist/*
-```
-
-`./install` installs the wheel `./package` built into the running Python.
-The version is in `python/testflows/machine/v1/_version.py`.

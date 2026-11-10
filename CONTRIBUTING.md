@@ -68,6 +68,27 @@ The SDK supports Python 3.11 and later. Format Python code with
 source, and the [documentation](https://testflows.com/docs/machine/#python-sdk)
 for how it is used.
 
+Maintainers publish a release from `sdk/python`. `./package` builds the wheel
+and the source archive into `dist/`, and refuses either if it carries anything
+but the SDK's own files. The version is in
+`testflows/machine/v1/_version.py`.
+
+```bash
+cd sdk/python
+pip3 install build twine
+./package
+twine upload dist/*
+```
+
+Each version published to PyPI is also a GitHub release, with the same two
+files, on a signed tag `python-sdk/v<version>`:
+
+```bash
+git tag -s python-sdk/v0.1.2 -m "Python SDK 0.1.2"
+git push origin python-sdk/v0.1.2
+gh release create python-sdk/v0.1.2 dist/* --title "Python SDK 0.1.2" --notes-file NOTES.md
+```
+
 ## See Also
 
 * [Code of Conduct](CODE_OF_CONDUCT.md)

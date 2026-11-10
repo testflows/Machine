@@ -2,14 +2,14 @@
 
 Programs and Compose projects to run on [TestFlows™ Machine](https://testflows.com/machine/).
 
-## ✨ Getting Started
+## Getting started
 
 ```bash
 git clone https://github.com/testflows/Machine.git
 cd Machine/examples
 ```
 
-## 🧪 Programs
+## Programs
 
 The programs are small and written to be run many times. Most hold a
 concurrency bug with a known shape, and what they print depends on how their
@@ -30,7 +30,7 @@ enough that a replay either matches or does not.
 | [stress/memstress.c](stress/memstress.c) | Allocates close to the VM's memory limit across threads, with madvise, fork/COW and fault cycles | Not a bug of its own. It drives the kernel's memory management hard, which is the work a replay has to reproduce exactly |
 | [stress/memswapstress.c](stress/memswapstress.c) | Allocates 150% of RAM against a swap file, forcing swap-out, swap-in and swap cache | Not a bug of its own. Same purpose one layer down, through swap |
 
-## 🚀 Run One From the Image
+## Run one from the image
 
 Every program is in one image, `testflows/machine-examples`, at
 `/examples/<name>`. `disks build` reads the image from the local Docker, so pull
@@ -77,7 +77,7 @@ the top of its source.
 | memstress | `256 4 10`: MB, threads, iterations | `--mem 512` |
 | memswapstress | `768 4 5`: MB, threads, iterations | `--mem 512`, less than the program allocates, so the kernel swaps |
 
-## 🔨 Build Them Yourself
+## Build them yourself
 
 `make` compiles every program static and x86_64, which is what a disk built
 from a binary requires:
@@ -100,7 +100,7 @@ docker build -t machine-examples .
 machine disks build --image machine-examples --entrypoint /examples/data-race race -- 8
 ```
 
-## 🐳 Compose Environments
+## Compose environments
 
 `compose/` holds whole environments rather than programs: a docker compose
 project that `machine disks build --compose` turns into a disk. The machine
@@ -126,7 +126,7 @@ waiting for a boot:
 cd compose/clickhouse && docker compose up --abort-on-container-exit
 ```
 
-## 🐞 Debugging a Database
+## Debugging a database
 
 [debug/](debug/README.md) has two database servers to debug in a machine,
 each as it ships and with its debug information:
@@ -144,16 +144,12 @@ docker pull --platform linux/amd64 testflows/machine-examples:postgresql-debug-1
 machine disks build --image testflows/machine-examples:postgresql-debug-17.11 postgresql-debug
 ```
 
-## 📚 Learn More
+## Learn more
 
-- 🌐 **Website:** [testflows.com/machine](https://testflows.com/machine/)
-- 📖 **Documentation:** [testflows.com/docs/machine](https://testflows.com/docs/machine/)
-- ⬇️ **Download:** [testflows.com/machine/download](https://testflows.com/machine/download/)
+- **Website:** [testflows.com/machine](https://testflows.com/machine/)
+- **Documentation:** [testflows.com/docs/machine](https://testflows.com/docs/machine/)
+- **Download:** [testflows.com/machine/download](https://testflows.com/machine/download/)
 
-## 📜 License
+## License
 
 Apache 2.0; see [LICENSE](LICENSE).
-
----
-
-Learn to write test programs, not just tests 👽
