@@ -26,7 +26,7 @@ service, with a free plan and paid plans.
 > feedback from users like you. Backward compatibility isn't guaranteed yet,
 > and you may need to update the client and the SDK Core often.
 
-## ◆ Features
+## Features
 
 * **[Deterministic runs](https://testflows.com/docs/machine/#running-a-machine)**: [Random numbers](https://testflows.com/docs/machine/#random-numbers), [Multiple vCPUs](https://testflows.com/docs/machine/#multiple-vcpus), [Recording that repeats](https://testflows.com/docs/machine/#recording-that-repeats), [Time compression](https://testflows.com/docs/machine/#time-compression)
 * **[Deterministic replay](https://testflows.com/docs/machine/#replay)**: [Comparing entries](https://testflows.com/docs/machine/#comparing-entries), [Comparing two machines](https://testflows.com/docs/machine/#comparing-two-machines)
@@ -40,7 +40,7 @@ service, with a free plan and paid plans.
 * **[Scripting](https://testflows.com/docs/machine/#scripting)**
 * **[Python SDK](https://testflows.com/docs/machine/#python-sdk)**
 
-## ➤ Install the client
+## Install the client
 
 On Linux (x86_64 and arm64), on a Mac with Apple Silicon, and on Windows
 inside WSL:
@@ -58,7 +58,7 @@ command again to update. See the
 [download page](https://testflows.com/machine/download/) for details and for
 checking the download yourself.
 
-## ✉ Sign up
+## Sign up
 
 The installer creates your account if you don't have one. You can also sign up
 on the [sign-up page](https://testflows.com/machine/portal/signup/) or with
@@ -72,7 +72,7 @@ Every account starts on the free plan. For scripts and CI, create an API key
 with `machine account api-keys create ci` and put it in the
 `TESTFLOWS_MACHINE_API_KEY` environment variable instead of signing in.
 
-## ▸ Your first run
+## Your first run
 
 Save `print("hello, world")` as `hello.py`. Then create a session, build a
 disk that runs it, run it until the machine halts, and read the last lines it
@@ -89,7 +89,7 @@ machine output hello-run -n -5 --plain
 [Getting started](https://testflows.com/docs/machine/#getting-started)
 continues with checkpoints, branches and replay.
 
-## ▣ Examples
+## Examples
 
 * [`examples/`](examples/) has small programs that each hold a known kind of
   bug, such as data races, starvation and missed wakeups, and Compose
@@ -97,7 +97,7 @@ continues with checkpoints, branches and replay.
 * [`sdk/python/examples/`](sdk/python/examples/) has scripts that drive runs
   from Python.
 
-## ◇ Python SDK
+## Python SDK
 
 Drive runs, branches and replays from Python:
 
@@ -108,7 +108,7 @@ pip3 install testflows.machine
 The SDK runs on the SDK Core, which the client's installer installs. See the
 [Python SDK](sdk/python/) for how to use it.
 
-## ▤ Documentation
+## Documentation
 
 * **[What is it?](https://testflows.com/docs/machine/#what-is-it)**: [Concepts](https://testflows.com/docs/machine/#concepts)
 * **[Getting started](https://testflows.com/docs/machine/#getting-started)**: [The client](https://testflows.com/docs/machine/#the-client), [Signing up](https://testflows.com/docs/machine/#signing-up), [Your first run](https://testflows.com/docs/machine/#your-first-run), [Getting help](https://testflows.com/docs/machine/#getting-help)
@@ -126,7 +126,7 @@ The SDK runs on the SDK Core, which the client's installer installs. See the
 * **[Commands](https://testflows.com/docs/machine/#commands)**
 * **[Python SDK](https://testflows.com/docs/machine/#python-sdk)**: [Installing](https://testflows.com/docs/machine/#installing), [Hello Machine](https://testflows.com/docs/machine/#hello-machine), [The same names](https://testflows.com/docs/machine/#the-same-names), [Signing in](https://testflows.com/docs/machine/#signing-in), [Sessions](https://testflows.com/docs/machine/#sessions-1), [Disks](https://testflows.com/docs/machine/#disks-1), [Runs](https://testflows.com/docs/machine/#runs), [Faults](https://testflows.com/docs/machine/#faults), [Container faults](https://testflows.com/docs/machine/#container-faults-1), [Clock faults](https://testflows.com/docs/machine/#clock-faults-1), [Network faults](https://testflows.com/docs/machine/#network-faults-1), [Stopping at an event](https://testflows.com/docs/machine/#stopping-at-an-event), [Debugging a task](https://testflows.com/docs/machine/#debugging-a-task), [Points in a run's history](https://testflows.com/docs/machine/#points-in-a-run%E2%80%99s-history), [Watching and following](https://testflows.com/docs/machine/#watching-and-following), [Choosing entries](https://testflows.com/docs/machine/#choosing-entries), [Cleaning up](https://testflows.com/docs/machine/#cleaning-up), [Errors](https://testflows.com/docs/machine/#errors), [Examples](https://testflows.com/docs/machine/#examples), [License](https://testflows.com/docs/machine/#license)
 
-## ◈ Community
+## Community
 
 This repository is the home of the TestFlows™ Machine community: bug
 reports, feature requests, discussions, the examples and the Python SDK. The
@@ -155,7 +155,7 @@ client, the SDK Core and the service are not open source.
 Everyone taking part in this community is expected to follow our
 [Code of Conduct](CODE_OF_CONDUCT.md).
 
-## § Legal
+## Legal
 
 The Python SDK in [`sdk/`](sdk/) and the examples in [`examples/`](examples/)
 are licensed under the Apache License 2.0; see the LICENSE file in each. No
