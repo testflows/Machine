@@ -8,14 +8,15 @@ Thank you!
 
 ## Legal Info
 
-Every contribution needs the [TestFlows™ Individual CLA](CLA.md) (Contributor
-License Agreement). When you open a pull request, its description asks you to
+Every contribution needs the [TestFlows™ Individual CLA](cla/CLA-20261110.md)
+(Contributor License Agreement). When you open a pull request, its description asks you to
 check a box that says you have read and agree to it. Please review it before
 you check the box. We can merge a pull request only after its author has
 checked it, and your agreement covers your later contributions too.
 
 Optionally, to make contributions more legally binding, your employer as a
-legal entity may want to sign a TestFlows™ Corporate CLA with Katteli Inc. If
+legal entity may want to sign the
+[TestFlows™ Corporate CLA](cla/CORPORATE-CLA-20261110.md) with Katteli Inc. If
 you're interested in doing so, contact us at
 [legal@testflows.com](mailto:legal@testflows.com).
 

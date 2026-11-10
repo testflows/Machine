@@ -1,34 +1,45 @@
-# TestFlows™ Individual Contributor License Agreement
+# TestFlows™ Corporate Contributor License Agreement
 
-Version 1.0, DRAFT for legal review. Adapted from the Apache Software
-Foundation's Individual Contributor License Agreement, version 2.2.
+Version 2026-11-10, DRAFT for legal review. Adapted from the Apache Software Foundation's Software
+Grant and Corporate Contributor License Agreement, version r190612, without its
+software grant schedule.
 
 Thank you for your interest in contributing to projects of Katteli Inc.
 ("Katteli"). To clarify the intellectual property license granted with
-Contributions from any person or entity, Katteli must have an accepted
-Contributor License Agreement ("Agreement") from each Contributor, indicating
-agreement with the license terms below. This Agreement is for your protection
-as a Contributor as well as the protection of Katteli and its users. It does
-not change your rights to use your own Contributions for any other purpose.
+Contributions from any person or entity, Katteli must have a Contributor
+License Agreement ("Agreement") on file that has been signed by each
+Contributor, indicating agreement to the license terms below. This Agreement
+is for your protection as a Contributor as well as the protection of Katteli
+and its users. It does not change your rights to use your own Contributions
+for any other purpose.
 
-You accept this Agreement by checking the box that says you agree to it in the
-description of a pull request you open in a repository of Katteli, with the
-GitHub account that submits your Contributions. Your acceptance covers every
-Contribution You submit, in that pull request and after it.
+This Agreement allows an entity (the "Corporation") to submit Contributions to
+Katteli, to authorize Contributions submitted by its designated employees to
+Katteli, and to grant copyright and patent licenses thereto. Sign it and email
+it to `legal@testflows.com`.
 
-You accept and agree to the following terms and conditions for Your
-Contributions, present and future, that You submit to Katteli. Except for the
-license granted herein to Katteli and recipients of software distributed by
-Katteli, You reserve all right, title, and interest in and to Your
-Contributions.
+Corporation name:    ________________________________________________
+
+Corporation address: ________________________________________________
+
+Point of Contact:    ________________________________________________
+
+E-Mail:              ________________________________________________
+
+Telephone:           ________________________________________________
+
+You accept and agree to the following terms and conditions for Your present
+and future Contributions submitted to Katteli. Except for the license granted
+herein to Katteli and recipients of software distributed by Katteli, You
+reserve all right, title, and interest in and to Your Contributions.
 
 1. Definitions.
 
    "You" (or "Your") shall mean the copyright owner or legal entity authorized
-   by the copyright owner that is making this Agreement with Katteli. For legal
-   entities, the entity making a Contribution and all other entities that
-   control, are controlled by, or are under common control with that entity
-   are considered to be a single Contributor. For the purposes of this
+   by the copyright owner that is making this Agreement with Katteli. For
+   legal entities, the entity making a Contribution and all other entities
+   that control, are controlled by, or are under common control with that
+   entity are considered to be a single Contributor. For the purposes of this
    definition, "control" means (i) the power, direct or indirect, to cause the
    direction or management of such entity, whether by contract or otherwise,
    or (ii) ownership of fifty percent (50%) or more of the outstanding shares,
@@ -62,7 +73,7 @@ Contributions.
    transfer the Work, where such license applies only to those patent claims
    licensable by You that are necessarily infringed by Your Contribution(s)
    alone or by combination of Your Contribution(s) with the Work to which such
-   Contribution(s) was submitted. If any entity institutes patent litigation
+   Contribution(s) were submitted. If any entity institutes patent litigation
    against You or any other entity (including a cross-claim or counterclaim in
    a lawsuit) alleging that Your Contribution, or the Work to which You have
    contributed, constitutes direct or contributory patent infringement, then
@@ -70,20 +81,14 @@ Contributions.
    Contribution or Work shall terminate as of the date such litigation is
    filed.
 
-4. You represent that You are legally entitled to grant the above license. If
-   Your employer(s) has rights to intellectual property that You create that
-   includes Your Contributions, You represent that You have received
-   permission to make Contributions on behalf of that employer, that Your
-   employer has waived such rights for Your Contributions to Katteli, or that
-   Your employer has executed a separate Corporate Contributor License
-   Agreement with Katteli.
+4. You represent that You are legally entitled to grant the above license. You
+   represent further that each employee of the Corporation designated on
+   Schedule A below (or in a subsequent written modification to that
+   Schedule) is authorized to submit Contributions on behalf of the
+   Corporation.
 
 5. You represent that each of Your Contributions is Your original creation
-   (see section 7 for submissions on behalf of others). You represent that
-   Your Contribution submissions include complete details of any third-party
-   license or other restriction (including, but not limited to, related
-   patents and trademarks) of which You are personally aware and which are
-   associated with any part of Your Contributions.
+   (see section 7 for submissions on behalf of others).
 
 6. You are not expected to provide support for Your Contributions, except to
    the extent You desire to provide support. You may provide support for free,
@@ -100,13 +105,28 @@ Contributions.
    agreements) of which You are personally aware, and conspicuously marking
    the work as "Submitted on behalf of a third-party: [named here]".
 
-8. You agree to notify Katteli of any facts or circumstances of which You
-   become aware that would make these representations inaccurate in any
-   respect.
+8. It is Your responsibility to notify Katteli when any change is required to
+   the list of designated employees authorized to submit Contributions on
+   behalf of the Corporation, or to the Corporation's Point of Contact with
+   Katteli.
 
 9. This Agreement is governed by the laws of the Province of Ontario and the
    federal laws of Canada applicable therein, without regard to
    conflict-of-law principles.
 
-The pull request in which You accepted this Agreement, with its GitHub account
-and date, is the record of Your acceptance. Contact: `legal@testflows.com`.
+Please sign: __________________________________ Date: ___________________
+
+Name:        __________________________________
+
+Title:       __________________________________
+
+## Schedule A
+
+Designated employees, by name and GitHub account. Authorization is not tied to
+particular Contributions.
+
+| Name | GitHub account |
+|---|---|
+| | |
+| | |
+| | |
