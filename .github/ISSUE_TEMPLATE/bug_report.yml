@@ -24,6 +24,7 @@ body:
       options:
         - Client, the machine command
         - Python SDK
+        - Examples
         - Installer
         - Sessions or the service
         - Account or portal

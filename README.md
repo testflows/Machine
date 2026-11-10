@@ -15,8 +15,8 @@ service, with a free plan and paid plans.
 [Website](https://testflows.com/machine) ·
 [Documentation](https://testflows.com/docs/machine/) ·
 [Pricing](https://testflows.com/machine/pricing/) ·
-[Examples](https://github.com/testflows/Machine-Examples) ·
-[Python SDK](https://github.com/testflows/Machine-SDK) ·
+[Examples](examples/) ·
+[Python SDK](sdk/python/) ·
 [Discussions](https://github.com/testflows/Machine/discussions)
 
 </div>
@@ -77,12 +77,11 @@ continues with checkpoints, branches and replay.
 
 ## Examples
 
-* [Machine-Examples](https://github.com/testflows/Machine-Examples) has small
-  programs that each hold a known kind of bug, such as data races, starvation
-  and missed wakeups, and Compose projects. Build disks from them and explore
-  them with branches and replay.
-* The [Python SDK examples](https://github.com/testflows/Machine-SDK/tree/main/python/examples)
-  are scripts that drive runs from Python.
+* [`examples/`](examples/) has small programs that each hold a known kind of
+  bug, such as data races, starvation and missed wakeups, and Compose
+  projects. Build disks from them and explore them with branches and replay.
+* [`sdk/python/examples/`](sdk/python/examples/) has scripts that drive runs
+  from Python.
 
 ## Python SDK
 
@@ -93,12 +92,13 @@ pip3 install testflows.machine
 ```
 
 The SDK runs on the SDK Core, which the client's installer installs. See the
-[Python SDK](https://github.com/testflows/Machine-SDK) for examples.
+[Python SDK](sdk/python/) for how to use it.
 
 ## Community
 
-This repository is where the TestFlows™ Machine community reports bugs,
-requests features and discusses the product. It does not contain source code.
+This repository is the home of the TestFlows™ Machine community: bug
+reports, feature requests, discussions, the examples and the Python SDK. The
+client, the SDK Core and the service are not open source.
 
 * **Report a bug.** Search the
   [existing issues](https://github.com/testflows/Machine/issues) first, then
@@ -111,6 +111,8 @@ requests features and discusses the product. It does not contain source code.
 * **Ask a question or share an idea** in
   [Discussions](https://github.com/testflows/Machine/discussions). See
   [SUPPORT.md](SUPPORT.md) for other ways to get help.
+* **Contribute an example or an improvement to the Python SDK.** See
+  [CONTRIBUTING.md](CONTRIBUTING.md).
 * **Report a security vulnerability** privately, never in public. See
   [SECURITY.md](SECURITY.md).
 
@@ -126,6 +128,7 @@ Everyone taking part in this community is expected to follow our
 TestFlows™ Machine is provided under the
 [Terms of Service](https://testflows.com/machine/legal/terms-of-service/)
 and the [Client EULA](https://testflows.com/machine/legal/client-eula/). The
-Python SDK is licensed under the Apache License 2.0.
+examples and the Python SDK in this repository are licensed under the
+[Apache License 2.0](LICENSE).
 
 TestFlows™ and the TestFlows logo are trademarks of Katteli Inc.

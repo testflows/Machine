@@ -1,0 +1,7 @@
+TestFlows Machine Python SDK
+Copyright 2026 Katteli Inc.
+
+This product is licensed under the Apache License, Version 2.0; see LICENSE.
+
+It runs on the TestFlows Machine core, the testflows.machine.core package,
+which is not part of this product and is distributed under its own license.

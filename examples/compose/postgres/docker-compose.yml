@@ -1,0 +1,48 @@
+# Copyright 2026 Katteli Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      # The image refuses to start a server without one.
+      POSTGRES_PASSWORD: secret
+    healthcheck:
+      # Over TCP, not the socket. The image starts a temporary server on the
+      # socket alone to set the database up, and a check that reached that
+      # one would let the client in before the real server is listening.
+      test: ["CMD", "pg_isready", "-h", "127.0.0.1", "-U", "postgres"]
+      interval: 2s
+      timeout: 5s
+      retries: 60
+      start_period: 5s
+
+  # On the same image, so the pack carries one tar. Exiting ends the project:
+  # the machine runs compose with --abort-on-container-exit.
+  client:
+    image: postgres:17
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PGPASSWORD: secret
+    volumes:
+      # The mount path stays inside the project: one anywhere else arrives
+      # empty in the guest, and `disks build` refuses it before it packs
+      # anything.
+      - ./queries.sql:/queries.sql:ro
+    # ON_ERROR_STOP makes a failed query the client's exit code, and so the
+    # project's.
+    entrypoint: ["psql", "-h", "postgres", "-U", "postgres", "-v", "ON_ERROR_STOP=1"]
+    command: ["-f", "/queries.sql"]
