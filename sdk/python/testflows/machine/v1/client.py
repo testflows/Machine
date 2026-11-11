@@ -906,8 +906,13 @@ class Client:
             )
         if session.id not in self._services:
             client, creds = self._account()
-            self._services[session.id] = _service.of_session(
-                client, creds, session.id, session.name, follow=self._follow_socket
+            session_id = session.id
+            self._services[session_id] = _service.of_session(
+                client,
+                creds,
+                session_id,
+                session.name,
+                follow=lambda: self._follow_from(session_id),
             )
         return self._services[session.id]
 
@@ -928,16 +933,14 @@ class Client:
 
     def _follow(self) -> None:
         """Use the session the current one moved to, when it moved."""
-        self._follow_socket()
+        if self._session is not None:
+            self._follow_from(self._session.id)
 
-    def _follow_socket(self) -> Optional[Path]:
-        """Follow the current session to where it moved: use it in its place, and
-        give its socket; None when it did not move."""
-        session = self._session
-        if session is None:
-            return None
+    def _follow_from(self, old_id: str) -> Optional[Path]:
+        """Follow session `old_id` to where it moved, and give its socket; None
+        when it did not move. Bound to each session's service, so a session that
+        is not the current one follows its own move, not the current one's."""
         client, creds = self._account()
-        old_id = session.id
         try:
             info = _sessions.follow(client, creds, old_id)
         except Exception:  # the error that led here is the one to report
