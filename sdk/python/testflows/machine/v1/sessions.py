@@ -522,7 +522,9 @@ class Sessions:
         tests it and reconnects through a fresh tunnel when it does not
         answer. Otherwise it connects, waiting while the session is still
         provisioning. Only this client changes: the CLI's current session is
-        left as it is.
+        left as it is. A session that moved, `migrate` here or on another
+        computer, is followed: the session it moved to becomes current, and
+        every Session object of the one it left names it.
 
         Example:
             >>> session = client.sessions.use("ci-1")
@@ -549,12 +551,26 @@ class Sessions:
                 failed.
             ServiceUnavailable: The session does not respond.
         """
-        known = self.show(session)
+        known = self._moved_to(self.show(session))
         with _translated():
             if api.store.session_connected(known.id) and _sessions.recheck(known.id):
                 self._client._use(known)
                 return known
         return self.connect(known, wait=wait, timeout=timeout)
+
+    def _moved_to(self, session: Session) -> Session:
+        """The session `session` moved to, after every move; itself when it did
+        not move."""
+        if not session._row.get("successor_id"):
+            return session
+        client, creds = self._client._account()
+        with _translated():
+            row = _sessions.follow(client, creds, session.id)
+        if row is None:
+            return session
+        moved = Session(self._client, row)
+        self._client._moved(session.id, moved)
+        return moved
 
     def migrate(self, session: "Session | str | None" = None) -> Session:
         """Move a session to a new session with its runs, as `machine sessions
