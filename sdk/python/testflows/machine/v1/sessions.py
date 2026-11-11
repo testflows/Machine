@@ -144,6 +144,19 @@ class Session:
         """str: When the session stopped, ISO 8601; None while it runs."""
         return _str_or_none(self._row.get("stopped_at"))
 
+    @property
+    def closing_at(self) -> Optional[str]:
+        """str: When the session moves to another host for maintenance, ISO
+        8601; None when no move is scheduled. Use `migrate` to move it sooner.
+        Read again with `refresh`."""
+        return _str_or_none(self._row.get("closing_at"))
+
+    @property
+    def closing_reason(self) -> Optional[str]:
+        """str: Why the session moves to another host, such as a kernel
+        update; None when no move is scheduled."""
+        return _str_or_none(self._row.get("closing_reason"))
+
     def refresh(self) -> "Session":
         """Read the session again, so its attributes are current.
 
