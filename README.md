@@ -6,7 +6,7 @@
   <img alt="TestFlows" src="https://raw.githubusercontent.com/testflows/Machine/main/.github/assets/testflows-logo-light.png" width="460">
 </picture>
 
-<h3>TestFlows™ Machine is a deterministic hypervisor and execution environment.</h3>
+<h3>TestFlows® Machine is a deterministic hypervisor and execution environment.</h3>
 
 Record a run of your software, replay it exactly, and branch it from any point
 to explore what else could have happened.
