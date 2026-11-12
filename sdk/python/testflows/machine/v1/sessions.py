@@ -51,6 +51,11 @@ FIELDS: tuple[str, ...] = (
 )
 
 
+#: The frame of the program's call to a public migrate, seen from the warning
+#: in `Session._migrate`: `_migrate`, the public method, then its caller.
+_CALLER_OF_MIGRATE = 3
+
+
 class Session:
     """One session: a machine the account rents, with its own CPUs,
     memory and storage, where runs execute.
@@ -296,6 +301,11 @@ class Session:
                 message says why.
             ApiError: The service could not carry out the move.
         """
+        return self._migrate(_CALLER_OF_MIGRATE)
+
+    def _migrate(self, stacklevel: int) -> "Session":
+        """`migrate`, with each warning attributed `stacklevel` frames up: the
+        program's call, whichever public method it went through."""
         client, creds = self._client._account()
         old_id = self.id
         with _translated():
@@ -307,7 +317,7 @@ class Session:
             warnings.warn(
                 f"{machine.name} ({machine.run_id}) started at its last checkpoint."
                 " The session's host was lost before the move stopped it.",
-                stacklevel=2,
+                stacklevel=stacklevel,
             )
         return self
 
@@ -610,7 +620,7 @@ class Sessions:
             Conflict: The move was refused, or failed and was put back.
         """
         target = session if isinstance(session, Session) else self.show(session)
-        return target.migrate()
+        return target._migrate(_CALLER_OF_MIGRATE)
 
     def show(self, session: "Session | str | None" = None) -> Session:
         """Read a session, as `machine sessions show` does.
