@@ -27,7 +27,7 @@ import dataclasses
 import time
 import os
 from pathlib import Path
-from typing import Any, Generator, Literal, Optional, Sequence, overload
+from typing import Any, Callable, Generator, Literal, Optional, Sequence, overload
 
 from testflows.machine._core import api
 from testflows.machine._core import branches as _branches
@@ -46,13 +46,14 @@ from testflows.machine._core import wire as _wire
 
 from . import _args
 from . import _service
+from . import _warn
 from . import _when
 from . import results
 from .errors import ApiError, InvalidArgument, ServiceUnavailable, _translated
 from .disks import Disk, Disks
 from .ping import Ping, _public
 from .runs import Run
-from .sessions import Session, Sessions
+from .sessions import Session, SessionClosing, Sessions
 
 #: Set to 1, a client given no session works with the service on this
 #: machine.
@@ -63,6 +64,10 @@ _MEM_TYPES = ("auto", "hugepages")
 _MEM_MODES = ("auto", "map", "lazy")
 _CONSOLES = ("serial", "virtio")
 _FRAMEBUFFERS = ("vnc", "gtk", "sdl", "none")
+
+#: How a notice's deadline is written into `Session.closing_at`: as the
+#: service gives it, ISO 8601 in UTC.
+_NOTICE_TIME = "%Y-%m-%dT%H:%M:%S"
 
 #: `runs --parents`: where a run reads its data parents from.
 _PARENTS = ("local", "remote")
@@ -106,11 +111,30 @@ class Client:
         ...     run.run(until="/app:exit")
         ...     run.checkpoint("done")
 
+    A session can be scheduled to stop for maintenance of its host. The
+    client reads the notice at the start of a call into the session, at most
+    once every ten minutes from the service, and tells the program once for
+    each notice: through `on_session_closing` when it is given, or with a
+    `SessionClosing` warning. The session's `closing_at` and
+    `closing_reason` say when and why. Use `Session.migrate` before then to
+    keep its machines running. A call that is already running when the
+    deadline passes is not told.
+
+    Example:
+        >>> def closing(session):
+        ...     session.migrate()
+        >>> client = machine.Client(on_session_closing=closing)
+
     Args:
         session (str, optional): The current session, by name, id or unique
             id prefix, as `-s` names it.
         api_url (str, optional): The service's URL, as `--api-url` gives it;
             defaults to TESTFLOWS_MACHINE_API_URL, else the public service.
+        on_session_closing (callable, optional): Called with the `Session`
+            once for each maintenance notice, before the call that found it
+            goes on. A call it makes goes on in the session it leaves
+            current, so a callback that migrates moves the call with it. An
+            exception it raises is raised from that call.
     """
 
     def __init__(
@@ -118,6 +142,7 @@ class Client:
         *,
         session: Optional[str] = None,
         api_url: Optional[str] = None,
+        on_session_closing: Optional[Callable[[Session], None]] = None,
     ) -> None:
         local = os.environ.get(_LOCAL_ENV) == "1"
         if local and session is not None:
@@ -134,6 +159,10 @@ class Client:
         self._api_url = api_url
         self._api: Optional[tuple[api.client.Client, dict[str, Any]]] = None
         self._services: dict[str, _service._Service] = {}
+        self._on_session_closing = on_session_closing
+        #: The deadline each session's notice was told for, so a notice is
+        #: told once, and again only when it changes.
+        self._closing_told: dict[str, str] = {}
 
     @classmethod
     def _signed_in(
@@ -922,7 +951,12 @@ class Client:
 
         A call that fails because the session moved, `sessions migrate`, makes
         the client follow it: the next call goes to where the session went. The
-        failed call is raised as it failed, since it may have done its work."""
+        failed call is raised as it failed, since it may have done its work.
+
+        A session's maintenance notice is told first, so a callback that
+        migrates sends the call to the new session."""
+        if not self._local:
+            self._tell_closing()
         try:
             with self._service().client() as client:
                 yield client
@@ -930,6 +964,33 @@ class Client:
             if not self._local and _sessions.moved_away(err):
                 self._follow()
             raise
+
+    def _tell_closing(self) -> None:
+        """Tell the program of the current session's maintenance notice, once
+        for each deadline: `on_session_closing`, or a `SessionClosing`
+        warning. Marked told before the callback runs, so the calls it makes
+        do not tell it again."""
+        session = self.session
+        if session is None:
+            return
+        notice = _sessions.notice(session.id, self._account)
+        if notice is None:
+            if self._closing_told.pop(session.id, None) is not None:
+                session._closing(None, None)
+            return
+        by = notice.by.strftime(_NOTICE_TIME)
+        if self._closing_told.get(session.id) == by:
+            return
+        self._closing_told[session.id] = by
+        session._closing(by, notice.reason)
+        if self._on_session_closing is not None:
+            self._on_session_closing(session)
+            return
+        _warn.warn(
+            f"Session {session.name} stops at {notice.by:%Y-%m-%d %H:%M} UTC"
+            f" because of {notice.reason}. Move it before then with Session.migrate.",
+            SessionClosing,
+        )
 
     def _follow(self) -> None:
         """Use the session the current one moved to, when it moved."""

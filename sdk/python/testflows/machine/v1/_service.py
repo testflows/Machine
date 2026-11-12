@@ -16,6 +16,7 @@
 from __future__ import annotations
 
 import contextlib
+import logging
 from pathlib import Path
 from typing import Any, Callable, Generator, Optional
 
@@ -26,6 +27,10 @@ from testflows.machine._core import sessions as _sessions
 from testflows.machine._core import tunnel
 
 from .errors import NotFound, ServiceUnavailable, _translated
+
+#: Where the SDK says what a call waits on, such as a session moving to
+#: another host. At INFO: the call goes on by itself.
+_log = logging.getLogger("testflows.machine")
 
 
 class _Service:
@@ -62,7 +67,9 @@ class _Service:
                 raise ServiceUnavailable(f"The {self.label} is not running.")
             if self.renew is not None:
                 self.renew()
-            client = ipc.Client(socket_path=self.socket, follow=self.follow)
+            client = ipc.Client(
+                socket_path=self.socket, follow=self.follow, notice=_log.info
+            )
             try:
                 client.connect()
             except OSError as exc:

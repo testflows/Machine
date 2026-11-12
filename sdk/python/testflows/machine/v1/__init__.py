@@ -153,7 +153,7 @@ from .runs import (
     Task,
     Vtime,
 )
-from .sessions import Session, Sessions
+from .sessions import Session, SessionClosing, SessionMovedBack, Sessions
 
 __all__ = [
     "AlreadyExists",
@@ -255,6 +255,8 @@ __all__ = [
     "Runs",
     "ServiceUnavailable",
     "Session",
+    "SessionClosing",
+    "SessionMovedBack",
     "Sessions",
     "State",
     "Storage",

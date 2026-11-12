@@ -16,7 +16,6 @@
 from __future__ import annotations
 
 import builtins
-import warnings
 from typing import TYPE_CHECKING, Any, Generator, Literal, Optional, overload
 
 from testflows.machine._core import api
@@ -24,6 +23,7 @@ from testflows.machine._core import migration as _migration
 from testflows.machine._core import sessions as _sessions
 
 from . import _args
+from . import _warn
 from .errors import ApiError, InvalidArgument, NotFound, _translated
 
 if TYPE_CHECKING:
@@ -51,9 +51,16 @@ FIELDS: tuple[str, ...] = (
 )
 
 
-#: The frame of the program's call to a public migrate, seen from the warning
-#: in `Session._migrate`: `_migrate`, the public method, then its caller.
-_CALLER_OF_MIGRATE = 3
+class SessionClosing(UserWarning):
+    """A session is scheduled to stop for maintenance of its host. The
+    client gives it once for each notice, at the program's next call into the
+    session, when the program set no `on_session_closing`. Use
+    `warnings.simplefilter("error", SessionClosing)` to raise it instead."""
+
+
+class SessionMovedBack(UserWarning):
+    """A run that `migrate` started at its last checkpoint, not where it was,
+    because the session's host was lost before the move stopped it."""
 
 
 class Session:
@@ -162,6 +169,11 @@ class Session:
         """str: Why the session stops at `closing_at`, such as a kernel
         update; None when none is scheduled."""
         return _str_or_none(self._row.get("closing_reason"))
+
+    def _closing(self, by: Optional[str], reason: Optional[str]) -> None:
+        """Set the notice the client read, without asking the API again."""
+        self._row["closing_at"] = by
+        self._row["closing_reason"] = reason
 
     def refresh(self) -> "Session":
         """Read the session again, so its attributes are current.
@@ -278,7 +290,7 @@ class Session:
 
         A machine the move had not stopped when the session's host was lost
         starts at its last checkpoint, not where it was. Each one is reported
-        with a `UserWarning` that names the run.
+        with a `SessionMovedBack` warning that names the run.
 
         This object becomes the new session. When it was the client's current
         session, the client uses the new one.
@@ -301,11 +313,6 @@ class Session:
                 message says why.
             ApiError: The service could not carry out the move.
         """
-        return self._migrate(_CALLER_OF_MIGRATE)
-
-    def _migrate(self, stacklevel: int) -> "Session":
-        """`migrate`, with each warning attributed `stacklevel` frames up: the
-        program's call, whichever public method it went through."""
         client, creds = self._client._account()
         old_id = self.id
         with _translated():
@@ -314,10 +321,10 @@ class Session:
         self._row = moved.session
         self._client._moved(old_id, self)
         for machine in moved.went_back:
-            warnings.warn(
+            _warn.warn(
                 f"{machine.name} ({machine.run_id}) started at its last checkpoint."
                 " The session's host was lost before the move stopped it.",
-                stacklevel=stacklevel,
+                SessionMovedBack,
             )
         return self
 
@@ -620,7 +627,7 @@ class Sessions:
             Conflict: The move was refused, or failed and was put back.
         """
         target = session if isinstance(session, Session) else self.show(session)
-        return target._migrate(_CALLER_OF_MIGRATE)
+        return target.migrate()
 
     def show(self, session: "Session | str | None" = None) -> Session:
         """Read a session, as `machine sessions show` does.
