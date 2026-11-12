@@ -266,6 +266,10 @@ class Session:
         and the old one is deleted. A command running on a machine ends, as
         `stop` ends it.
 
+        A move that fails is put back: every machine it stopped starts again
+        in the session, and the new session is deleted. When the session ends
+        during the move, the move finishes in the new session instead.
+
         This object becomes the new session. When it was the client's current
         session, the client uses the new one.
 
@@ -278,10 +282,12 @@ class Session:
             Session: This session, moved.
 
         Raises:
-            ApiError: The move failed. Every machine was put back in the
-                session and the new one was deleted; or a machine started in
-                another state, which is a divergence, and both sessions are
-                kept.
+            Diverged: A machine started in another state in the new session.
+                The sessions are kept as they are, and the message says how
+                to go on.
+            Conflict: The move was refused, or failed and was put back. The
+                message says why.
+            ApiError: The service could not carry out the move.
         """
         client, creds = self._client._account()
         old_id = self.id
@@ -585,7 +591,8 @@ class Sessions:
 
         Raises:
             NotFound: No session matches.
-            ApiError: The move failed. See `Session.migrate`.
+            Diverged: A machine started in another state. See `Session.migrate`.
+            Conflict: The move was refused, or failed and was put back.
         """
         target = session if isinstance(session, Session) else self.show(session)
         return target.migrate()

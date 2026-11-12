@@ -115,9 +115,10 @@ class Conflict(Error):
 
 
 class Diverged(Error):
-    """A recorded run could not be followed: `Run.play` stopped where the
-    machine no longer matched the recording. `Run.replay` reports a
-    divergence in its result instead."""
+    """A machine's state did not match what was recorded. `Run.play` stopped
+    where the machine no longer matched the recording, or `Session.migrate`
+    started a machine in another state than it stopped in. `Run.replay`
+    reports a divergence in its result instead."""
 
 
 class Timeout(Error, TimeoutError):
