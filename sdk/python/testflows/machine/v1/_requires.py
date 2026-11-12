@@ -32,6 +32,9 @@ import testflows.machine
 
 #: The core interface versions this SDK works with.
 CORE_API_VERSIONS = range(1, 2)
+#: The least revision of that interface this SDK needs. A core from before
+#: revisions has none and counts as 1.
+CORE_API_REVISION = 2
 
 #: The name the core is loaded under, and the file it ships as.
 CORE_MODULE = "testflows.machine._core"
@@ -93,11 +96,18 @@ def _core() -> ModuleType:
     )
 
 
-_found = getattr(_core(), "API_VERSION", None)
+_loaded = _core()
+_found = getattr(_loaded, "API_VERSION", None)
 if _found not in CORE_API_VERSIONS:
     raise ImportError(
         f"The TestFlows™ Machine SDK Core has interface version {_found};"
         f" this SDK needs {CORE_API_VERSIONS.start} to"
         f" {CORE_API_VERSIONS.stop - 1}."
+        f" Update it with the TestFlows™ Machine client {_INSTALLER}"
+    )
+_revision = getattr(_loaded, "API_REVISION", 1)
+if _revision < CORE_API_REVISION:
+    raise ImportError(
+        "The TestFlows™ Machine SDK Core is older than this SDK."
         f" Update it with the TestFlows™ Machine client {_INSTALLER}"
     )
