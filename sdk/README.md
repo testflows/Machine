@@ -1,6 +1,6 @@
-# TestFlows™ Machine SDK
+# TestFlows Machine SDK
 
-SDKs for [TestFlows™ Machine](https://testflows.com/machine), the deterministic
+SDKs for [TestFlows Machine](https://testflows.com/machine), the deterministic
 execution environment. An SDK does from a program what the `machine` command
 does: it drives runs, branches, replays and faults.
 

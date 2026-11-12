@@ -4,14 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "testflows.machine"
-description = "Python SDK for TestFlows™ Machine, the deterministic execution environment"
+description = "Python SDK for TestFlows Machine, the deterministic execution environment"
 readme = "README.md"
 requires-python = ">=3.11"
 license = "Apache-2.0"
 license-files = ["LICENSE", "NOTICE"]
 authors = [{ name = "Katteli Inc.", email = "info@testflows.com" }]
 dynamic = ["version"]
-# No dependencies. The SDK Core it runs on is not on PyPI: the TestFlows™
+# No dependencies. The SDK Core it runs on is not on PyPI: the TestFlows
 # Machine client's installer installs it, under the Client EULA.
 dependencies = []
 classifiers = [

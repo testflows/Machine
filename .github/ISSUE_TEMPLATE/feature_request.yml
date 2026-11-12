@@ -1,11 +1,11 @@
 name: Feature request
-description: Something TestFlows™ Machine could do for you.
+description: Something TestFlows Machine could do for you.
 labels: ["enhancement"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for helping shape TestFlows™ Machine. To talk an idea through first, start a discussion instead.
+        Thanks for helping shape TestFlows Machine. To talk an idea through first, start a discussion instead.
   - type: checkboxes
     id: checks
     attributes:
@@ -17,7 +17,7 @@ body:
     id: problem
     attributes:
       label: What you're trying to do
-      description: The task, and where TestFlows™ Machine falls short of it today.
+      description: The task, and where TestFlows Machine falls short of it today.
     validations:
       required: true
   - type: textarea

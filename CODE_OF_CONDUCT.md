@@ -1,6 +1,6 @@
 # Code of Conduct
 
-This repository is a professional space for TestFlows™ Machine users to report
+This repository is a professional space for TestFlows Machine users to report
 problems, share ideas and help each other. This code applies to issues,
 pull requests, discussions and every other place in it.
 

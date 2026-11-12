@@ -6,7 +6,7 @@
   <img alt="TestFlows" src="https://raw.githubusercontent.com/testflows/Machine/main/.github/assets/testflows-logo-light.png" width="460">
 </picture>
 
-<h3>TestFlows® Machine is a deterministic hypervisor and execution environment.</h3>
+<h3>TestFlows Machine is a deterministic hypervisor and execution environment.</h3>
 
 Record a run of your software, replay it exactly, and branch it from any point
 to explore what else could have happened.
@@ -173,4 +173,8 @@ The TestFlows Machine client, the SDK Core and the service are provided under
 the [Terms of Service](https://testflows.com/machine/legal/terms-of-service/)
 and the [Client EULA](https://testflows.com/machine/legal/client-eula/).
 
-TestFlows and the TestFlows Logo are trademarks of Katteli Inc.
+TestFlows is a registered trademark of Katteli Inc. in the United States.
+The [Trademark Policy](https://testflows.com/legal/trademark-policy/) says how the
+TestFlows name and logo may be used. The Apache License 2.0 grants no right to
+them, and a modified copy of the SDK or the examples must not be named after
+them.

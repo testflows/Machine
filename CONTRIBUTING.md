@@ -1,6 +1,6 @@
-# Contributing to TestFlows™ Machine
+# Contributing to TestFlows Machine
 
-TestFlows™ Machine is a product you can help shape in many ways: with bug
+TestFlows Machine is a product you can help shape in many ways: with bug
 reports, ideas, examples, and improvements to the Python SDK. We appreciate
 every effort that makes it better.
 
@@ -8,7 +8,7 @@ Thank you!
 
 ## Legal Info
 
-Every contribution needs the [TestFlows™ Individual CLA](cla/CLA-20261110.md)
+Every contribution needs the [TestFlows Individual CLA](cla/CLA-20261110.md)
 (Contributor License Agreement). When you open a pull request, its description asks you to
 check a box that says you have read and agree to it. Please review it before
 you check the box. We can merge a pull request only after its author has
@@ -16,7 +16,7 @@ checked it, and your agreement covers your later contributions too.
 
 Optionally, to make contributions more legally binding, your employer as a
 legal entity may want to sign the
-[TestFlows™ Corporate CLA](cla/CORPORATE-CLA-20261110.md) with Katteli Inc. If
+[TestFlows Corporate CLA](cla/CORPORATE-CLA-20261110.md) with Katteli Inc. If
 you're interested in doing so, contact us at
 [legal@testflows.com](mailto:legal@testflows.com).
 
@@ -53,7 +53,7 @@ fork or otherwise. A maintainer reviews the change and tests it before merging.
 ### Examples
 
 An example is a small program or Compose project that shows something
-TestFlows™ Machine can find, record or replay. Each one:
+TestFlows Machine can find, record or replay. Each one:
 
 * builds with the `Makefile` in [`examples/`](examples/), or with its own
   `Dockerfile` or Compose file;

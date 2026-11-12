@@ -1,8 +1,8 @@
-# TestFlows™ Machine Python SDK
+# TestFlows Machine Python SDK
 
 ## Introduction
 
-[TestFlows™ Machine] is a deterministic execution environment: record a run,
+[TestFlows Machine] is a deterministic execution environment: record a run,
 replay it exactly, and branch it from any point. The Python SDK does from
 Python what the `machine` command does, so a test, a CI job or an exploration
 program drives runs, branches and replays directly.
@@ -16,13 +16,13 @@ https://testflows.com/docs/machine/#python-sdk.
 
 * Linux x86_64 or arm64, or macOS on Apple Silicon
 * [Python 3] >= 3.11
-* [TestFlows™ Machine client], which installs the SDK Core
+* [TestFlows Machine client], which installs the SDK Core
 
 ## Installation
 
-The SDK depends on the TestFlows™ Machine SDK Core, a proprietary compiled
+The SDK depends on the TestFlows Machine SDK Core, a proprietary compiled
 module licensed under the [Client EULA]. The SDK Core is not on PyPI and is
-not part of this repository. It is installed with the [TestFlows™ Machine
+not part of this repository. It is installed with the [TestFlows Machine
 client], so install the client first:
 
 ```bash
@@ -85,17 +85,21 @@ More scripts are in [examples](https://github.com/testflows/Machine/tree/main/sd
 
 ## Want to know more?
 
-Find more information about [TestFlows™ Machine] at https://testflows.com/machine.
+Find more information about [TestFlows Machine] at https://testflows.com/machine.
 
 ## License
 
 The SDK is licensed under the Apache License 2.0. The SDK Core it depends on is
 proprietary and is not part of the SDK. It is licensed under the [Client EULA],
-which is part of the TestFlows™ Machine [Terms of Service].
+which is part of the TestFlows Machine [Terms of Service].
 
-[TestFlows™ Machine]: https://testflows.com/machine
-[TestFlows™ Machine client]: https://testflows.com/machine/download/
+TestFlows is a registered trademark of Katteli Inc. in the United States.
+The [Trademark Policy] says how the TestFlows name and logo may be used.
+
+[TestFlows Machine]: https://testflows.com/machine
+[TestFlows Machine client]: https://testflows.com/machine/download/
 [Client EULA]: https://testflows.com/machine/legal/client-eula/
 [Terms of Service]: https://testflows.com/machine/legal/terms-of-service/
+[Trademark Policy]: https://testflows.com/legal/trademark-policy/
 [pip3]: https://github.com/pypa/pip
 [Python 3]: https://www.python.org/

@@ -17,7 +17,7 @@
     ./install
 
 Replaces an installed testflows.machine. The core the SDK runs on comes from
-the TestFlows™ Machine client's installer, not from here.
+the TestFlows Machine client's installer, not from here.
 """
 
 import argparse

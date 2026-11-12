@@ -22,8 +22,8 @@ fix the problem before you disclose it publicly.
 
 ## Scope
 
-This policy covers the TestFlows™ Machine client, the Python SDK and its SDK
-Core, the installer, the TestFlows™ Machine service, and the
+This policy covers the TestFlows Machine client, the Python SDK and its SDK
+Core, the installer, the TestFlows Machine service, and the
 [testflows.com](https://testflows.com) website.
 
 Testing that disrupts the service or affects other users' accounts or data is

@@ -1,6 +1,6 @@
 # clickhouse
 
-A ClickHouse 26.8.31.2 server in a machine, with a client that sends a query
+A ClickHouse® 26.8.31.2 server in a machine, with a client that sends a query
 every second. The machine's own debugger stops the server's threads from
 outside the guest, and GDB in the image attaches to the server from inside.
 The run records every stop, so a checkpoint, a rewind or a replay returns to
@@ -245,3 +245,5 @@ machine rewind ch to ^query
 - A run holds 3 hardware breakpoints and watchpoints. `run --until write=`,
   `machine watch` and GDB's `hbreak` and `watch` share them. One more makes
   GDB say `Couldn't write debug register: No space left on device`.
+
+ClickHouse is a registered trademark of ClickHouse, Inc. See [clickhouse.com](https://clickhouse.com).

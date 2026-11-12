@@ -1,6 +1,6 @@
 # clickhouse-regression
 
-Altinity's [ClickHouse regression suite](https://github.com/Altinity/clickhouse-regression)
+Altinity's [ClickHouse® regression suite](https://github.com/Altinity/clickhouse-regression)
 in a machine. It is a test suite that drives Docker Compose itself:
 `regression.py` brings up its own project inside the machine, runs its tests
 against it and tears it down. So the disk holds two projects: this one, which
@@ -105,3 +105,5 @@ suite whose environment names the same two images needs nothing else; one that
 starts ZooKeeper, Keeper or MinIO needs another `carried_*` entry and more
 memory. Run it on your own computer first: a suite that fails there fails in a
 machine for the same reason.
+
+ClickHouse is a registered trademark of ClickHouse, Inc. See [clickhouse.com](https://clickhouse.com).

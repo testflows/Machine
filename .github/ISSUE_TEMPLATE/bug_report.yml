@@ -1,5 +1,5 @@
 name: Bug report
-description: Something in TestFlows™ Machine does not work as documented.
+description: Something in TestFlows Machine does not work as documented.
 labels: ["bug"]
 body:
   - type: markdown
