@@ -16,6 +16,7 @@
 from __future__ import annotations
 
 import builtins
+import warnings
 from typing import TYPE_CHECKING, Any, Generator, Literal, Optional, overload
 
 from testflows.machine._core import api
@@ -270,6 +271,10 @@ class Session:
         in the session, and the new session is deleted. When the session ends
         during the move, the move finishes in the new session instead.
 
+        A machine the move had not stopped when the session's host was lost
+        starts at its last checkpoint, not where it was. Each one is reported
+        with a `UserWarning` that names the run.
+
         This object becomes the new session. When it was the client's current
         session, the client uses the new one.
 
@@ -296,6 +301,12 @@ class Session:
             moved = _migration.migrate(client, creds, planned)
         self._row = moved.session
         self._client._moved(old_id, self)
+        for machine in moved.went_back:
+            warnings.warn(
+                f"{machine.name} ({machine.run_id}) started at its last checkpoint."
+                " The session's host was lost before the move stopped it.",
+                stacklevel=2,
+            )
         return self
 
     def delete(self, *, wait: bool = True, timeout: Optional[float] = None) -> None:
