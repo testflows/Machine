@@ -24,6 +24,7 @@ from __future__ import annotations
 import builtins
 import contextlib
 import dataclasses
+from datetime import datetime, timezone
 import time
 import os
 from pathlib import Path
@@ -68,6 +69,21 @@ _FRAMEBUFFERS = ("vnc", "gtk", "sdl", "none")
 #: A notice's deadline as the client keys it, and as `Session.closing_at`
 #: holds it when the service cannot be read: ISO 8601 in UTC.
 _NOTICE_TIME = "%Y-%m-%dT%H:%M:%S"
+
+
+def _deadline(value: str) -> datetime:
+    """A deadline as the service or the record writes it, in UTC. One with no
+    offset is UTC already."""
+    at = datetime.fromisoformat(value)
+    if at.tzinfo is None:
+        return at.replace(tzinfo=timezone.utc)
+    return at.astimezone(timezone.utc)
+
+
+def _deadline_key(at: datetime) -> str:
+    """How the client remembers a deadline it told."""
+    return at.astimezone(timezone.utc).strftime(_NOTICE_TIME)
+
 
 #: `runs --parents`: where a run reads its data parents from.
 _PARENTS = ("local", "remote")
@@ -161,9 +177,10 @@ class Client:
         self._api: Optional[tuple[api.client.Client, dict[str, Any]]] = None
         self._services: dict[str, _service._Service] = {}
         self._on_session_closing = on_session_closing
-        #: The deadline each session's notice was told for, so a notice is
-        #: told once, and again only when it changes.
-        self._closing_told: dict[str, str] = {}
+        #: The deadlines each session's notice was told for, so a notice is
+        #: told once, and again only when it changes. Both the record's and
+        #: the session's as read again, which can differ while the record lags.
+        self._closing_told: dict[str, set[str]] = {}
 
     @classmethod
     def _signed_in(
@@ -976,21 +993,25 @@ class Client:
             return
         notice = _sessions.notice(session.id, self._account)
         if notice is None:
-            if self._closing_told.pop(session.id, None) is not None:
+            if self._closing_told.pop(session.id, None):
                 session._closing(None, None)
             return
-        by = notice.by.strftime(_NOTICE_TIME)
-        if self._closing_told.get(session.id) == by:
+        by = _deadline_key(notice.by)
+        told = self._closing_told.setdefault(session.id, set())
+        if by in told:
             return
-        self._closing_told[session.id] = by
+        told.add(by)
         if not self._closing_still(session, by, notice.reason):
             return
+        deadline = _deadline(str(session.closing_at))
+        told.add(_deadline_key(deadline))
         if self._on_session_closing is not None:
             self._on_session_closing(session)
             return
+        reason = session.closing_reason or notice.reason
         _warn.warn(
-            f"Session {session.name} stops at {notice.by:%Y-%m-%d %H:%M} UTC"
-            f" because of {notice.reason}. Move it before then with Session.migrate.",
+            f"Session {session.name} stops at {deadline:%Y-%m-%d %H:%M} UTC"
+            f" because of {reason}. Move it before then with Session.migrate.",
             SessionClosing,
         )
 
