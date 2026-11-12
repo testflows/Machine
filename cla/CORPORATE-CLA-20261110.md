@@ -1,4 +1,4 @@
-# TestFlows™ Corporate Contributor License Agreement
+# TestFlows Corporate Contributor License Agreement
 
 Version 2026-11-10. Adapted from the Apache Software Foundation's Software
 Grant and Corporate Contributor License Agreement, version r190612, without its

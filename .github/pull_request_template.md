@@ -8,6 +8,6 @@
 
 ## Contributor License Agreement
 
-- [ ] I have read and agree to the [TestFlows™ Individual Contributor License Agreement of 2026-11-10](https://github.com/testflows/Machine/blob/main/cla/CLA-20261110.md) for this and all my future contributions.
+- [ ] I have read and agree to the [TestFlows Individual Contributor License Agreement of 2026-11-10](https://github.com/testflows/Machine/blob/main/cla/CLA-20261110.md) for this and all my future contributions.
 
 <!-- Required. A pull request whose author has not checked this box cannot be merged. Never include secrets. -->
