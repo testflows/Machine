@@ -25,6 +25,7 @@ Homepage = "https://testflows.com/machine"
 Documentation = "https://testflows.com/docs/machine/#python-sdk"
 Repository = "https://github.com/testflows/Machine"
 Issues = "https://github.com/testflows/Machine/issues"
+"Trademark Policy" = "https://testflows.com/legal/trademark-policy/"
 
 [tool.setuptools.packages.find]
 include = ["testflows.machine.v1*"]
