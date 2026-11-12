@@ -65,8 +65,8 @@ _MEM_MODES = ("auto", "map", "lazy")
 _CONSOLES = ("serial", "virtio")
 _FRAMEBUFFERS = ("vnc", "gtk", "sdl", "none")
 
-#: How a notice's deadline is written into `Session.closing_at`: as the
-#: service gives it, ISO 8601 in UTC.
+#: A notice's deadline as the client keys it, and as `Session.closing_at`
+#: holds it when the service cannot be read: ISO 8601 in UTC.
 _NOTICE_TIME = "%Y-%m-%dT%H:%M:%S"
 
 #: `runs --parents`: where a run reads its data parents from.
@@ -134,7 +134,8 @@ class Client:
             once for each maintenance notice, before the call that found it
             goes on. A call it makes goes on in the session it leaves
             current, so a callback that migrates moves the call with it. An
-            exception it raises is raised from that call.
+            exception it raises is raised from that call, and the notice is
+            not told again.
     """
 
     def __init__(
@@ -982,7 +983,8 @@ class Client:
         if self._closing_told.get(session.id) == by:
             return
         self._closing_told[session.id] = by
-        session._closing(by, notice.reason)
+        if not self._closing_still(session, by, notice.reason):
+            return
         if self._on_session_closing is not None:
             self._on_session_closing(session)
             return
@@ -991,6 +993,21 @@ class Client:
             f" because of {notice.reason}. Move it before then with Session.migrate.",
             SessionClosing,
         )
+
+    def _closing_still(self, session: Session, by: str, reason: str) -> bool:
+        """Read `session` again before a notice is told: the notice is read
+        from a record up to ten minutes old, and a session that moved or ended
+        since keeps its notice, which nothing can act on. When the service
+        does not answer, the notice is told as recorded: a notice never fails
+        the call it rides on."""
+        try:
+            session.refresh()
+        except Exception:
+            session._closing(by, reason)
+            return True
+        live = session.state in _sessions.NOTICE_STATES
+        moved = bool(session._row.get("successor_id"))
+        return live and not moved and session.closing_at is not None
 
     def _follow(self) -> None:
         """Use the session the current one moved to, when it moved."""
