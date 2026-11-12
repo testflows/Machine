@@ -147,15 +147,15 @@ class Session:
 
     @property
     def closing_at(self) -> Optional[str]:
-        """str: When the session moves to another host for maintenance, ISO
-        8601; None when no move is scheduled. Use `migrate` to move it sooner.
-        Read again with `refresh`."""
+        """str: When the session stops for maintenance of its host, ISO 8601;
+        None when none is scheduled. Use `migrate` before then to keep its
+        machines running in a new session. Read again with `refresh`."""
         return _str_or_none(self._row.get("closing_at"))
 
     @property
     def closing_reason(self) -> Optional[str]:
-        """str: Why the session moves to another host, such as a kernel
-        update; None when no move is scheduled."""
+        """str: Why the session stops at `closing_at`, such as a kernel
+        update; None when none is scheduled."""
         return _str_or_none(self._row.get("closing_reason"))
 
     def refresh(self) -> "Session":
@@ -287,6 +287,8 @@ class Session:
             Session: This session, moved.
 
         Raises:
+            NoCapacity: No other host has room for the session now.
+            NotRunning: The session is not running.
             Diverged: A machine started in another state in the new session.
                 The sessions are kept as they are, and the message says how
                 to go on.
@@ -602,6 +604,8 @@ class Sessions:
 
         Raises:
             NotFound: No session matches.
+            NoCapacity: No other host has room for the session now.
+            NotRunning: The session is not running.
             Diverged: A machine started in another state. See `Session.migrate`.
             Conflict: The move was refused, or failed and was put back.
         """
