@@ -95,12 +95,17 @@ def logout(*, everywhere: bool = False, api_url: Optional[str] = None) -> bool:
     Args:
         everywhere (bool, optional): Sign out every login of the account,
             on every machine. Defaults to False.
-        api_url (str, optional): The service's URL; defaults to
-            TESTFLOWS_MACHINE_API_URL, else the public service.
+        api_url (str, optional): The service the caller expects the login
+            to be for. The sign-out always goes to the login's own service;
+            another one is refused.
 
     Returns:
         bool: True when the service revoked the login; False when there was
         none, or the service could not be told.
+
+    Raises:
+        NotSignedIn: `api_url` is not the service the login signed in to.
+            The login is kept, and its credentials are not sent there.
     """
     with _translated():
         out = _login.logout(api_url, everywhere=everywhere)

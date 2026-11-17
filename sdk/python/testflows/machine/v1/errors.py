@@ -43,7 +43,8 @@ class Error(Exception):
 
 class NotSignedIn(Error):
     """There are no credentials: no stored login and no
-    TESTFLOWS_MACHINE_API_KEY.
+    TESTFLOWS_MACHINE_API_KEY. Also raised for an `api_url` that is not the
+    service the stored login signed in to: its credentials are not sent there.
 
     Sign in with `login.start` and `login.verify`, or `machine login`, or
     set TESTFLOWS_MACHINE_API_KEY.
