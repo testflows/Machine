@@ -21,6 +21,7 @@ RUN apt-get update \
 WORKDIR /src
 COPY Makefile ./
 COPY hello hello
+COPY cpuid cpuid
 COPY races races
 COPY starvation starvation
 COPY stress stress

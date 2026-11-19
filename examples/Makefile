@@ -23,7 +23,7 @@ CC = gcc
 CFLAGS = -O2 -static -pthread
 
 # One directory per kind of example. compose/ holds projects, not programs.
-GROUPS = hello races starvation stress
+GROUPS = hello cpuid races starvation stress
 
 SOURCES = $(wildcard $(addsuffix /*.c,$(GROUPS)))
 BINARIES = $(patsubst %.c,bin/%,$(notdir $(SOURCES)))

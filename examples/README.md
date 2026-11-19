@@ -15,11 +15,13 @@ The programs are small and written to be run many times. Most hold a
 concurrency bug with a known shape, and what they print depends on how their
 threads interleaved, which is the thing a machine decides, records and can
 replay. The two in `stress/` hold no bug at all: they drive the kernel hard
-enough that a replay either matches or does not.
+enough that a replay either matches or does not. So do `hello-world` and
+`cpuid`, which only print what the machine shows a program.
 
 | Example | What it does | The bug |
 |---|---|---|
 | [hello/hello-world.c](hello/hello-world.c) | Prints a greeting and the kernel it runs on | None. The smallest disk that boots and runs a program |
+| [cpuid/cpuid.c](cpuid/cpuid.c) | Reads the hypervisor bit, the hypervisor vendor and the processor brand with the CPUID instruction, and prints each as the bytes returned | None. Shows what the machine tells a program about the processor it runs on |
 | [races/data-race.c](races/data-race.c) | N threads increment one shared counter with no lock | Lost update. The read-add-write is three steps and another thread lands between two of them, so the total comes out short |
 | [starvation/timeout-starve.c](starvation/timeout-starve.c) | Main arms a timeout and waits; the worker must publish before it fires | The worker is starved for the whole wait and the timeout expires with nothing published. It is the ONLY runnable thread while main sleeps, so no pick-next policy finds this |
 | [starvation/pipe-wakeup.c](starvation/pipe-wakeup.c) | A reader blocks on a pipe, main writes one byte then waits | The reader is starved after becoming runnable and misses the timeout. Both threads are runnable after the write, so a scheduler can pick the reader |
@@ -67,6 +69,7 @@ the top of its source.
 | Example | Arguments after `--` | `create` options |
 |---|---|---|
 | hello-world | none | none |
+| cpuid | none | none |
 | data-race | `8`: threads | `--cpus 2` |
 | timeout-starve | `200 20`: trials, timeout in ms | none |
 | pipe-wakeup | `200 20`: trials, timeout in ms | none |
