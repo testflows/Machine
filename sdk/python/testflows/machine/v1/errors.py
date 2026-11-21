@@ -25,6 +25,7 @@ import contextlib
 from typing import Generator, Optional
 
 from testflows.machine._core import api
+from testflows.machine._core import build
 from testflows.machine._core import disks
 from testflows.machine._core import ipc
 from testflows.machine._core import refused
@@ -163,6 +164,7 @@ _MAPPING: tuple[tuple[type[BaseException], type[Error]], ...] = (
     (_sessions.NameTaken, AlreadyExists),
     (_sessions.Unreachable, ServiceUnavailable),
     (disks.NotFound, NotFound),
+    (build.BuildError, InvalidArgument),
     (api.client.NotFound, NotFound),
     (api.client.Conflict, Conflict),
     (api.client.Forbidden, Forbidden),

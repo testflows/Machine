@@ -57,6 +57,15 @@ docker run --rm \
     --prepare-env
 ```
 
+`--prepare-env` also leaves a copy of the clickhouse binary in
+`suite/binaries` and the suite's instances in `suite/example/_instances`, both
+owned by root. Remove them before the build, or the project carries 487MB
+more:
+
+```bash
+sudo rm -rf suite/binaries suite/example/_instances
+```
+
 The `carried_*` services in `docker-compose.yml` name those images so the build
 packs them. They never start.
 
@@ -76,14 +85,15 @@ machine output <run> -f
 `--dry-run` reports what the disk holds and builds nothing:
 
 ```
+disk
+  name      chreg
 content
-  rootfs           285MB
-  images (tar)     422MB
-  images (loaded)  896MB
-  project          1MB
+  rootfs    285MB
+  images    1094MB
+  project   1MB
 size
-  used             1604MB
-  capacity         3072MB
+  used      1380MB
+  capacity  3072MB
 ```
 
 Leaving `--size` out takes `used` plus a gigabyte, rounded up to a whole GB; a
