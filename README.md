@@ -116,6 +116,14 @@ pip3 install testflows.machine
 The SDK runs on the SDK Core, which the client's installer installs. See the
 [Python SDK](sdk/python/) for how to use it.
 
+## Skill for coding agents
+
+[`skills/testflows-machine/`](skills/testflows-machine/) is a skill for
+coding agents such as Claude Code, Codex and Cursor. It tells the agent how
+to install the client, sign it in with your help, and where the docs are.
+Save its folder in `~/.claude/skills/` for Claude Code and Cursor, or in
+`~/.agents/skills/` for Codex.
+
 ## Documentation
 
 * **[What is it?](https://testflows.com/docs/machine/#what-is-it)**: [Concepts](https://testflows.com/docs/machine/#concepts)
@@ -165,9 +173,10 @@ Everyone taking part in this community is expected to follow our
 
 ## Legal
 
-The Python SDK in [`sdk/`](sdk/) and the examples in [`examples/`](examples/)
-are licensed under the Apache License 2.0; see the LICENSE file in each. No
-other file in this repository is licensed under it.
+The Python SDK in [`sdk/`](sdk/), the examples in [`examples/`](examples/) and
+the skill in [`skills/`](skills/) are licensed under the Apache License 2.0;
+see the LICENSE file in each. No other file in this repository is licensed
+under it.
 
 The TestFlows Machine client, the SDK Core and the service are provided under
 the [Terms of Service](https://testflows.com/machine/legal/terms-of-service/)
