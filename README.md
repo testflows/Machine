@@ -49,13 +49,6 @@ curl -fsSL https://codeload.github.com/testflows/Machine/tar.gz/main \
 
 For Codex, use `~/.agents/skills` in both places. Then ask your agent
 what TestFlows Machine can do for your project, and it sets it up with you.
-Or hand it a bug:
-
-> This test fails now and then in CI. Use TestFlows Machine to reproduce
-> it, fix the bug, and show me the fix holds.
-
-> What does our service do if the disk fills up during a write? Use
-> TestFlows Machine to find out.
 
 ## Features
 
