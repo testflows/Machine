@@ -19,20 +19,20 @@ key.
 ```python
 import testflows.machine.v1 as machine
 
-SIGNATURE = "STALL: a job waited 2000 ms"   # the bug's own failure, never any failure
+SIGNATURE = "FAILURE: missed wakeup"   # the bug's own failure line, never a looser match
 
 client = machine.Client()
 with client.sessions.create(cpus=2) as session:
     client.sessions.use(session)
     # Not in a with block: deleting the root deletes its branches, the
     # one that reproduces included.
-    run = client.create("fz", disk="app", cpus=2)
-    run.focus.add("comm=app")
-    run.run(until="comm=app:exec")
+    run = client.create("fz", disk="mw", cpus=2)
+    run.focus.add("comm=missed-wakeup")
+    run.run(until="comm=missed-wakeup:exec", within="60s")
     run.checkpoint("started")
     for seed in range(20):
         branch = run.fork(at="^started", name=f"s{seed}")
-        branch.run(until="console~(STALL|OK:)", within="120s",
+        branch.run(until="console~(FAILURE: missed|SUCCESS:)", within="120s",
                    mode="step,fast", step="1:3",
                    task_sched="keep,hold", seed=seed)
         if any(SIGNATURE in line for line in branch.output()):   # every line
@@ -50,7 +50,7 @@ with client.sessions.create(cpus=2) as session:
   `task_sched`, `task_int`, `seed`, `until`, `within`.
 - `run.plan("plan.txt", seed=3)` runs a plan file from Python.
 - `run.tasks.hold(tid)`, `run.tasks.release(tid)` and
-  `run.task(tid).breakpoint("app.c:73")` force a named window from Python, as
+  `run.task(tid).breakpoint("missed-wakeup.c:76")` force a named window from Python, as
   `force-a-race.md` does from the client. `run.run(iters=0)` runs to the next
   breakpoint hit.
 - `run.inject.add("syscall", "write", "ENOSPC", in_="/app", after=1, times=1)`

@@ -22,7 +22,7 @@ A location is a number, `$reg`, `NAME`, `PATH:NAME`, `file.c:56` or `+N`.
 
 | Action | Command |
 |---|---|
-| A breakpoint, for every task of the program | `machine break app add 412 main`, `machine break app add 412 app.c:73` |
+| A breakpoint, for every task of the program | `machine break app add 412 main`, `machine break app add 412 missed-wakeup.c:76` |
 | Conditional, temporary, hardware | `machine break app add 412 main --temporary --condition '$rdi != 0'`, `--hardware` |
 | A breakpoint that prints and goes on, as dprintf | `machine break app add 412 puts --print 'puts {$rdi:s}'` |
 | A watchpoint: stop after a write | `machine watch app add 412 counter` |

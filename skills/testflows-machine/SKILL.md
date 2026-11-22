@@ -2,7 +2,7 @@
 name: testflows-machine
 description: Everything about TestFlows Machine, a deterministic simulation testing environment, and how to use it to reproduce rare bugs on purpose and prove fixes. Use when the person asks what TestFlows Machine is, what it can do for their project, what it costs or how to start; mentions deterministic simulation testing; or has a flaky or rare failure, a race, a hang, a timeout or a fault to reproduce, or a fix to verify. Covers what it is and its plans, installing and signing in the machine client with the person's help, sessions and disks, forcing the exact interleaving or fault the code points at, fuzzing when it points at none, and proving the fix.
 metadata:
-  version: "20261122"
+  version: "20261122.1"
 ---
 
 # TestFlows Machine
@@ -62,22 +62,27 @@ exactly that, and one try shows the bug. Run the same steps on the fix, and
 one try proves it.
 
 **A race.** Stop one thread in the window with a breakpoint, hold it there,
-run the other thread through the part that races, then release:
+run the other thread through the part that races, then release. Build the
+program with `-g -static`, and give it the least work that reaches the
+window. On `examples/starvation/missed-wakeup.c` of
+https://github.com/testflows/Machine, built as `missed-wakeup` with one
+trial, `-- 1`:
 
 ```bash
-machine -s work create bug --disk app --cpus 2
-machine -s work focus bug add comm=app
-machine -s work run bug --until comm=app:exec --within 60s    # the program started
-machine -s work run bug --until comm=app:sched --within 60s   # focus resolves on a dispatch
-machine -s work tasks bug --focused                      # its tids
-machine -s work break bug add <tid> app.c:73             # the window's line
-machine -s work run bug --iters 0 --within 60s          # runs until a thread stops there
-machine -s work tasks bug hold <tid-at-the-line>
-machine -s work break bug delete 1
-machine -s work run bug --until 'tid=<other-tid>:at=<function>' --within 60s   # the other acts
-machine -s work tasks bug release <tid-at-the-line>
-machine -s work run bug --until 'console~(FAIL|OK)' --within 60s
-machine -s work output bug -n :                    # every line, to search
+machine -s work create mw --disk mw --cpus 2
+machine -s work focus mw add comm=missed-wakeup
+machine -s work run mw --until comm=missed-wakeup:exec --within 60s    # the program started
+machine -s work run mw --until comm=missed-wakeup:sched --within 60s   # focus resolves on a dispatch
+machine -s work tasks mw --focused                                     # main's tid
+machine -s work break mw add <main-tid> missed-wakeup.c:76   # the window: lock dropped, not retaken
+machine -s work run mw --iters 0 --within 60s                # the waiter stops there
+machine -s work tasks mw --focused                           # the waiter's tid and the signaler's
+machine -s work tasks mw hold <waiter-tid>
+machine -s work break mw delete 1
+machine -s work run mw --until 'tid=<signaler-tid>:at=missed-wakeup.c:109' --within 60s   # it signalled
+machine -s work tasks mw release <waiter-tid>
+machine -s work run mw --until 'console~(FAILURE: missed|SUCCESS:)' --within 60s
+machine -s work output mw -n : | grep -E 'FAILURE:|SUCCESS:'   # FAILURE: missed wakeup (trial 0)
 ```
 
 **A failure path.** Fail the exact call the code points at, here the second
@@ -85,21 +90,22 @@ machine -s work output bug -n :                    # every line, to search
 `machine tasks` shows it under EXE:
 
 ```bash
-machine -s work inject bug add syscall write ENOSPC --in /app --after 1 --times 1
+machine -s work inject app add syscall write ENOSPC --in /app --after 1 --times 1
 ```
 
 **No named cause.** Fuzz: checkpoint once the program starts, fork a branch
 for each seed, and run each with a drawn schedule:
 
 ```bash
-machine -s work checkpoint bug started
-machine -s work fork bug --at ^started --name s1
-machine -s work plan bug/s1 plan.txt --seed 1 --until 'console~(FAIL|OK)' --within 120s
+machine -s work checkpoint app started
+machine -s work fork app --at ^started --name s1
+machine -s work plan app/s1 plan.txt --seed 1 --until 'console~(FAILURE: missed|SUCCESS:)' --within 120s
 ```
 
 **Check the signature.** The failure must be the one the bug causes, not any
-failure: a held thread loses machine time, so a check with a time limit can
-fail from the hold alone. Then run the fix under the same steps or seeds.
+failure. Match its exact line: a pattern as loose as `console~FAILURE` also
+matches a header that only names the word. A held thread loses machine time,
+so a check with a time limit can fail from the hold alone. Then run the fix under the same steps or seeds.
 
 ## What you can do
 
