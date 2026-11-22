@@ -6,14 +6,15 @@
   <img alt="TestFlows" src="https://raw.githubusercontent.com/testflows/Machine/main/.github/assets/testflows-logo-light.png" width="460">
 </picture>
 
-<h3>TestFlows Machine is a deterministic hypervisor and execution environment.</h3>
+<h3>TestFlows Machine is a deterministic simulation testing environment for developers and AI coding agents.</h3>
 
-Record a run of your software, replay it exactly, and branch it from any point
-to explore what else could have happened.
+Point your coding agent at the skill. It tells you what TestFlows Machine is,
+sets it up with you, and gets you running fast.
 
 [Website](https://testflows.com/machine) ·
 [Documentation](https://testflows.com/docs/machine/) ·
 [Pricing](https://testflows.com/machine/pricing/) ·
+[Skill for coding agents](skills/testflows-machine/) ·
 [Examples](examples/) ·
 [Python SDK](sdk/python/) ·
 [Discussions](https://github.com/testflows/Machine/discussions)
@@ -33,6 +34,32 @@ It runs in the cloud as a self-serve service, with a free plan and paid plans.
 > Machine is in public beta. We're improving it quickly with
 > feedback from users like you. Backward compatibility isn't guaranteed yet,
 > and you may need to update the client and the SDK Core often.
+
+## Start with your coding agent
+
+Point your coding agent, such as Claude Code, Codex or Cursor, at the skill,
+[`skills/testflows-machine/`](skills/testflows-machine/). Install it:
+
+```bash
+# Claude Code and Cursor
+mkdir -p ~/.claude/skills
+curl -fsSL https://codeload.github.com/testflows/Machine/tar.gz/main \
+  | tar -xz -C ~/.claude/skills --strip-components=2 Machine-main/skills/testflows-machine
+```
+
+For Codex, use `~/.agents/skills` in both places. Then ask your agent
+what TestFlows Machine can do for your project, and it sets it up with you.
+Or hand it a bug:
+
+> CI fails now and then with "STALL: a job waited 2000 ms". Use TestFlows
+> Machine to reproduce it, fix the bug, and show me the fix holds.
+
+The skill teaches the agent to reproduce a rare bug on purpose and prove the
+fix: it sets the client up and signs it in with your help, reads your code,
+forces the race or the failing call the code points at, and fuzzes from
+seeds when the code points at none. It asks you for your email address and
+for the code it sends, and you accept the Terms of Service on the sign-up
+page yourself.
 
 ## Features
 
@@ -115,14 +142,6 @@ pip3 install testflows.machine
 
 The SDK runs on the SDK Core, which the client's installer installs. See the
 [Python SDK](sdk/python/) for how to use it.
-
-## Skill for coding agents
-
-[`skills/testflows-machine/`](skills/testflows-machine/) is a skill for
-coding agents such as Claude Code, Codex and Cursor. It tells the agent how
-to install the client, sign it in with your help, and where the docs are.
-Save its folder in `~/.claude/skills/` for Claude Code and Cursor, or in
-`~/.agents/skills/` for Codex.
 
 ## Documentation
 
