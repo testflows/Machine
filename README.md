@@ -54,13 +54,6 @@ Or hand it a bug:
 > CI fails now and then with "STALL: a job waited 2000 ms". Use TestFlows
 > Machine to reproduce it, fix the bug, and show me the fix holds.
 
-The skill teaches the agent to reproduce a rare bug on purpose and prove the
-fix: it sets the client up and signs it in with your help, reads your code,
-forces the race or the failing call the code points at, and fuzzes from
-seeds when the code points at none. It asks you for your email address and
-for the code it sends, and you accept the Terms of Service on the sign-up
-page yourself.
-
 ## Features
 
 * **[Deterministic runs](https://testflows.com/docs/machine/#running-a-machine)**: [Random numbers](https://testflows.com/docs/machine/#random-numbers), [Multiple vCPUs](https://testflows.com/docs/machine/#multiple-vcpus), [Recording that repeats](https://testflows.com/docs/machine/#recording-that-repeats), [Time compression](https://testflows.com/docs/machine/#time-compression)
