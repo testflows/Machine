@@ -82,6 +82,7 @@ https://github.com/testflows/Machine/tree/main/sdk/python/examples:
 | `hello.py` | Create a run, boot it, read its console |
 | `checkpoint_and_fork.py` | Checkpoint a booted run and fork branches from it |
 | `force_interleaving.py` | Hold one thread while another runs |
+| `missed_wakeup.py` | Stop a thread at a breakpoint, hold it, and force a missed wakeup |
 | `explore_seeds.py` | One branch per seed, failures kept |
 | `plan_file.py` | Drive a run by a plan |
 | `fault_injection.py` | Fail system calls and disk writes |
