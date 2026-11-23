@@ -2,7 +2,7 @@
 name: testflows-machine
 description: Everything about TestFlows Machine, a deterministic simulation testing environment, and how to use it to reproduce rare bugs on purpose and prove fixes. Use when the person asks what TestFlows Machine is, what it can do for their project, what it costs or how to start; mentions deterministic simulation testing; or has a flaky or rare failure, a race, a hang, a timeout or a fault to reproduce, or a fix to verify. Covers what it is and its plans, installing and signing in the machine client with the person's help, sessions and disks, forcing the exact interleaving or fault the code points at, fuzzing when it points at none, and proving the fix.
 metadata:
-  version: "20261122.1"
+  version: "20261123.1"
 ---
 
 # TestFlows Machine
@@ -75,11 +75,10 @@ machine -s work run mw --until comm=missed-wakeup:exec --within 60s    # the pro
 machine -s work run mw --until comm=missed-wakeup:sched --within 60s   # focus resolves on a dispatch
 machine -s work tasks mw --focused                                     # main's tid
 machine -s work break mw add <main-tid> missed-wakeup.c:76   # the window: lock dropped, not retaken
-machine -s work run mw --iters 0 --within 60s                # the waiter stops there
-machine -s work tasks mw --focused                           # the waiter's tid and the signaler's
+machine -s work run mw --iters 0 --within 60s                # the waiter stops there; its tid is in the answer
 machine -s work tasks mw hold <waiter-tid>
 machine -s work break mw delete 1
-machine -s work run mw --until 'tid=<signaler-tid>:at=missed-wakeup.c:109' --within 60s   # it signalled
+machine -s work run mw --until 'tgid=<main-tid>:at=missed-wakeup.c:109' --within 60s   # only the signaler reaches it
 machine -s work tasks mw release <waiter-tid>
 machine -s work run mw --until 'console~(FAILURE: missed|SUCCESS:)' --within 60s
 machine -s work output mw -n : | grep -E 'FAILURE:|SUCCESS:'   # FAILURE: missed wakeup (trial 0)

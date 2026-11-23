@@ -58,11 +58,10 @@ added, and running until the program starts is the way on.
 
 ```bash
 machine -s work break mw add <main-tid> missed-wakeup.c:76   # covers every thread of the program
-machine -s work run mw --iters 0 --within 60s                # the waiter stops on the line
-machine -s work tasks mw --focused                           # the waiter's tid and the signaler's
+machine -s work run mw --iters 0 --within 60s                # the waiter stops on the line; its tid is in the answer
 machine -s work tasks mw hold <waiter-tid>                   # it stays in the window
 machine -s work break mw delete 1
-machine -s work run mw --until 'tid=<signaler-tid>:at=missed-wakeup.c:109' --within 60s   # it has signalled
+machine -s work run mw --until 'tgid=<main-tid>:at=missed-wakeup.c:109' --within 60s   # it has signalled
 machine -s work tasks mw release <waiter-tid>
 machine -s work run mw --until 'console~(FAILURE: missed|SUCCESS:)' --within 60s
 machine -s work output mw -n : | grep -E 'FAILURE:|SUCCESS:'
@@ -72,9 +71,12 @@ machine -s work output mw -n : | grep -E 'FAILURE:|SUCCESS:'
 FAILURE: missed wakeup (trial 0)
 ```
 
-`--until 'tid=N:at=LOCATION'` runs until that task reaches a function or a
-`file:line`. Run the second thread to the point just after it acts: line 109
-is the signaler's unlock, after its signal.
+`--until 'tgid=N:at=LOCATION'` runs until any task of that process reaches a
+function or a `file:line`, and the answer names the task. Run the second
+thread to the point just after it acts: line 109 is the signaler's unlock,
+after its signal, and only the signaler reaches it. The second thread may
+not exist yet when the first stops, so its tid cannot be read from a listing
+in advance; `tid=N:at=` is for a task already known.
 
 ## 5. Check the signature
 
