@@ -107,7 +107,7 @@ identical
 The replay reproduces the failing history line for line, so the stale read
 is there to debug every time. The passing run replays the same way.
 
-Replay is also about six times faster than the run it replays. Recording the
+Replay is also more than five times faster than the run it replays. Recording the
 same test again from the same checkpoint took as long as the first time, so
 the difference is the cost of recording, not a warm cache:
 
