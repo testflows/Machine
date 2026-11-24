@@ -15,17 +15,22 @@ etcd on the nodes, and the test with all its dependencies on the control node.
 
 ## Run it
 
-From `examples/`, build the two images for `linux/amd64`, then the disk,
-then run the test to Jepsen's verdict:
+The machine has 2 vCPUs and 4G of memory, so the test runs in a session of
+2 vCPUs and 6G. A session that size needs the
+[Starter plan or higher](https://testflows.com/machine/pricing/).
+
+From `examples/`, create the session, build the two images for
+`linux/amd64`, then the disk, then run the test to Jepsen's verdict:
 
 ```bash
+machine sessions create jepsen --cpus 2 --mem 6G
 cd compose/jepsen-etcd
 docker build --platform linux/amd64 -t jepsen-node:local node
 docker build --platform linux/amd64 -t jepsen-control:local control
 machine disks build --compose . jepsen
 machine create jepsen --disk jepsen --cpus 2 --mem 4096
 machine run jepsen --until 'console~(Everything looks good|Analysis invalid|Jepsen broke)' --within 10m
-machine output jepsen | grep -E ':linear \{|:valid\? (true|false)\}|Everything looks good|Analysis invalid'
+machine output jepsen -n : | grep -E ':linear \{|:valid\? (true|false)\}|Everything looks good|Analysis invalid'
 machine stop jepsen
 ```
 
@@ -54,7 +59,7 @@ git apply stale-reads.patch
 machine disks build --compose . jepsen-stale
 machine create jepsen-stale --disk jepsen-stale --cpus 2 --mem 4096
 machine run jepsen-stale --until 'console~(Everything looks good|Analysis invalid|Jepsen broke)' --within 10m
-machine output jepsen-stale | grep -E ':linear \{|:valid\? (true|false)\}|Everything looks good|Analysis invalid'
+machine output jepsen-stale -n : | grep -E ':linear \{|:valid\? (true|false)\}|Everything looks good|Analysis invalid'
 machine stop jepsen-stale
 git apply -R stale-reads.patch
 ```
