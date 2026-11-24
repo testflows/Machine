@@ -1,0 +1,50 @@
+# Copyright 2026 Katteli Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# A Jepsen test of etcd: three etcd nodes and a control node that runs the
+# test over SSH. The project ends when the control node exits, because the
+# machine runs compose with --abort-on-container-exit.
+x-node: &node
+  image: jepsen-node:local
+  cap_add: [NET_ADMIN]
+  volumes: [ssh-keys:/keys:ro]
+  # Healthy once sshd listens, which the control node waits for. The check
+  # reads the listening socket rather than connecting: sshd logs every
+  # connection that closes before the SSH handshake.
+  healthcheck:
+    test: ["CMD", "sh", "-c", "ss -Hltn 'sport = :22' | grep -q ."]
+    interval: 1s
+    retries: 30
+
+services:
+  n1:
+    <<: *node
+    hostname: n1
+  n2:
+    <<: *node
+    hostname: n2
+  n3:
+    <<: *node
+    hostname: n3
+
+  control:
+    image: jepsen-control:local
+    depends_on:
+      n1: {condition: service_healthy}
+      n2: {condition: service_healthy}
+      n3: {condition: service_healthy}
+    volumes: [ssh-keys:/keys]
+
+volumes:
+  ssh-keys: {}

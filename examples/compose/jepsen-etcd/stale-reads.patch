@@ -1,0 +1,25 @@
+Runs the test with serializable reads, so Jepsen catches stale reads.
+
+A serializable read is answered by the node from its own copy, without the
+leader. A node cut off from the majority by a partition answers with a value
+the majority has already replaced, and the history is not linearizable.
+Licensed under the Apache License, Version 2.0, like the example.
+
+Apply it from this directory, before building the disk:
+
+    git apply stale-reads.patch
+
+and take it out again with:
+
+    git apply -R stale-reads.patch
+
+--- a/docker-compose.yml
++++ b/docker-compose.yml
+@@ -40,6 +40,7 @@
+
+   control:
+     image: jepsen-control:local
++    command: ["sh", "start.sh", "--reads", "serializable"]
+     depends_on:
+       n1: {condition: service_healthy}
+       n2: {condition: service_healthy}

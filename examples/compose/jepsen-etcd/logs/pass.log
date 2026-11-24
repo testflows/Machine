@@ -1,0 +1,1520 @@
+n3 | Server listening on 0.0.0.0 port 22.
+n1 | Server listening on 0.0.0.0 port 22.
+n3 | Server listening on :: port 22.
+n1 | Server listening on :: port 22.
+n2 | Server listening on 0.0.0.0 port 22.
+n2 | Server listening on :: port 22.
+control | 00:01:08.016 [main] INFO jepsen.cli -- Test options:
+control |  {:ssh-private-key "/root/.ssh/id_ed25519",
+control |  :concurrency 6,
+control |  :leave-db-running? false,
+control |  :logging-json? false,
+control |  :ssh
+control |  {:dummy? false,
+control |   :username "root",
+control |   :password "root",
+control |   :strict-host-key-checking false,
+control |   :private-key-path "/root/.ssh/id_ed25519"},
+control |  :argv
+control |  ("test"
+control |   "--nodes"
+control |   "n1,n2,n3"
+control |   "--username"
+control |   "root"
+control |   "--ssh-private-key"
+control |   "/root/.ssh/id_ed25519"
+control |   "--time-limit"
+control |   "30"
+control |   "--concurrency"
+control |   "6"),
+control |  :nodes ["n1" "n2" "n3"],
+control |  :test-count 1,
+control |  :time-limit 30,
+control |  :reads "linearizable"}
+control | 
+control | INFO [2026-03-01 00:01:08,837] jepsen test runner - jepsen.core Command line:
+control | lein run test --nodes n1,n2,n3 --username root --ssh-private-key /root/.ssh/id_ed25519 --time-limit 30 --concurrency 6
+control | INFO [2026-03-01 00:01:09,955] jepsen test runner - jepsen.core Running test:
+control | {:remote
+control |  #jepsen.control.retry.Remote{:remote #jepsen.control.scp.Remote{:cmd-remote #jepsen.control.sshj.SSHJRemote{:concurrency-limit 6,
+control |                                                                                                              :conn-spec nil,
+control |                                                                                                              :client nil,
+control |                                                                                                              :semaphore nil},
+control |                                                                  :conn-spec nil},
+control |                               :conn nil}
+control |  :ssh-private-key "/root/.ssh/id_ed25519"
+control |  :concurrency 6
+control |  :db
+control |  #object[jepsen.etcd_machine$etcd$reify__2671
+control |          "0x39a1c200"
+control |          "jepsen.etcd_machine$etcd$reify__2671@39a1c200"]
+control |  :leave-db-running? false
+control |  :name "etcd-machine"
+control |  :logging-json? false
+control |  :start-time
+control |  #object[java.time.OffsetDateTime "0x603a34e5" "2026-03-01T00:01:08.053151667Z"]
+control |  :net
+control |  #object[jepsen.net$iptables_with_dev$reify__15624
+control |          "0x160d68b8"
+control |          "jepsen.net$iptables_with_dev$reify__15624@160d68b8"]
+control |  :client #jepsen.etcd_machine.Client{:node nil}
+control |  :barrier
+control |  #object[java.util.concurrent.CyclicBarrier
+control |          "0x2af1bf5a"
+control |          "java.util.concurrent.CyclicBarrier@2af1bf5a"]
+control |  :ssh
+control |  {:dummy? false,
+control |   :username "root",
+control |   :password "root",
+control |   :strict-host-key-checking false,
+control |   :private-key-path "/root/.ssh/id_ed25519"}
+control |  :checker
+control |  #jepsen.checker.Compose{:checkers {:stats #jepsen.checker.Stats{},
+control |                                     :linear #jepsen.checker.Linearizable{:algorithm :linear,
+control |                                                                          :model #knossos.model.CASRegister{:value nil}}}}
+control |  :argv
+control |  ("test"
+control |   "--nodes"
+control |   "n1,n2,n3"
+control |   "--username"
+control |   "root"
+control |   "--ssh-private-key"
+control |   "/root/.ssh/id_ed25519"
+control |   "--time-limit"
+control |   "30"
+control |   "--concurrency"
+control |   "6")
+control |  :nemesis #unprintable "jepsen.nemesis$partitioner$reify__15799@1d77d9c6"
+control |  :nodes ["n1" "n2" "n3"]
+control |  :test-count 1
+control |  :generator
+control |  #object[jepsen.util.Forgettable
+control |          "0x768f2398"
+control |          ((jepsen.generator.Synchronize
+control |            {:gen (jepsen.generator.TimeLimit
+control |                   {:limit 30000000000,
+control |                    :cutoff nil,
+control |                    :gen (jepsen.generator.Any
+control |                          {:gens [(jepsen.generator.OnThreads
+control |                                   {:f #{:nemesis},
+control |                                    :context-filter #object[jepsen.generator.context$make_thread_filter$lazy_filter__5865
+control |                                                            "0x1a3e8b68"
+control |                                                            "jepsen.generator.context$make_thread_filter$lazy_filter__5865@1a3e8b68"],
+control |                                    :gen ({:type :sleep, :value 5}
+control |                                          {:type :info, :f :start}
+control |                                          {:type :sleep, :value 5}
+control |                                          {:type :info, :f :stop}
+control |                                          {:type :sleep, :value 5}
+control |                                          {:type :info, :f :start}
+control |                                          {:type :sleep, :value 5}
+control |                                          {:type :info, :f :stop}
+control |                                          ...)})
+control |                                  (jepsen.generator.OnThreads
+control |                                   {:f #jepsen.generator.context.AllBut{:element :nemesis},
+control |                                    :context-filter #object[jepsen.generator.context$make_thread_filter$lazy_filter__5865
+control |                                                            "0xfc6cac6"
+control |                                                            "jepsen.generator.context$make_thread_filter$lazy_filter__5865@fc6cac6"],
+control |                                    :gen (jepsen.generator.Stagger
+control |                                          {:dt-fn #object[jepsen.generator$stagger_exp$dt_fn__6800
+control |                                                          "0x538d2308"
+control |                                                          "jepsen.generator$stagger_exp$dt_fn__6800@538d2308"],
+control |                                           :next-time nil,
+control |                                           :gen (jepsen.generator.Mix
+control |                                                 {:i 1,
+control |                                                  :gens [#object[jepsen.etcd_machine$r
+control |                                                                 "0x3d0697da"
+control |                                                                 "jepsen.etcd_machine$r@3d0697da"]
+control |                                                         #object[jepsen.etcd_machine$w
+control |                                                                 "0x4b99f2ed"
+control |                                                                 "jepsen.etcd_machine$w@4b99f2ed"]
+control |                                                         #object[jepsen.etcd_machine$cas
+control |                                                                 "0x723081a2"
+control |                                                                 "jepsen.etcd_machine$cas@723081a2"]]})})})]})})})
+control |           (jepsen.generator.Synchronize
+control |            {:gen {:type :log, :value "Healing the network"}})
+control |           (jepsen.generator.Synchronize
+control |            {:gen (jepsen.generator.OnThreads
+control |                   {:f #{:nemesis},
+control |                    :context-filter #object[jepsen.generator.context$make_thread_filter$lazy_filter__5865
+control |                                            "0x481f698f"
+control |                                            "jepsen.generator.context$make_thread_filter$lazy_filter__5865@481f698f"],
+control |                    :gen (jepsen.generator.Limit
+control |                          {:remaining 1, :gen {:type :info, :f :stop}})})})
+control |           (jepsen.generator.Synchronize {:gen {:type :sleep, :value 5}})
+control |           (jepsen.generator.Synchronize
+control |            {:gen (jepsen.generator.OnThreads
+control |                   {:f #jepsen.generator.context.AllBut{:element :nemesis},
+control |                    :context-filter #object[jepsen.generator.context$make_thread_filter$lazy_filter__5865
+control |                                            "0x41ae9f11"
+control |                                            "jepsen.generator.context$make_thread_filter$lazy_filter__5865@41ae9f11"],
+control |                    :gen (jepsen.generator.Limit
+control |                          {:remaining 1,
+control |                           :gen {:type :invoke,
+control |                                 :f :read,
+control |                                 :value nil,
+control |                                 :final? true}})})}))]
+control |  :os
+control |  #object[jepsen.os$reify__16046 "0x45a40353" "jepsen.os$reify__16046@45a40353"]
+control |  :time-limit 30
+control |  :reads "linearizable"}
+control | 
+n3 | Accepted publickey for root from 172.18.0.5 port 46318 ssh2: ED25519 SHA256:LJa1syKHunSfndCrvJI1sLrPhKv2HEyG5WYzwLVGc9Y
+n1 | Accepted publickey for root from 172.18.0.5 port 47276 ssh2: ED25519 SHA256:LJa1syKHunSfndCrvJI1sLrPhKv2HEyG5WYzwLVGc9Y
+n2 | Accepted publickey for root from 172.18.0.5 port 41026 ssh2: ED25519 SHA256:LJa1syKHunSfndCrvJI1sLrPhKv2HEyG5WYzwLVGc9Y
+control | INFO [2026-03-01 00:01:48,850] jepsen test runner - jepsen.db Tearing down DB
+control | INFO [2026-03-01 00:01:48,856] jepsen node n1 - jepsen.etcd-machine n1 stopping etcd
+control | INFO [2026-03-01 00:01:48,857] jepsen node n1 - jepsen.control.util Stopping /opt/etcd/etcd with signal -9
+control | INFO [2026-03-01 00:01:48,862] jepsen node n2 - jepsen.etcd-machine n2 stopping etcd
+control | INFO [2026-03-01 00:01:48,863] jepsen node n2 - jepsen.control.util Stopping /opt/etcd/etcd with signal -9
+control | INFO [2026-03-01 00:01:48,866] jepsen node n3 - jepsen.etcd-machine n3 stopping etcd
+control | INFO [2026-03-01 00:01:48,867] jepsen node n3 - jepsen.control.util Stopping /opt/etcd/etcd with signal -9
+control | INFO [2026-03-01 00:01:49,500] jepsen test runner - jepsen.db Setting up DB
+control | INFO [2026-03-01 00:01:49,511] jepsen node n1 - jepsen.etcd-machine n1 starting etcd
+control | INFO [2026-03-01 00:01:49,519] jepsen node n1 - jepsen.control.util Starting etcd
+control | INFO [2026-03-01 00:01:49,547] jepsen node n2 - jepsen.etcd-machine n2 starting etcd
+control | INFO [2026-03-01 00:01:49,555] jepsen node n2 - jepsen.control.util Starting etcd
+control | INFO [2026-03-01 00:01:49,548] jepsen node n3 - jepsen.etcd-machine n3 starting etcd
+control | INFO [2026-03-01 00:01:49,556] jepsen node n3 - jepsen.control.util Starting etcd
+control | INFO [2026-03-01 00:02:00,267] jepsen test runner - jepsen.core Relative time begins now
+control | INFO [2026-03-01 00:02:00,758] jepsen worker 0 - jepsen.print 0	:invoke	:write	1
+control | INFO [2026-03-01 00:02:00,774] jepsen worker 1 - jepsen.print 1	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:00,910] jepsen worker 3 - jepsen.print 3	:invoke	:cas	[4 4]
+control | INFO [2026-03-01 00:02:01,016] jepsen worker 4 - jepsen.print 4	:invoke	:write	2
+control | INFO [2026-03-01 00:02:01,118] jepsen worker 5 - jepsen.print 5	:invoke	:cas	[4 0]
+control | INFO [2026-03-01 00:02:01,175] jepsen worker 2 - jepsen.print 2	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:04,017] jepsen worker 5 - jepsen.print 5	:fail	:cas	[4 0]
+control | INFO [2026-03-01 00:02:04,021] jepsen worker 1 - jepsen.print 1	:ok	:read	nil
+control | INFO [2026-03-01 00:02:04,022] jepsen worker 0 - jepsen.print 0	:ok	:write	1
+control | INFO [2026-03-01 00:02:04,018] jepsen worker 2 - jepsen.print 2	:ok	:read	nil
+control | INFO [2026-03-01 00:02:04,018] jepsen worker 4 - jepsen.print 4	:ok	:write	2
+control | INFO [2026-03-01 00:02:04,054] jepsen worker 1 - jepsen.print 1	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:04,058] jepsen worker 3 - jepsen.print 3	:fail	:cas	[4 4]
+control | INFO [2026-03-01 00:02:04,066] jepsen worker 3 - jepsen.print 3	:invoke	:write	0
+control | INFO [2026-03-01 00:02:04,106] jepsen worker 2 - jepsen.print 2	:invoke	:cas	[4 1]
+control | INFO [2026-03-01 00:02:04,170] jepsen worker 4 - jepsen.print 4	:invoke	:write	4
+control | INFO [2026-03-01 00:02:04,228] jepsen worker 5 - jepsen.print 5	:invoke	:write	1
+control | INFO [2026-03-01 00:02:04,260] jepsen worker 0 - jepsen.print 0	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:04,267] jepsen worker 1 - jepsen.print 1	:ok	:read	1
+control | INFO [2026-03-01 00:02:04,386] jepsen worker 4 - jepsen.print 4	:ok	:write	4
+control | INFO [2026-03-01 00:02:04,397] jepsen worker 1 - jepsen.print 1	:invoke	:write	4
+control | INFO [2026-03-01 00:02:04,418] jepsen worker 3 - jepsen.print 3	:ok	:write	0
+control | INFO [2026-03-01 00:02:04,428] jepsen worker 2 - jepsen.print 2	:fail	:cas	[4 1]
+control | INFO [2026-03-01 00:02:04,433] jepsen worker 0 - jepsen.print 0	:ok	:read	0
+control | INFO [2026-03-01 00:02:04,466] jepsen worker 0 - jepsen.print 0	:invoke	:cas	[1 4]
+control | INFO [2026-03-01 00:02:04,472] jepsen worker 2 - jepsen.print 2	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:04,475] jepsen worker 1 - jepsen.print 1	:ok	:write	4
+control | INFO [2026-03-01 00:02:04,505] jepsen worker 3 - jepsen.print 3	:invoke	:write	1
+control | INFO [2026-03-01 00:02:04,512] jepsen worker 5 - jepsen.print 5	:ok	:write	1
+control | INFO [2026-03-01 00:02:04,516] jepsen worker 4 - jepsen.print 4	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:04,532] jepsen worker 2 - jepsen.print 2	:ok	:read	4
+control | INFO [2026-03-01 00:02:04,536] jepsen worker 5 - jepsen.print 5	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:04,545] jepsen worker 3 - jepsen.print 3	:ok	:write	1
+control | INFO [2026-03-01 00:02:04,549] jepsen worker 0 - jepsen.print 0	:fail	:cas	[1 4]
+control | INFO [2026-03-01 00:02:04,604] jepsen worker 0 - jepsen.print 0	:invoke	:cas	[0 3]
+control | INFO [2026-03-01 00:02:04,613] jepsen worker 4 - jepsen.print 4	:ok	:read	1
+control | INFO [2026-03-01 00:02:04,625] jepsen worker 5 - jepsen.print 5	:ok	:read	1
+control | INFO [2026-03-01 00:02:04,578] jepsen worker 1 - jepsen.print 1	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:04,642] jepsen worker 1 - jepsen.print 1	:ok	:read	1
+control | INFO [2026-03-01 00:02:04,644] jepsen worker 2 - jepsen.print 2	:invoke	:write	1
+control | INFO [2026-03-01 00:02:04,660] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[4 3]
+control | INFO [2026-03-01 00:02:04,664] jepsen worker 0 - jepsen.print 0	:fail	:cas	[0 3]
+control | INFO [2026-03-01 00:02:04,706] jepsen worker 2 - jepsen.print 2	:ok	:write	1
+control | INFO [2026-03-01 00:02:04,791] jepsen worker 2 - jepsen.print 2	:invoke	:write	3
+control | INFO [2026-03-01 00:02:04,796] jepsen worker 1 - jepsen.print 1	:fail	:cas	[4 3]
+control | INFO [2026-03-01 00:02:04,805] jepsen worker 3 - jepsen.print 3	:invoke	:cas	[4 0]
+control | INFO [2026-03-01 00:02:04,815] jepsen worker 3 - jepsen.print 3	:fail	:cas	[4 0]
+control | INFO [2026-03-01 00:02:04,823] jepsen worker 2 - jepsen.print 2	:ok	:write	3
+control | INFO [2026-03-01 00:02:04,824] jepsen worker 4 - jepsen.print 4	:invoke	:cas	[2 0]
+control | INFO [2026-03-01 00:02:04,874] jepsen worker 4 - jepsen.print 4	:fail	:cas	[2 0]
+control | INFO [2026-03-01 00:02:04,882] jepsen worker 5 - jepsen.print 5	:invoke	:cas	[0 0]
+control | INFO [2026-03-01 00:02:04,943] jepsen worker 0 - jepsen.print 0	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:04,971] jepsen worker 1 - jepsen.print 1	:invoke	:write	1
+control | INFO [2026-03-01 00:02:04,994] jepsen worker 5 - jepsen.print 5	:fail	:cas	[0 0]
+control | INFO [2026-03-01 00:02:04,980] jepsen worker 0 - jepsen.print 0	:ok	:read	3
+control | INFO [2026-03-01 00:02:05,013] jepsen worker 2 - jepsen.print 2	:invoke	:cas	[1 4]
+control | INFO [2026-03-01 00:02:05,054] jepsen worker 3 - jepsen.print 3	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:05,155] jepsen worker 1 - jepsen.print 1	:ok	:write	1
+control | INFO [2026-03-01 00:02:05,155] jepsen worker 3 - jepsen.print 3	:ok	:read	4
+control | INFO [2026-03-01 00:02:05,175] jepsen worker 3 - jepsen.print 3	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:05,172] jepsen worker 2 - jepsen.print 2	:ok	:cas	[1 4]
+control | INFO [2026-03-01 00:02:05,182] jepsen worker 4 - jepsen.print 4	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:05,201] jepsen worker 5 - jepsen.print 5	:invoke	:write	4
+control | INFO [2026-03-01 00:02:05,243] jepsen worker 0 - jepsen.print 0	:invoke	:write	2
+control | INFO [2026-03-01 00:02:05,259] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[4 2]
+control | INFO [2026-03-01 00:02:05,273] jepsen worker 2 - jepsen.print 2	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:05,314] jepsen worker 3 - jepsen.print 3	:ok	:read	4
+control | INFO [2026-03-01 00:02:05,333] jepsen worker 4 - jepsen.print 4	:ok	:read	4
+control | INFO [2026-03-01 00:02:05,335] jepsen worker 5 - jepsen.print 5	:ok	:write	4
+control | INFO [2026-03-01 00:02:05,358] jepsen worker 1 - jepsen.print 1	:ok	:cas	[4 2]
+control | INFO [2026-03-01 00:02:05,422] jepsen worker 3 - jepsen.print 3	:invoke	:write	3
+control | INFO [2026-03-01 00:02:05,454] jepsen worker 0 - jepsen.print 0	:ok	:write	2
+control | INFO [2026-03-01 00:02:05,485] jepsen worker 3 - jepsen.print 3	:ok	:write	3
+control | INFO [2026-03-01 00:02:05,553] jepsen worker 3 - jepsen.print 3	:invoke	:write	0
+control | INFO [2026-03-01 00:02:05,583] jepsen worker 2 - jepsen.print 2	:ok	:read	3
+control | INFO [2026-03-01 00:02:05,620] jepsen worker 4 - jepsen.print 4	:invoke	:write	2
+control | INFO [2026-03-01 00:02:05,651] jepsen worker 4 - jepsen.print 4	:ok	:write	2
+control | INFO [2026-03-01 00:02:05,657] jepsen worker 5 - jepsen.print 5	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:05,673] jepsen worker 3 - jepsen.print 3	:ok	:write	0
+control | INFO [2026-03-01 00:02:05,698] jepsen worker 5 - jepsen.print 5	:ok	:read	2
+control | INFO [2026-03-01 00:02:05,757] jepsen worker 0 - jepsen.print 0	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:05,759] jepsen worker 2 - jepsen.print 2	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:05,764] jepsen worker 1 - jepsen.print 1	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:05,832] jepsen worker 3 - jepsen.print 3	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:05,878] jepsen worker nemesis - jepsen.print :nemesis	:info	:start	nil
+control | INFO [2026-03-01 00:02:05,909] jepsen worker 1 - jepsen.print 1	:ok	:read	2
+control | INFO [2026-03-01 00:02:05,943] jepsen worker 4 - jepsen.print 4	:invoke	:write	2
+control | INFO [2026-03-01 00:02:05,912] jepsen worker 2 - jepsen.print 2	:ok	:read	2
+control | INFO [2026-03-01 00:02:05,998] jepsen worker 0 - jepsen.print 0	:ok	:read	2
+control | INFO [2026-03-01 00:02:06,004] jepsen worker 5 - jepsen.print 5	:invoke	:write	0
+control | INFO [2026-03-01 00:02:06,051] jepsen worker 0 - jepsen.print 0	:invoke	:cas	[1 3]
+control | INFO [2026-03-01 00:02:06,055] jepsen worker 4 - jepsen.print 4	:ok	:write	2
+control | INFO [2026-03-01 00:02:06,111] jepsen worker 3 - jepsen.print 3	:ok	:read	2
+control | INFO [2026-03-01 00:02:06,149] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[4 0]
+control | INFO [2026-03-01 00:02:06,154] jepsen worker 5 - jepsen.print 5	:ok	:write	0
+control | INFO [2026-03-01 00:02:06,166] jepsen worker 2 - jepsen.print 2	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:06,204] jepsen worker 3 - jepsen.print 3	:invoke	:write	0
+control | INFO [2026-03-01 00:02:06,214] jepsen worker 0 - jepsen.print 0	:fail	:cas	[1 3]
+control | INFO [2026-03-01 00:02:06,349] jepsen worker 3 - jepsen.print 3	:ok	:write	0
+control | INFO [2026-03-01 00:02:06,405] jepsen worker 3 - jepsen.print 3	:invoke	:cas	[3 0]
+control | INFO [2026-03-01 00:02:06,357] jepsen worker 2 - jepsen.print 2	:ok	:read	0
+control | INFO [2026-03-01 00:02:06,464] jepsen worker 5 - jepsen.print 5	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:06,383] jepsen worker 1 - jepsen.print 1	:fail	:cas	[4 0]
+control | INFO [2026-03-01 00:02:06,422] jepsen worker 4 - jepsen.print 4	:invoke	:write	0
+control | INFO [2026-03-01 00:02:06,505] jepsen worker 4 - jepsen.print 4	:ok	:write	0
+control | INFO [2026-03-01 00:02:06,508] jepsen worker 3 - jepsen.print 3	:fail	:cas	[3 0]
+control | INFO [2026-03-01 00:02:06,543] jepsen worker nemesis - jepsen.print :nemesis	:info	:start	[:isolated {"n3" #{"n2" "n1"}, "n2" #{"n3"}, "n1" #{"n3"}}]
+control | INFO [2026-03-01 00:02:06,581] jepsen worker 0 - jepsen.print 0	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:06,583] jepsen worker 1 - jepsen.print 1	:invoke	:write	2
+control | INFO [2026-03-01 00:02:06,651] jepsen worker 0 - jepsen.print 0	:ok	:read	0
+control | INFO [2026-03-01 00:02:06,673] jepsen worker 1 - jepsen.print 1	:ok	:write	2
+control | INFO [2026-03-01 00:02:06,678] jepsen worker 3 - jepsen.print 3	:invoke	:write	0
+control | INFO [2026-03-01 00:02:06,678] jepsen worker 2 - jepsen.print 2	:invoke	:cas	[0 0]
+control | INFO [2026-03-01 00:02:06,693] jepsen worker 4 - jepsen.print 4	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:06,735] jepsen worker 3 - jepsen.print 3	:ok	:write	0
+control | INFO [2026-03-01 00:02:06,761] jepsen worker 0 - jepsen.print 0	:invoke	:write	4
+control | INFO [2026-03-01 00:02:06,786] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[1 2]
+control | INFO [2026-03-01 00:02:06,789] jepsen worker 4 - jepsen.print 4	:ok	:read	0
+control | INFO [2026-03-01 00:02:06,893] jepsen worker 1 - jepsen.print 1	:fail	:cas	[1 2]
+control | INFO [2026-03-01 00:02:06,893] jepsen worker 1 - jepsen.print 1	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:06,901] jepsen worker 1 - jepsen.print 1	:ok	:read	4
+control | INFO [2026-03-01 00:02:06,923] jepsen worker 0 - jepsen.print 0	:ok	:write	4
+control | INFO [2026-03-01 00:02:06,923] jepsen worker 0 - jepsen.print 0	:invoke	:cas	[2 4]
+control | INFO [2026-03-01 00:02:06,935] jepsen worker 3 - jepsen.print 3	:invoke	:cas	[4 1]
+control | INFO [2026-03-01 00:02:07,035] jepsen worker 3 - jepsen.print 3	:ok	:cas	[4 1]
+control | INFO [2026-03-01 00:02:07,035] jepsen worker 0 - jepsen.print 0	:fail	:cas	[2 4]
+control | INFO [2026-03-01 00:02:07,035] jepsen worker 1 - jepsen.print 1	:invoke	:write	1
+control | INFO [2026-03-01 00:02:07,043] jepsen worker 4 - jepsen.print 4	:invoke	:write	3
+control | INFO [2026-03-01 00:02:07,055] jepsen worker 4 - jepsen.print 4	:ok	:write	3
+control | INFO [2026-03-01 00:02:07,056] jepsen worker 0 - jepsen.print 0	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:07,062] jepsen worker 3 - jepsen.print 3	:invoke	:write	2
+control | INFO [2026-03-01 00:02:07,070] jepsen worker 0 - jepsen.print 0	:ok	:read	3
+control | INFO [2026-03-01 00:02:07,083] jepsen worker 1 - jepsen.print 1	:ok	:write	1
+control | INFO [2026-03-01 00:02:07,095] jepsen worker 0 - jepsen.print 0	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:07,107] jepsen worker 3 - jepsen.print 3	:ok	:write	2
+control | INFO [2026-03-01 00:02:07,109] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[2 3]
+control | INFO [2026-03-01 00:02:07,126] jepsen worker 3 - jepsen.print 3	:invoke	:write	3
+control | INFO [2026-03-01 00:02:07,153] jepsen worker 4 - jepsen.print 4	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:07,173] jepsen worker 4 - jepsen.print 4	:ok	:read	2
+control | INFO [2026-03-01 00:02:07,197] jepsen worker 0 - jepsen.print 0	:ok	:read	2
+control | INFO [2026-03-01 00:02:07,202] jepsen worker 1 - jepsen.print 1	:fail	:cas	[2 3]
+control | INFO [2026-03-01 00:02:07,203] jepsen worker 3 - jepsen.print 3	:ok	:write	3
+control | INFO [2026-03-01 00:02:07,230] jepsen worker 4 - jepsen.print 4	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:07,267] jepsen worker 4 - jepsen.print 4	:ok	:read	3
+control | INFO [2026-03-01 00:02:07,319] jepsen worker 0 - jepsen.print 0	:invoke	:write	3
+control | INFO [2026-03-01 00:02:07,342] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[3 4]
+control | INFO [2026-03-01 00:02:07,344] jepsen worker 3 - jepsen.print 3	:invoke	:cas	[0 2]
+control | INFO [2026-03-01 00:02:07,397] jepsen worker 4 - jepsen.print 4	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:07,487] jepsen worker 4 - jepsen.print 4	:ok	:read	3
+control | INFO [2026-03-01 00:02:07,510] jepsen worker 1 - jepsen.print 1	:ok	:cas	[3 4]
+control | INFO [2026-03-01 00:02:07,519] jepsen worker 4 - jepsen.print 4	:invoke	:write	3
+control | INFO [2026-03-01 00:02:07,534] jepsen worker 3 - jepsen.print 3	:fail	:cas	[0 2]
+control | INFO [2026-03-01 00:02:07,538] jepsen worker 0 - jepsen.print 0	:ok	:write	3
+control | INFO [2026-03-01 00:02:07,578] jepsen worker 4 - jepsen.print 4	:ok	:write	3
+control | INFO [2026-03-01 00:02:07,580] jepsen worker 3 - jepsen.print 3	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:07,726] jepsen worker 4 - jepsen.print 4	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:07,755] jepsen worker 4 - jepsen.print 4	:ok	:read	3
+control | INFO [2026-03-01 00:02:07,733] jepsen worker 1 - jepsen.print 1	:invoke	:write	0
+control | INFO [2026-03-01 00:02:07,736] jepsen worker 0 - jepsen.print 0	:invoke	:write	0
+control | INFO [2026-03-01 00:02:07,759] jepsen worker 4 - jepsen.print 4	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:07,782] jepsen worker 3 - jepsen.print 3	:ok	:read	3
+control | INFO [2026-03-01 00:02:07,786] jepsen worker 3 - jepsen.print 3	:invoke	:cas	[2 2]
+control | INFO [2026-03-01 00:02:07,851] jepsen worker 0 - jepsen.print 0	:ok	:write	0
+control | INFO [2026-03-01 00:02:07,853] jepsen worker 0 - jepsen.print 0	:invoke	:write	4
+control | INFO [2026-03-01 00:02:07,857] jepsen worker 3 - jepsen.print 3	:fail	:cas	[2 2]
+control | INFO [2026-03-01 00:02:07,859] jepsen worker 4 - jepsen.print 4	:ok	:read	0
+control | INFO [2026-03-01 00:02:07,896] jepsen worker 0 - jepsen.print 0	:ok	:write	4
+control | INFO [2026-03-01 00:02:07,906] jepsen worker 1 - jepsen.print 1	:ok	:write	0
+control | INFO [2026-03-01 00:02:07,906] jepsen worker 3 - jepsen.print 3	:invoke	:cas	[3 1]
+control | INFO [2026-03-01 00:02:07,906] jepsen worker 0 - jepsen.print 0	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:07,914] jepsen worker 4 - jepsen.print 4	:invoke	:cas	[2 0]
+control | INFO [2026-03-01 00:02:07,921] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[3 4]
+control | INFO [2026-03-01 00:02:07,934] jepsen worker 3 - jepsen.print 3	:fail	:cas	[3 1]
+control | INFO [2026-03-01 00:02:07,939] jepsen worker 3 - jepsen.print 3	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:07,944] jepsen worker 0 - jepsen.print 0	:ok	:read	4
+control | INFO [2026-03-01 00:02:07,945] jepsen worker 4 - jepsen.print 4	:fail	:cas	[2 0]
+control | INFO [2026-03-01 00:02:07,955] jepsen worker 4 - jepsen.print 4	:invoke	:cas	[1 4]
+control | INFO [2026-03-01 00:02:07,958] jepsen worker 1 - jepsen.print 1	:fail	:cas	[3 4]
+control | INFO [2026-03-01 00:02:07,962] jepsen worker 3 - jepsen.print 3	:ok	:read	4
+control | INFO [2026-03-01 00:02:07,967] jepsen worker 3 - jepsen.print 3	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:07,981] jepsen worker 4 - jepsen.print 4	:fail	:cas	[1 4]
+control | INFO [2026-03-01 00:02:07,982] jepsen worker 0 - jepsen.print 0	:invoke	:cas	[1 3]
+control | INFO [2026-03-01 00:02:07,987] jepsen worker 4 - jepsen.print 4	:invoke	:cas	[0 2]
+control | INFO [2026-03-01 00:02:08,000] jepsen worker 3 - jepsen.print 3	:ok	:read	4
+control | INFO [2026-03-01 00:02:08,015] jepsen worker 1 - jepsen.print 1	:invoke	:write	1
+control | INFO [2026-03-01 00:02:08,021] jepsen worker 4 - jepsen.print 4	:fail	:cas	[0 2]
+control | INFO [2026-03-01 00:02:08,025] jepsen worker 0 - jepsen.print 0	:fail	:cas	[1 3]
+control | INFO [2026-03-01 00:02:08,037] jepsen worker 1 - jepsen.print 1	:ok	:write	1
+control | INFO [2026-03-01 00:02:08,045] jepsen worker 0 - jepsen.print 0	:invoke	:cas	[4 0]
+control | INFO [2026-03-01 00:02:08,055] jepsen worker 0 - jepsen.print 0	:fail	:cas	[4 0]
+control | INFO [2026-03-01 00:02:08,066] jepsen worker 0 - jepsen.print 0	:invoke	:write	1
+control | INFO [2026-03-01 00:02:08,083] jepsen worker 0 - jepsen.print 0	:ok	:write	1
+control | INFO [2026-03-01 00:02:08,115] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[4 2]
+control | INFO [2026-03-01 00:02:08,131] jepsen worker 3 - jepsen.print 3	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:08,162] jepsen worker 4 - jepsen.print 4	:invoke	:write	1
+control | INFO [2026-03-01 00:02:08,189] jepsen worker 4 - jepsen.print 4	:ok	:write	1
+control | INFO [2026-03-01 00:02:08,190] jepsen worker 1 - jepsen.print 1	:fail	:cas	[4 2]
+control | INFO [2026-03-01 00:02:08,189] jepsen worker 3 - jepsen.print 3	:ok	:read	1
+control | INFO [2026-03-01 00:02:08,205] jepsen worker 4 - jepsen.print 4	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:08,210] jepsen worker 0 - jepsen.print 0	:invoke	:cas	[0 1]
+control | INFO [2026-03-01 00:02:08,216] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[1 1]
+control | INFO [2026-03-01 00:02:08,245] jepsen worker 3 - jepsen.print 3	:invoke	:write	3
+control | INFO [2026-03-01 00:02:08,248] jepsen worker 4 - jepsen.print 4	:ok	:read	1
+control | INFO [2026-03-01 00:02:08,249] jepsen worker 0 - jepsen.print 0	:fail	:cas	[0 1]
+control | INFO [2026-03-01 00:02:08,251] jepsen worker 1 - jepsen.print 1	:ok	:cas	[1 1]
+control | INFO [2026-03-01 00:02:08,291] jepsen worker 3 - jepsen.print 3	:ok	:write	3
+control | INFO [2026-03-01 00:02:08,302] jepsen worker 1 - jepsen.print 1	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:08,323] jepsen worker 1 - jepsen.print 1	:ok	:read	3
+control | INFO [2026-03-01 00:02:08,493] jepsen worker 3 - jepsen.print 3	:invoke	:cas	[3 1]
+control | INFO [2026-03-01 00:02:08,583] jepsen worker 3 - jepsen.print 3	:ok	:cas	[3 1]
+control | INFO [2026-03-01 00:02:08,654] jepsen worker 0 - jepsen.print 0	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:08,658] jepsen worker 4 - jepsen.print 4	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:08,673] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[4 3]
+control | INFO [2026-03-01 00:02:08,714] jepsen worker 4 - jepsen.print 4	:ok	:read	1
+control | INFO [2026-03-01 00:02:08,783] jepsen worker 0 - jepsen.print 0	:ok	:read	1
+control | INFO [2026-03-01 00:02:08,783] jepsen worker 0 - jepsen.print 0	:invoke	:cas	[3 2]
+control | INFO [2026-03-01 00:02:08,830] jepsen worker 3 - jepsen.print 3	:invoke	:cas	[4 0]
+control | INFO [2026-03-01 00:02:08,839] jepsen worker 0 - jepsen.print 0	:fail	:cas	[3 2]
+control | INFO [2026-03-01 00:02:08,841] jepsen worker 3 - jepsen.print 3	:fail	:cas	[4 0]
+control | INFO [2026-03-01 00:02:08,865] jepsen worker 3 - jepsen.print 3	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:08,871] jepsen worker 4 - jepsen.print 4	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:08,874] jepsen worker 1 - jepsen.print 1	:fail	:cas	[4 3]
+control | INFO [2026-03-01 00:02:08,910] jepsen worker 3 - jepsen.print 3	:ok	:read	1
+control | INFO [2026-03-01 00:02:08,981] jepsen worker 3 - jepsen.print 3	:invoke	:write	0
+control | INFO [2026-03-01 00:02:08,996] jepsen worker 0 - jepsen.print 0	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:09,058] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[1 4]
+control | INFO [2026-03-01 00:02:09,157] jepsen worker 0 - jepsen.print 0	:ok	:read	1
+control | INFO [2026-03-01 00:02:09,206] jepsen worker 0 - jepsen.print 0	:invoke	:cas	[3 3]
+control | INFO [2026-03-01 00:02:08,912] jepsen worker 4 - jepsen.print 4	:ok	:read	1
+control | INFO [2026-03-01 00:02:09,208] jepsen worker 4 - jepsen.print 4	:invoke	:write	1
+control | INFO [2026-03-01 00:02:09,175] jepsen worker 3 - jepsen.print 3	:ok	:write	0
+control | INFO [2026-03-01 00:02:09,179] jepsen worker 1 - jepsen.print 1	:fail	:cas	[1 4]
+control | INFO [2026-03-01 00:02:09,221] jepsen worker 1 - jepsen.print 1	:invoke	:write	3
+control | INFO [2026-03-01 00:02:09,301] jepsen worker 1 - jepsen.print 1	:ok	:write	3
+control | INFO [2026-03-01 00:02:09,302] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[3 3]
+control | INFO [2026-03-01 00:02:09,303] jepsen worker 3 - jepsen.print 3	:invoke	:cas	[0 2]
+control | INFO [2026-03-01 00:02:09,335] jepsen worker 0 - jepsen.print 0	:ok	:cas	[3 3]
+control | INFO [2026-03-01 00:02:09,363] jepsen worker 0 - jepsen.print 0	:invoke	:write	0
+control | INFO [2026-03-01 00:02:09,390] jepsen worker 4 - jepsen.print 4	:ok	:write	1
+control | INFO [2026-03-01 00:02:09,391] jepsen worker 4 - jepsen.print 4	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:09,466] jepsen worker 4 - jepsen.print 4	:ok	:read	1
+control | INFO [2026-03-01 00:02:09,490] jepsen worker 4 - jepsen.print 4	:invoke	:cas	[4 4]
+control | INFO [2026-03-01 00:02:09,494] jepsen worker 3 - jepsen.print 3	:fail	:cas	[0 2]
+control | INFO [2026-03-01 00:02:09,496] jepsen worker 1 - jepsen.print 1	:fail	:cas	[3 3]
+control | INFO [2026-03-01 00:02:09,507] jepsen worker 0 - jepsen.print 0	:ok	:write	0
+control | INFO [2026-03-01 00:02:09,512] jepsen worker 0 - jepsen.print 0	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:09,531] jepsen worker 0 - jepsen.print 0	:ok	:read	0
+control | INFO [2026-03-01 00:02:09,538] jepsen worker 4 - jepsen.print 4	:fail	:cas	[4 4]
+control | INFO [2026-03-01 00:02:09,539] jepsen worker 1 - jepsen.print 1	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:09,578] jepsen worker 1 - jepsen.print 1	:ok	:read	0
+control | INFO [2026-03-01 00:02:09,580] jepsen worker 3 - jepsen.print 3	:invoke	:cas	[0 0]
+control | INFO [2026-03-01 00:02:09,587] jepsen worker 3 - jepsen.print 3	:ok	:cas	[0 0]
+control | INFO [2026-03-01 00:02:09,590] jepsen worker 3 - jepsen.print 3	:invoke	:write	1
+control | INFO [2026-03-01 00:02:09,607] jepsen worker 3 - jepsen.print 3	:ok	:write	1
+control | INFO [2026-03-01 00:02:09,609] jepsen worker 4 - jepsen.print 4	:invoke	:write	0
+control | INFO [2026-03-01 00:02:09,631] jepsen worker 4 - jepsen.print 4	:ok	:write	0
+control | INFO [2026-03-01 00:02:09,641] jepsen worker 0 - jepsen.print 0	:invoke	:cas	[1 1]
+control | INFO [2026-03-01 00:02:09,652] jepsen worker 0 - jepsen.print 0	:fail	:cas	[1 1]
+control | INFO [2026-03-01 00:02:09,673] jepsen worker 0 - jepsen.print 0	:invoke	:write	3
+control | INFO [2026-03-01 00:02:09,683] jepsen worker 0 - jepsen.print 0	:ok	:write	3
+control | INFO [2026-03-01 00:02:09,686] jepsen worker 0 - jepsen.print 0	:invoke	:cas	[3 4]
+control | INFO [2026-03-01 00:02:09,703] jepsen worker 0 - jepsen.print 0	:ok	:cas	[3 4]
+control | INFO [2026-03-01 00:02:09,709] jepsen worker 1 - jepsen.print 1	:invoke	:write	4
+control | INFO [2026-03-01 00:02:09,716] jepsen worker 1 - jepsen.print 1	:ok	:write	4
+control | INFO [2026-03-01 00:02:09,719] jepsen worker 3 - jepsen.print 3	:invoke	:write	3
+control | INFO [2026-03-01 00:02:09,752] jepsen worker 3 - jepsen.print 3	:ok	:write	3
+control | INFO [2026-03-01 00:02:09,797] jepsen worker 3 - jepsen.print 3	:invoke	:write	0
+control | INFO [2026-03-01 00:02:09,818] jepsen worker 4 - jepsen.print 4	:invoke	:cas	[0 4]
+control | INFO [2026-03-01 00:02:09,825] jepsen worker 3 - jepsen.print 3	:ok	:write	0
+control | INFO [2026-03-01 00:02:09,850] jepsen worker 0 - jepsen.print 0	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:09,832] jepsen worker 4 - jepsen.print 4	:ok	:cas	[0 4]
+control | INFO [2026-03-01 00:02:09,857] jepsen worker 1 - jepsen.print 1	:invoke	:write	2
+control | INFO [2026-03-01 00:02:09,958] jepsen worker 3 - jepsen.print 3	:invoke	:write	0
+control | INFO [2026-03-01 00:02:09,961] jepsen worker 4 - jepsen.print 4	:invoke	:write	2
+control | INFO [2026-03-01 00:02:09,976] jepsen worker 0 - jepsen.print 0	:ok	:read	4
+control | INFO [2026-03-01 00:02:09,999] jepsen worker 4 - jepsen.print 4	:ok	:write	2
+control | INFO [2026-03-01 00:02:10,001] jepsen worker 1 - jepsen.print 1	:ok	:write	2
+control | INFO [2026-03-01 00:02:10,005] jepsen worker 4 - jepsen.print 4	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:10,027] jepsen worker 4 - jepsen.print 4	:ok	:read	2
+control | INFO [2026-03-01 00:02:10,032] jepsen worker 3 - jepsen.print 3	:ok	:write	0
+control | INFO [2026-03-01 00:02:10,035] jepsen worker 3 - jepsen.print 3	:invoke	:cas	[4 2]
+control | INFO [2026-03-01 00:02:10,058] jepsen worker 3 - jepsen.print 3	:fail	:cas	[4 2]
+control | INFO [2026-03-01 00:02:10,065] jepsen worker 4 - jepsen.print 4	:invoke	:cas	[3 0]
+control | INFO [2026-03-01 00:02:10,076] jepsen worker 0 - jepsen.print 0	:invoke	:write	0
+control | INFO [2026-03-01 00:02:10,080] jepsen worker 4 - jepsen.print 4	:fail	:cas	[3 0]
+control | INFO [2026-03-01 00:02:10,129] jepsen worker 1 - jepsen.print 1	:invoke	:write	3
+control | INFO [2026-03-01 00:02:10,133] jepsen worker 3 - jepsen.print 3	:invoke	:cas	[1 2]
+control | INFO [2026-03-01 00:02:10,201] jepsen worker 4 - jepsen.print 4	:invoke	:write	2
+control | INFO [2026-03-01 00:02:10,219] jepsen worker 0 - jepsen.print 0	:ok	:write	0
+control | INFO [2026-03-01 00:02:10,222] jepsen worker 4 - jepsen.print 4	:ok	:write	2
+control | INFO [2026-03-01 00:02:10,271] jepsen worker 4 - jepsen.print 4	:invoke	:cas	[1 4]
+control | INFO [2026-03-01 00:02:10,273] jepsen worker 0 - jepsen.print 0	:invoke	:write	0
+control | INFO [2026-03-01 00:02:10,280] jepsen worker 0 - jepsen.print 0	:ok	:write	0
+control | INFO [2026-03-01 00:02:10,283] jepsen worker 3 - jepsen.print 3	:fail	:cas	[1 2]
+control | INFO [2026-03-01 00:02:10,299] jepsen worker 4 - jepsen.print 4	:fail	:cas	[1 4]
+control | INFO [2026-03-01 00:02:10,327] jepsen worker 4 - jepsen.print 4	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:10,346] jepsen worker 4 - jepsen.print 4	:ok	:read	0
+control | INFO [2026-03-01 00:02:10,350] jepsen worker 0 - jepsen.print 0	:invoke	:cas	[3 2]
+control | INFO [2026-03-01 00:02:10,377] jepsen worker 3 - jepsen.print 3	:invoke	:cas	[4 1]
+control | INFO [2026-03-01 00:02:10,391] jepsen worker 3 - jepsen.print 3	:fail	:cas	[4 1]
+control | INFO [2026-03-01 00:02:10,399] jepsen worker 3 - jepsen.print 3	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:10,403] jepsen worker 0 - jepsen.print 0	:fail	:cas	[3 2]
+control | INFO [2026-03-01 00:02:10,328] jepsen worker 1 - jepsen.print 1	:ok	:write	3
+control | INFO [2026-03-01 00:02:10,413] jepsen worker 1 - jepsen.print 1	:invoke	:write	2
+control | INFO [2026-03-01 00:02:10,379] jepsen worker 4 - jepsen.print 4	:invoke	:cas	[2 4]
+control | INFO [2026-03-01 00:02:10,454] jepsen worker 3 - jepsen.print 3	:ok	:read	0
+control | INFO [2026-03-01 00:02:10,456] jepsen worker 3 - jepsen.print 3	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:10,486] jepsen worker 0 - jepsen.print 0	:invoke	:cas	[3 3]
+control | INFO [2026-03-01 00:02:10,541] jepsen worker 4 - jepsen.print 4	:ok	:cas	[2 4]
+control | INFO [2026-03-01 00:02:10,542] jepsen worker 1 - jepsen.print 1	:ok	:write	2
+control | INFO [2026-03-01 00:02:10,582] jepsen worker 3 - jepsen.print 3	:ok	:read	2
+control | INFO [2026-03-01 00:02:10,610] jepsen worker 1 - jepsen.print 1	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:10,661] jepsen worker 3 - jepsen.print 3	:invoke	:write	3
+control | INFO [2026-03-01 00:02:10,674] jepsen worker 1 - jepsen.print 1	:ok	:read	4
+control | INFO [2026-03-01 00:02:10,727] jepsen worker 0 - jepsen.print 0	:fail	:cas	[3 3]
+control | INFO [2026-03-01 00:02:10,729] jepsen worker 1 - jepsen.print 1	:invoke	:write	0
+control | INFO [2026-03-01 00:02:10,738] jepsen worker 4 - jepsen.print 4	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:10,743] jepsen worker 0 - jepsen.print 0	:invoke	:write	0
+control | INFO [2026-03-01 00:02:10,796] jepsen worker 1 - jepsen.print 1	:ok	:write	0
+control | INFO [2026-03-01 00:02:10,800] jepsen worker 3 - jepsen.print 3	:ok	:write	3
+control | INFO [2026-03-01 00:02:10,801] jepsen worker 0 - jepsen.print 0	:ok	:write	0
+control | INFO [2026-03-01 00:02:10,843] jepsen worker 3 - jepsen.print 3	:invoke	:write	1
+control | INFO [2026-03-01 00:02:10,851] jepsen worker 4 - jepsen.print 4	:ok	:read	3
+control | INFO [2026-03-01 00:02:10,898] jepsen worker 0 - jepsen.print 0	:invoke	:write	4
+control | INFO [2026-03-01 00:02:10,903] jepsen worker 3 - jepsen.print 3	:ok	:write	1
+control | INFO [2026-03-01 00:02:10,905] jepsen worker 3 - jepsen.print 3	:invoke	:write	3
+control | INFO [2026-03-01 00:02:10,898] jepsen worker 1 - jepsen.print 1	:invoke	:write	0
+control | INFO [2026-03-01 00:02:10,913] jepsen worker 4 - jepsen.print 4	:invoke	:write	3
+control | INFO [2026-03-01 00:02:10,916] jepsen worker 1 - jepsen.print 1	:ok	:write	0
+control | INFO [2026-03-01 00:02:10,938] jepsen worker 0 - jepsen.print 0	:ok	:write	4
+control | INFO [2026-03-01 00:02:10,957] jepsen worker 1 - jepsen.print 1	:invoke	:write	3
+control | INFO [2026-03-01 00:02:10,982] jepsen worker 0 - jepsen.print 0	:invoke	:cas	[3 3]
+control | INFO [2026-03-01 00:02:10,992] jepsen worker 1 - jepsen.print 1	:ok	:write	3
+control | INFO [2026-03-01 00:02:11,015] jepsen worker 0 - jepsen.print 0	:ok	:cas	[3 3]
+control | INFO [2026-03-01 00:02:11,085] jepsen worker 4 - jepsen.print 4	:ok	:write	3
+control | INFO [2026-03-01 00:02:11,086] jepsen worker 3 - jepsen.print 3	:ok	:write	3
+control | INFO [2026-03-01 00:02:11,094] jepsen worker 3 - jepsen.print 3	:invoke	:write	3
+control | INFO [2026-03-01 00:02:11,180] jepsen worker 3 - jepsen.print 3	:ok	:write	3
+control | INFO [2026-03-01 00:02:11,193] jepsen worker 4 - jepsen.print 4	:invoke	:cas	[4 0]
+control | INFO [2026-03-01 00:02:11,208] jepsen worker 0 - jepsen.print 0	:invoke	:cas	[3 2]
+control | INFO [2026-03-01 00:02:11,242] jepsen worker 4 - jepsen.print 4	:fail	:cas	[4 0]
+control | INFO [2026-03-01 00:02:11,248] jepsen worker 0 - jepsen.print 0	:ok	:cas	[3 2]
+control | INFO [2026-03-01 00:02:11,269] jepsen worker 0 - jepsen.print 0	:invoke	:write	3
+control | INFO [2026-03-01 00:02:11,347] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[2 0]
+control | INFO [2026-03-01 00:02:11,401] jepsen worker 3 - jepsen.print 3	:invoke	:cas	[4 2]
+control | INFO [2026-03-01 00:02:11,413] jepsen worker 3 - jepsen.print 3	:fail	:cas	[4 2]
+control | INFO [2026-03-01 00:02:11,415] jepsen worker 0 - jepsen.print 0	:ok	:write	3
+control | INFO [2026-03-01 00:02:11,425] jepsen worker 1 - jepsen.print 1	:fail	:cas	[2 0]
+control | INFO [2026-03-01 00:02:11,425] jepsen worker 3 - jepsen.print 3	:invoke	:write	0
+control | INFO [2026-03-01 00:02:11,474] jepsen worker 5 - jepsen.print 5	:fail	:read	nil	:timeout
+control | INFO [2026-03-01 00:02:11,488] jepsen worker 4 - jepsen.print 4	:invoke	:write	4
+control | INFO [2026-03-01 00:02:11,540] jepsen worker 4 - jepsen.print 4	:ok	:write	4
+control | INFO [2026-03-01 00:02:11,558] jepsen worker nemesis - jepsen.print :nemesis	:info	:stop	nil
+control | INFO [2026-03-01 00:02:11,559] jepsen worker 5 - jepsen.print 5	:invoke	:cas	[4 1]
+control | INFO [2026-03-01 00:02:11,569] jepsen worker 0 - jepsen.print 0	:invoke	:write	0
+control | INFO [2026-03-01 00:02:11,575] jepsen worker 3 - jepsen.print 3	:ok	:write	0
+control | INFO [2026-03-01 00:02:11,578] jepsen worker 3 - jepsen.print 3	:invoke	:write	4
+control | INFO [2026-03-01 00:02:11,577] jepsen worker 1 - jepsen.print 1	:invoke	:write	3
+control | INFO [2026-03-01 00:02:11,597] jepsen worker 4 - jepsen.print 4	:invoke	:write	1
+control | INFO [2026-03-01 00:02:11,658] jepsen worker 1 - jepsen.print 1	:ok	:write	3
+control | INFO [2026-03-01 00:02:11,666] jepsen worker 1 - jepsen.print 1	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:11,682] jepsen worker 4 - jepsen.print 4	:ok	:write	1
+control | INFO [2026-03-01 00:02:11,719] jepsen worker 4 - jepsen.print 4	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:11,684] jepsen worker 0 - jepsen.print 0	:ok	:write	0
+control | INFO [2026-03-01 00:02:11,730] jepsen worker 0 - jepsen.print 0	:invoke	:write	2
+control | INFO [2026-03-01 00:02:11,685] jepsen worker 3 - jepsen.print 3	:ok	:write	4
+control | INFO [2026-03-01 00:02:11,697] jepsen worker 2 - jepsen.print 2	:info	:cas	[0 0]	:timeout
+control | INFO [2026-03-01 00:02:11,702] jepsen worker 1 - jepsen.print 1	:ok	:read	4
+control | INFO [2026-03-01 00:02:11,746] jepsen worker 1 - jepsen.print 1	:invoke	:write	3
+control | INFO [2026-03-01 00:02:11,749] jepsen worker nemesis - jepsen.print :nemesis	:info	:stop	:network-healed
+control | INFO [2026-03-01 00:02:11,813] jepsen worker 1 - jepsen.print 1	:ok	:write	3
+control | INFO [2026-03-01 00:02:11,814] jepsen worker 4 - jepsen.print 4	:ok	:read	4
+control | INFO [2026-03-01 00:02:11,826] jepsen worker 0 - jepsen.print 0	:ok	:write	2
+control | INFO [2026-03-01 00:02:11,845] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[0 4]
+control | INFO [2026-03-01 00:02:11,879] jepsen worker 1 - jepsen.print 1	:fail	:cas	[0 4]
+control | INFO [2026-03-01 00:02:11,890] jepsen worker 2 - jepsen.print 8	:invoke	:write	0
+control | INFO [2026-03-01 00:02:11,922] jepsen worker 3 - jepsen.print 3	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:11,928] jepsen worker 3 - jepsen.print 3	:ok	:read	3
+control | INFO [2026-03-01 00:02:11,931] jepsen worker 4 - jepsen.print 4	:invoke	:write	2
+control | INFO [2026-03-01 00:02:11,977] jepsen worker 0 - jepsen.print 0	:invoke	:cas	[3 0]
+control | INFO [2026-03-01 00:02:11,980] jepsen worker 4 - jepsen.print 4	:ok	:write	2
+control | INFO [2026-03-01 00:02:11,993] jepsen worker 0 - jepsen.print 0	:fail	:cas	[3 0]
+control | INFO [2026-03-01 00:02:11,997] jepsen worker 0 - jepsen.print 0	:invoke	:write	2
+control | INFO [2026-03-01 00:02:12,004] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[1 1]
+control | INFO [2026-03-01 00:02:12,011] jepsen worker 0 - jepsen.print 0	:ok	:write	2
+control | INFO [2026-03-01 00:02:12,014] jepsen worker 1 - jepsen.print 1	:fail	:cas	[1 1]
+control | INFO [2026-03-01 00:02:12,018] jepsen worker 1 - jepsen.print 1	:invoke	:write	2
+control | INFO [2026-03-01 00:02:12,025] jepsen worker 3 - jepsen.print 3	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:12,053] jepsen worker 1 - jepsen.print 1	:ok	:write	2
+control | INFO [2026-03-01 00:02:12,091] jepsen worker 4 - jepsen.print 4	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:12,097] jepsen worker 0 - jepsen.print 0	:invoke	:cas	[2 4]
+control | INFO [2026-03-01 00:02:12,126] jepsen worker 3 - jepsen.print 3	:ok	:read	2
+control | INFO [2026-03-01 00:02:12,130] jepsen worker 1 - jepsen.print 1	:invoke	:write	4
+control | INFO [2026-03-01 00:02:12,186] jepsen worker 3 - jepsen.print 3	:invoke	:write	1
+control | INFO [2026-03-01 00:02:12,237] jepsen worker 0 - jepsen.print 0	:fail	:cas	[2 4]
+control | INFO [2026-03-01 00:02:12,237] jepsen worker 0 - jepsen.print 0	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:12,243] jepsen worker 1 - jepsen.print 1	:ok	:write	4
+control | INFO [2026-03-01 00:02:12,246] jepsen worker 4 - jepsen.print 4	:ok	:read	2
+control | INFO [2026-03-01 00:02:12,286] jepsen worker 1 - jepsen.print 1	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:12,345] jepsen worker 1 - jepsen.print 1	:ok	:read	4
+control | INFO [2026-03-01 00:02:12,351] jepsen worker 3 - jepsen.print 3	:ok	:write	1
+control | INFO [2026-03-01 00:02:12,368] jepsen worker 0 - jepsen.print 0	:ok	:read	4
+control | INFO [2026-03-01 00:02:12,423] jepsen worker 3 - jepsen.print 3	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:12,433] jepsen worker 3 - jepsen.print 3	:ok	:read	1
+control | INFO [2026-03-01 00:02:12,458] jepsen worker 4 - jepsen.print 4	:invoke	:write	0
+control | INFO [2026-03-01 00:02:12,462] jepsen worker 0 - jepsen.print 0	:invoke	:write	4
+control | INFO [2026-03-01 00:02:12,500] jepsen worker 3 - jepsen.print 3	:invoke	:cas	[0 2]
+control | INFO [2026-03-01 00:02:12,503] jepsen worker 1 - jepsen.print 1	:invoke	:write	1
+control | INFO [2026-03-01 00:02:12,641] jepsen worker 0 - jepsen.print 0	:ok	:write	4
+control | INFO [2026-03-01 00:02:12,641] jepsen worker 0 - jepsen.print 0	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:12,644] jepsen worker 4 - jepsen.print 4	:ok	:write	0
+control | INFO [2026-03-01 00:02:12,659] jepsen worker 4 - jepsen.print 4	:invoke	:write	2
+control | INFO [2026-03-01 00:02:12,663] jepsen worker 1 - jepsen.print 1	:ok	:write	1
+control | INFO [2026-03-01 00:02:12,667] jepsen worker 3 - jepsen.print 3	:fail	:cas	[0 2]
+control | INFO [2026-03-01 00:02:12,685] jepsen worker 3 - jepsen.print 3	:invoke	:cas	[1 4]
+control | INFO [2026-03-01 00:02:12,722] jepsen worker 1 - jepsen.print 1	:invoke	:write	1
+control | INFO [2026-03-01 00:02:12,844] jepsen worker 0 - jepsen.print 0	:ok	:read	1
+control | INFO [2026-03-01 00:02:12,890] jepsen worker 0 - jepsen.print 0	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:12,895] jepsen worker 3 - jepsen.print 3	:fail	:cas	[1 4]
+control | INFO [2026-03-01 00:02:12,903] jepsen worker 3 - jepsen.print 3	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:12,905] jepsen worker 4 - jepsen.print 4	:ok	:write	2
+control | INFO [2026-03-01 00:02:12,902] jepsen worker 1 - jepsen.print 1	:ok	:write	1
+control | INFO [2026-03-01 00:02:12,934] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[0 1]
+control | INFO [2026-03-01 00:02:12,972] jepsen worker 1 - jepsen.print 1	:fail	:cas	[0 1]
+control | INFO [2026-03-01 00:02:12,973] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[4 3]
+control | INFO [2026-03-01 00:02:12,979] jepsen worker 0 - jepsen.print 0	:ok	:read	1
+control | INFO [2026-03-01 00:02:12,980] jepsen worker 4 - jepsen.print 4	:invoke	:cas	[0 4]
+control | INFO [2026-03-01 00:02:12,990] jepsen worker 1 - jepsen.print 1	:fail	:cas	[4 3]
+control | INFO [2026-03-01 00:02:12,991] jepsen worker 3 - jepsen.print 3	:ok	:read	1
+control | INFO [2026-03-01 00:02:12,999] jepsen worker 3 - jepsen.print 3	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:13,007] jepsen worker 4 - jepsen.print 4	:fail	:cas	[0 4]
+control | INFO [2026-03-01 00:02:13,011] jepsen worker 3 - jepsen.print 3	:ok	:read	1
+control | INFO [2026-03-01 00:02:13,021] jepsen worker 3 - jepsen.print 3	:invoke	:write	0
+control | INFO [2026-03-01 00:02:13,037] jepsen worker 3 - jepsen.print 3	:ok	:write	0
+control | INFO [2026-03-01 00:02:13,038] jepsen worker 4 - jepsen.print 4	:invoke	:write	0
+control | INFO [2026-03-01 00:02:13,066] jepsen worker 4 - jepsen.print 4	:ok	:write	0
+control | INFO [2026-03-01 00:02:13,081] jepsen worker 0 - jepsen.print 0	:invoke	:cas	[3 3]
+control | INFO [2026-03-01 00:02:13,089] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[0 0]
+control | INFO [2026-03-01 00:02:13,105] jepsen worker 0 - jepsen.print 0	:fail	:cas	[3 3]
+control | INFO [2026-03-01 00:02:13,107] jepsen worker 1 - jepsen.print 1	:ok	:cas	[0 0]
+control | INFO [2026-03-01 00:02:13,127] jepsen worker 1 - jepsen.print 1	:invoke	:write	2
+control | INFO [2026-03-01 00:02:13,127] jepsen worker 0 - jepsen.print 0	:invoke	:write	1
+control | INFO [2026-03-01 00:02:13,192] jepsen worker 3 - jepsen.print 3	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:13,217] jepsen worker 0 - jepsen.print 0	:ok	:write	1
+control | INFO [2026-03-01 00:02:13,222] jepsen worker 3 - jepsen.print 3	:ok	:read	1
+control | INFO [2026-03-01 00:02:13,234] jepsen worker 1 - jepsen.print 1	:ok	:write	2
+control | INFO [2026-03-01 00:02:13,261] jepsen worker 3 - jepsen.print 3	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:13,272] jepsen worker 4 - jepsen.print 4	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:13,276] jepsen worker 3 - jepsen.print 3	:ok	:read	1
+control | INFO [2026-03-01 00:02:13,278] jepsen worker 0 - jepsen.print 0	:invoke	:write	4
+control | INFO [2026-03-01 00:02:13,289] jepsen worker 4 - jepsen.print 4	:ok	:read	1
+control | INFO [2026-03-01 00:02:13,294] jepsen worker 0 - jepsen.print 0	:ok	:write	4
+control | INFO [2026-03-01 00:02:13,301] jepsen worker 0 - jepsen.print 0	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:13,314] jepsen worker 0 - jepsen.print 0	:ok	:read	4
+control | INFO [2026-03-01 00:02:13,394] jepsen worker 0 - jepsen.print 0	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:13,437] jepsen worker 0 - jepsen.print 0	:ok	:read	4
+control | INFO [2026-03-01 00:02:13,438] jepsen worker 3 - jepsen.print 3	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:13,440] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[4 2]
+control | INFO [2026-03-01 00:02:13,453] jepsen worker 1 - jepsen.print 1	:ok	:cas	[4 2]
+control | INFO [2026-03-01 00:02:13,455] jepsen worker 3 - jepsen.print 3	:ok	:read	2
+control | INFO [2026-03-01 00:02:13,482] jepsen worker 3 - jepsen.print 3	:invoke	:write	0
+control | INFO [2026-03-01 00:02:13,507] jepsen worker 3 - jepsen.print 3	:ok	:write	0
+control | INFO [2026-03-01 00:02:13,509] jepsen worker 4 - jepsen.print 4	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:13,543] jepsen worker 4 - jepsen.print 4	:ok	:read	0
+control | INFO [2026-03-01 00:02:13,544] jepsen worker 0 - jepsen.print 0	:invoke	:cas	[4 1]
+control | INFO [2026-03-01 00:02:13,582] jepsen worker 0 - jepsen.print 0	:fail	:cas	[4 1]
+control | INFO [2026-03-01 00:02:13,608] jepsen worker 0 - jepsen.print 0	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:13,624] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[4 3]
+control | INFO [2026-03-01 00:02:13,659] jepsen worker 5 - jepsen.print 5	:fail	:cas	[4 1]
+control | INFO [2026-03-01 00:02:13,661] jepsen worker 2 - jepsen.print 8	:ok	:write	0
+control | INFO [2026-03-01 00:02:13,668] jepsen worker 2 - jepsen.print 8	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:13,670] jepsen worker 3 - jepsen.print 3	:invoke	:write	4
+control | INFO [2026-03-01 00:02:13,674] jepsen worker 1 - jepsen.print 1	:fail	:cas	[4 3]
+control | INFO [2026-03-01 00:02:13,685] jepsen worker 2 - jepsen.print 8	:ok	:read	0
+control | INFO [2026-03-01 00:02:13,686] jepsen worker 4 - jepsen.print 4	:invoke	:write	1
+control | INFO [2026-03-01 00:02:13,694] jepsen worker 4 - jepsen.print 4	:ok	:write	1
+control | INFO [2026-03-01 00:02:13,700] jepsen worker 4 - jepsen.print 4	:invoke	:cas	[0 1]
+control | INFO [2026-03-01 00:02:13,734] jepsen worker 0 - jepsen.print 0	:ok	:read	1
+control | INFO [2026-03-01 00:02:13,735] jepsen worker 3 - jepsen.print 3	:ok	:write	4
+control | INFO [2026-03-01 00:02:13,766] jepsen worker 5 - jepsen.print 5	:invoke	:write	3
+control | INFO [2026-03-01 00:02:13,788] jepsen worker 0 - jepsen.print 0	:invoke	:write	3
+control | INFO [2026-03-01 00:02:13,812] jepsen worker 4 - jepsen.print 4	:fail	:cas	[0 1]
+control | INFO [2026-03-01 00:02:13,843] jepsen worker 0 - jepsen.print 0	:ok	:write	3
+control | INFO [2026-03-01 00:02:13,844] jepsen worker 5 - jepsen.print 5	:ok	:write	3
+control | INFO [2026-03-01 00:02:13,848] jepsen worker 0 - jepsen.print 0	:invoke	:write	4
+control | INFO [2026-03-01 00:02:13,927] jepsen worker 0 - jepsen.print 0	:ok	:write	4
+control | INFO [2026-03-01 00:02:13,949] jepsen worker 2 - jepsen.print 8	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:13,951] jepsen worker 1 - jepsen.print 1	:invoke	:write	1
+control | INFO [2026-03-01 00:02:14,067] jepsen worker 4 - jepsen.print 4	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:14,073] jepsen worker 0 - jepsen.print 0	:invoke	:cas	[4 3]
+control | INFO [2026-03-01 00:02:14,120] jepsen worker 1 - jepsen.print 1	:ok	:write	1
+control | INFO [2026-03-01 00:02:14,121] jepsen worker 1 - jepsen.print 1	:invoke	:write	3
+control | INFO [2026-03-01 00:02:14,125] jepsen worker 3 - jepsen.print 3	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:14,129] jepsen worker 2 - jepsen.print 8	:ok	:read	1
+control | INFO [2026-03-01 00:02:14,141] jepsen worker 2 - jepsen.print 8	:invoke	:write	1
+control | INFO [2026-03-01 00:02:14,135] jepsen worker 0 - jepsen.print 0	:fail	:cas	[4 3]
+control | INFO [2026-03-01 00:02:14,136] jepsen worker 4 - jepsen.print 4	:ok	:read	1
+control | INFO [2026-03-01 00:02:14,141] jepsen worker 1 - jepsen.print 1	:ok	:write	3
+control | INFO [2026-03-01 00:02:14,183] jepsen worker 4 - jepsen.print 4	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:14,198] jepsen worker 0 - jepsen.print 0	:invoke	:write	2
+control | INFO [2026-03-01 00:02:14,237] jepsen worker 4 - jepsen.print 4	:ok	:read	1
+control | INFO [2026-03-01 00:02:14,241] jepsen worker 4 - jepsen.print 4	:invoke	:cas	[1 2]
+control | INFO [2026-03-01 00:02:14,258] jepsen worker 3 - jepsen.print 3	:ok	:read	1
+control | INFO [2026-03-01 00:02:14,277] jepsen worker 0 - jepsen.print 0	:ok	:write	2
+control | INFO [2026-03-01 00:02:14,282] jepsen worker 0 - jepsen.print 0	:invoke	:cas	[3 3]
+control | INFO [2026-03-01 00:02:14,238] jepsen worker 2 - jepsen.print 8	:ok	:write	1
+control | INFO [2026-03-01 00:02:14,328] jepsen worker 1 - jepsen.print 1	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:14,332] jepsen worker 2 - jepsen.print 8	:invoke	:write	4
+control | INFO [2026-03-01 00:02:14,373] jepsen worker 3 - jepsen.print 3	:invoke	:write	4
+control | INFO [2026-03-01 00:02:14,382] jepsen worker 4 - jepsen.print 4	:fail	:cas	[1 2]
+control | INFO [2026-03-01 00:02:14,405] jepsen worker 4 - jepsen.print 4	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:14,455] jepsen worker 5 - jepsen.print 5	:invoke	:write	4
+control | INFO [2026-03-01 00:02:14,701] jepsen worker 2 - jepsen.print 8	:ok	:write	4
+control | INFO [2026-03-01 00:02:14,703] jepsen worker 5 - jepsen.print 5	:ok	:write	4
+control | INFO [2026-03-01 00:02:14,703] jepsen worker 2 - jepsen.print 8	:invoke	:cas	[4 3]
+control | INFO [2026-03-01 00:02:14,730] jepsen worker 1 - jepsen.print 1	:ok	:read	2
+control | INFO [2026-03-01 00:02:14,738] jepsen worker 3 - jepsen.print 3	:ok	:write	4
+control | INFO [2026-03-01 00:02:14,750] jepsen worker 5 - jepsen.print 5	:invoke	:cas	[0 0]
+control | INFO [2026-03-01 00:02:14,757] jepsen worker 0 - jepsen.print 0	:fail	:cas	[3 3]
+control | INFO [2026-03-01 00:02:14,778] jepsen worker 0 - jepsen.print 0	:invoke	:cas	[2 4]
+control | INFO [2026-03-01 00:02:14,752] jepsen worker 1 - jepsen.print 1	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:14,794] jepsen worker 3 - jepsen.print 3	:invoke	:cas	[0 0]
+control | INFO [2026-03-01 00:02:14,789] jepsen worker 4 - jepsen.print 4	:ok	:read	3
+control | INFO [2026-03-01 00:02:14,790] jepsen worker 5 - jepsen.print 5	:fail	:cas	[0 0]
+control | INFO [2026-03-01 00:02:14,803] jepsen worker 2 - jepsen.print 8	:ok	:cas	[4 3]
+control | INFO [2026-03-01 00:02:14,803] jepsen worker 2 - jepsen.print 8	:invoke	:cas	[4 4]
+control | INFO [2026-03-01 00:02:14,810] jepsen worker 1 - jepsen.print 1	:ok	:read	3
+control | INFO [2026-03-01 00:02:14,844] jepsen worker 4 - jepsen.print 4	:invoke	:write	3
+control | INFO [2026-03-01 00:02:14,859] jepsen worker 1 - jepsen.print 1	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:14,872] jepsen worker 2 - jepsen.print 8	:fail	:cas	[4 4]
+control | INFO [2026-03-01 00:02:14,878] jepsen worker 1 - jepsen.print 1	:ok	:read	3
+control | INFO [2026-03-01 00:02:14,879] jepsen worker 4 - jepsen.print 4	:ok	:write	3
+control | INFO [2026-03-01 00:02:14,879] jepsen worker 5 - jepsen.print 5	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:14,893] jepsen worker 5 - jepsen.print 5	:ok	:read	3
+control | INFO [2026-03-01 00:02:14,908] jepsen worker 3 - jepsen.print 3	:fail	:cas	[0 0]
+control | INFO [2026-03-01 00:02:14,918] jepsen worker 0 - jepsen.print 0	:fail	:cas	[2 4]
+control | INFO [2026-03-01 00:02:14,978] jepsen worker 5 - jepsen.print 5	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:14,998] jepsen worker 0 - jepsen.print 0	:invoke	:write	1
+control | INFO [2026-03-01 00:02:15,001] jepsen worker 5 - jepsen.print 5	:ok	:read	3
+control | INFO [2026-03-01 00:02:15,017] jepsen worker 0 - jepsen.print 0	:ok	:write	1
+control | INFO [2026-03-01 00:02:15,039] jepsen worker 0 - jepsen.print 0	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:15,052] jepsen worker 0 - jepsen.print 0	:ok	:read	1
+control | INFO [2026-03-01 00:02:15,077] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[0 2]
+control | INFO [2026-03-01 00:02:15,085] jepsen worker 1 - jepsen.print 1	:fail	:cas	[0 2]
+control | INFO [2026-03-01 00:02:15,086] jepsen worker 2 - jepsen.print 8	:invoke	:write	1
+control | INFO [2026-03-01 00:02:15,095] jepsen worker 2 - jepsen.print 8	:ok	:write	1
+control | INFO [2026-03-01 00:02:15,156] jepsen worker 3 - jepsen.print 3	:invoke	:write	4
+control | INFO [2026-03-01 00:02:15,179] jepsen worker 4 - jepsen.print 4	:invoke	:cas	[1 0]
+control | INFO [2026-03-01 00:02:15,200] jepsen worker 5 - jepsen.print 5	:invoke	:write	1
+control | INFO [2026-03-01 00:02:15,227] jepsen worker 0 - jepsen.print 0	:invoke	:write	0
+control | INFO [2026-03-01 00:02:15,236] jepsen worker 1 - jepsen.print 1	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:15,248] jepsen worker 5 - jepsen.print 5	:ok	:write	1
+control | INFO [2026-03-01 00:02:15,260] jepsen worker 4 - jepsen.print 4	:ok	:cas	[1 0]
+control | INFO [2026-03-01 00:02:15,261] jepsen worker 1 - jepsen.print 1	:ok	:read	0
+control | INFO [2026-03-01 00:02:15,263] jepsen worker 3 - jepsen.print 3	:ok	:write	4
+control | INFO [2026-03-01 00:02:15,266] jepsen worker 0 - jepsen.print 0	:ok	:write	0
+control | INFO [2026-03-01 00:02:15,283] jepsen worker 1 - jepsen.print 1	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:15,289] jepsen worker 2 - jepsen.print 8	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:15,296] jepsen worker 2 - jepsen.print 8	:ok	:read	0
+control | INFO [2026-03-01 00:02:15,297] jepsen worker 3 - jepsen.print 3	:invoke	:cas	[0 2]
+control | INFO [2026-03-01 00:02:15,301] jepsen worker 1 - jepsen.print 1	:ok	:read	0
+control | INFO [2026-03-01 00:02:15,322] jepsen worker 4 - jepsen.print 4	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:15,331] jepsen worker 5 - jepsen.print 5	:invoke	:write	3
+control | INFO [2026-03-01 00:02:15,350] jepsen worker 4 - jepsen.print 4	:ok	:read	2
+control | INFO [2026-03-01 00:02:15,354] jepsen worker 3 - jepsen.print 3	:ok	:cas	[0 2]
+control | INFO [2026-03-01 00:02:15,354] jepsen worker 0 - jepsen.print 0	:invoke	:cas	[4 2]
+control | INFO [2026-03-01 00:02:15,371] jepsen worker 0 - jepsen.print 0	:fail	:cas	[4 2]
+control | INFO [2026-03-01 00:02:15,375] jepsen worker 5 - jepsen.print 5	:ok	:write	3
+control | INFO [2026-03-01 00:02:15,389] jepsen worker 0 - jepsen.print 0	:invoke	:write	3
+control | INFO [2026-03-01 00:02:15,408] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[3 3]
+control | INFO [2026-03-01 00:02:15,422] jepsen worker 2 - jepsen.print 8	:invoke	:cas	[2 1]
+control | INFO [2026-03-01 00:02:15,429] jepsen worker 0 - jepsen.print 0	:ok	:write	3
+control | INFO [2026-03-01 00:02:15,435] jepsen worker 1 - jepsen.print 1	:ok	:cas	[3 3]
+control | INFO [2026-03-01 00:02:15,439] jepsen worker 2 - jepsen.print 8	:fail	:cas	[2 1]
+control | INFO [2026-03-01 00:02:15,442] jepsen worker 3 - jepsen.print 3	:invoke	:cas	[3 4]
+control | INFO [2026-03-01 00:02:15,486] jepsen worker 3 - jepsen.print 3	:ok	:cas	[3 4]
+control | INFO [2026-03-01 00:02:15,488] jepsen worker 4 - jepsen.print 4	:invoke	:write	0
+control | INFO [2026-03-01 00:02:15,497] jepsen worker 4 - jepsen.print 4	:ok	:write	0
+control | INFO [2026-03-01 00:02:15,536] jepsen worker 5 - jepsen.print 5	:invoke	:write	0
+control | INFO [2026-03-01 00:02:15,544] jepsen worker 5 - jepsen.print 5	:ok	:write	0
+control | INFO [2026-03-01 00:02:15,564] jepsen worker 0 - jepsen.print 0	:invoke	:write	4
+control | INFO [2026-03-01 00:02:15,572] jepsen worker 0 - jepsen.print 0	:ok	:write	4
+control | INFO [2026-03-01 00:02:15,585] jepsen worker 0 - jepsen.print 0	:invoke	:cas	[0 0]
+control | INFO [2026-03-01 00:02:15,591] jepsen worker 1 - jepsen.print 1	:invoke	:write	2
+control | INFO [2026-03-01 00:02:15,597] jepsen worker 2 - jepsen.print 8	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:15,603] jepsen worker 0 - jepsen.print 0	:fail	:cas	[0 0]
+control | INFO [2026-03-01 00:02:15,607] jepsen worker 1 - jepsen.print 1	:ok	:write	2
+control | INFO [2026-03-01 00:02:15,609] jepsen worker 2 - jepsen.print 8	:ok	:read	2
+control | INFO [2026-03-01 00:02:15,612] jepsen worker 3 - jepsen.print 3	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:15,619] jepsen worker 3 - jepsen.print 3	:ok	:read	2
+control | INFO [2026-03-01 00:02:15,625] jepsen worker 4 - jepsen.print 4	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:15,632] jepsen worker 4 - jepsen.print 4	:ok	:read	2
+control | INFO [2026-03-01 00:02:15,641] jepsen worker 5 - jepsen.print 5	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:15,647] jepsen worker 5 - jepsen.print 5	:ok	:read	2
+control | INFO [2026-03-01 00:02:15,654] jepsen worker 0 - jepsen.print 0	:invoke	:cas	[4 3]
+control | INFO [2026-03-01 00:02:15,670] jepsen worker 1 - jepsen.print 1	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:15,670] jepsen worker 0 - jepsen.print 0	:fail	:cas	[4 3]
+control | INFO [2026-03-01 00:02:15,684] jepsen worker 1 - jepsen.print 1	:ok	:read	2
+control | INFO [2026-03-01 00:02:15,684] jepsen worker 2 - jepsen.print 8	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:15,722] jepsen worker 2 - jepsen.print 8	:ok	:read	2
+control | INFO [2026-03-01 00:02:15,723] jepsen worker 2 - jepsen.print 8	:invoke	:cas	[3 4]
+control | INFO [2026-03-01 00:02:15,753] jepsen worker 2 - jepsen.print 8	:fail	:cas	[3 4]
+control | INFO [2026-03-01 00:02:15,775] jepsen worker 3 - jepsen.print 3	:invoke	:cas	[1 4]
+control | INFO [2026-03-01 00:02:15,832] jepsen worker 4 - jepsen.print 4	:invoke	:write	4
+control | INFO [2026-03-01 00:02:15,837] jepsen worker 5 - jepsen.print 5	:invoke	:cas	[4 2]
+control | INFO [2026-03-01 00:02:15,858] jepsen worker 4 - jepsen.print 4	:ok	:write	4
+control | INFO [2026-03-01 00:02:15,933] jepsen worker 0 - jepsen.print 0	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:15,954] jepsen worker 0 - jepsen.print 0	:ok	:read	2
+control | INFO [2026-03-01 00:02:15,955] jepsen worker 1 - jepsen.print 1	:invoke	:write	2
+control | INFO [2026-03-01 00:02:15,959] jepsen worker 3 - jepsen.print 3	:fail	:cas	[1 4]
+control | INFO [2026-03-01 00:02:15,987] jepsen worker 5 - jepsen.print 5	:ok	:cas	[4 2]
+control | INFO [2026-03-01 00:02:16,040] jepsen worker 2 - jepsen.print 8	:invoke	:cas	[2 2]
+control | INFO [2026-03-01 00:02:16,047] jepsen worker 3 - jepsen.print 3	:invoke	:write	0
+control | INFO [2026-03-01 00:02:16,053] jepsen worker 4 - jepsen.print 4	:invoke	:write	3
+control | INFO [2026-03-01 00:02:16,054] jepsen worker 1 - jepsen.print 1	:ok	:write	2
+control | INFO [2026-03-01 00:02:16,057] jepsen worker 3 - jepsen.print 3	:ok	:write	0
+control | INFO [2026-03-01 00:02:16,106] jepsen worker 2 - jepsen.print 8	:ok	:cas	[2 2]
+control | INFO [2026-03-01 00:02:16,129] jepsen worker 4 - jepsen.print 4	:ok	:write	3
+control | INFO [2026-03-01 00:02:16,224] jepsen worker 4 - jepsen.print 4	:invoke	:write	4
+control | INFO [2026-03-01 00:02:16,293] jepsen worker 5 - jepsen.print 5	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:16,308] jepsen worker 5 - jepsen.print 5	:ok	:read	3
+control | INFO [2026-03-01 00:02:16,319] jepsen worker 4 - jepsen.print 4	:ok	:write	4
+control | INFO [2026-03-01 00:02:16,320] jepsen worker 0 - jepsen.print 0	:invoke	:write	1
+control | INFO [2026-03-01 00:02:16,364] jepsen worker 1 - jepsen.print 1	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:16,393] jepsen worker 2 - jepsen.print 8	:invoke	:cas	[1 1]
+control | INFO [2026-03-01 00:02:16,436] jepsen worker 2 - jepsen.print 8	:ok	:cas	[1 1]
+control | INFO [2026-03-01 00:02:16,491] jepsen worker 0 - jepsen.print 0	:ok	:write	1
+control | INFO [2026-03-01 00:02:16,492] jepsen worker 2 - jepsen.print 8	:invoke	:cas	[3 0]
+control | INFO [2026-03-01 00:02:16,501] jepsen worker 1 - jepsen.print 1	:ok	:read	1
+control | INFO [2026-03-01 00:02:16,514] jepsen worker 2 - jepsen.print 8	:fail	:cas	[3 0]
+control | INFO [2026-03-01 00:02:16,577] jepsen worker 3 - jepsen.print 3	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:16,582] jepsen worker 4 - jepsen.print 4	:invoke	:write	0
+control | INFO [2026-03-01 00:02:16,674] jepsen worker 5 - jepsen.print 5	:invoke	:write	0
+control | INFO [2026-03-01 00:02:16,678] jepsen worker 4 - jepsen.print 4	:ok	:write	0
+control | INFO [2026-03-01 00:02:16,687] jepsen worker 0 - jepsen.print 0	:invoke	:write	4
+control | INFO [2026-03-01 00:02:16,708] jepsen worker 1 - jepsen.print 1	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:16,683] jepsen worker 5 - jepsen.print 5	:ok	:write	0
+control | INFO [2026-03-01 00:02:16,740] jepsen worker 1 - jepsen.print 1	:ok	:read	0
+control | INFO [2026-03-01 00:02:16,749] jepsen worker 3 - jepsen.print 3	:ok	:read	1
+control | INFO [2026-03-01 00:02:16,754] jepsen worker nemesis - jepsen.print :nemesis	:info	:start	nil
+control | INFO [2026-03-01 00:02:16,768] jepsen worker 0 - jepsen.print 0	:ok	:write	4
+control | INFO [2026-03-01 00:02:16,772] jepsen worker 2 - jepsen.print 8	:invoke	:cas	[2 2]
+control | INFO [2026-03-01 00:02:16,852] jepsen worker 4 - jepsen.print 4	:invoke	:cas	[1 0]
+control | INFO [2026-03-01 00:02:16,852] jepsen worker 5 - jepsen.print 5	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:16,893] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[1 2]
+control | INFO [2026-03-01 00:02:16,925] jepsen worker 3 - jepsen.print 3	:invoke	:write	1
+control | INFO [2026-03-01 00:02:16,942] jepsen worker 0 - jepsen.print 0	:invoke	:cas	[3 3]
+control | INFO [2026-03-01 00:02:16,982] jepsen worker 2 - jepsen.print 8	:fail	:cas	[2 2]
+control | INFO [2026-03-01 00:02:16,982] jepsen worker 2 - jepsen.print 8	:invoke	:cas	[1 4]
+control | INFO [2026-03-01 00:02:17,078] jepsen worker 3 - jepsen.print 3	:ok	:write	1
+control | INFO [2026-03-01 00:02:17,097] jepsen worker 1 - jepsen.print 1	:ok	:cas	[1 2]
+control | INFO [2026-03-01 00:02:17,098] jepsen worker 2 - jepsen.print 8	:fail	:cas	[1 4]
+control | INFO [2026-03-01 00:02:17,104] jepsen worker 5 - jepsen.print 5	:ok	:read	2
+control | INFO [2026-03-01 00:02:17,104] jepsen worker 0 - jepsen.print 0	:fail	:cas	[3 3]
+control | INFO [2026-03-01 00:02:17,129] jepsen worker 5 - jepsen.print 5	:invoke	:write	2
+control | INFO [2026-03-01 00:02:17,143] jepsen worker nemesis - jepsen.print :nemesis	:info	:start	[:isolated {"n2" #{"n1" "n3"}, "n1" #{"n2"}, "n3" #{"n2"}}]
+control | INFO [2026-03-01 00:02:17,153] jepsen worker 0 - jepsen.print 0	:invoke	:write	4
+control | INFO [2026-03-01 00:02:17,160] jepsen worker 3 - jepsen.print 3	:invoke	:cas	[1 1]
+control | INFO [2026-03-01 00:02:17,209] jepsen worker 1 - jepsen.print 1	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:17,229] jepsen worker 2 - jepsen.print 8	:invoke	:write	3
+control | INFO [2026-03-01 00:02:22,101] jepsen worker 4 - jepsen.print 4	:info	:cas	[1 0]	:timeout
+control | INFO [2026-03-01 00:02:22,109] jepsen worker 4 - jepsen.print 10	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:22,133] jepsen worker 5 - jepsen.print 5	:info	:write	2	:timeout
+control | INFO [2026-03-01 00:02:22,135] jepsen worker 5 - jepsen.print 11	:invoke	:cas	[2 3]
+control | INFO [2026-03-01 00:02:22,146] jepsen worker nemesis - jepsen.print :nemesis	:info	:stop	nil
+control | INFO [2026-03-01 00:02:22,152] jepsen worker 5 - jepsen.print 11	:ok	:cas	[2 3]
+control | INFO [2026-03-01 00:02:22,152] jepsen worker 5 - jepsen.print 11	:invoke	:cas	[3 4]
+control | INFO [2026-03-01 00:02:22,169] jepsen worker 0 - jepsen.print 0	:info	:write	4	:timeout
+control | INFO [2026-03-01 00:02:22,182] jepsen worker 3 - jepsen.print 3	:info	:cas	[1 1]	:timeout
+control | INFO [2026-03-01 00:02:22,184] jepsen worker 3 - jepsen.print 9	:invoke	:cas	[4 3]
+control | INFO [2026-03-01 00:02:22,191] jepsen worker 0 - jepsen.print 6	:invoke	:write	1
+control | INFO [2026-03-01 00:02:22,215] jepsen worker 1 - jepsen.print 1	:fail	:read	nil	:timeout
+control | INFO [2026-03-01 00:02:22,217] jepsen worker 5 - jepsen.print 11	:ok	:cas	[3 4]
+control | INFO [2026-03-01 00:02:22,239] jepsen worker 1 - jepsen.print 1	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:22,245] jepsen worker 5 - jepsen.print 11	:invoke	:write	0
+control | INFO [2026-03-01 00:02:22,337] jepsen worker 2 - jepsen.print 8	:info	:write	3	:timeout
+control | INFO [2026-03-01 00:02:22,338] jepsen worker 2 - jepsen.print 14	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:22,342] jepsen worker 2 - jepsen.print 14	:ok	:read	0
+control | INFO [2026-03-01 00:02:22,349] jepsen worker 5 - jepsen.print 11	:ok	:write	0
+control | INFO [2026-03-01 00:02:22,350] jepsen worker 3 - jepsen.print 9	:fail	:cas	[4 3]
+control | INFO [2026-03-01 00:02:22,374] jepsen worker nemesis - jepsen.print :nemesis	:info	:stop	:network-healed
+control | INFO [2026-03-01 00:02:22,375] jepsen worker 0 - jepsen.print 6	:ok	:write	1
+control | INFO [2026-03-01 00:02:22,383] jepsen worker 5 - jepsen.print 11	:invoke	:write	3
+control | INFO [2026-03-01 00:02:22,405] jepsen worker 5 - jepsen.print 11	:ok	:write	3
+control | INFO [2026-03-01 00:02:22,406] jepsen worker 5 - jepsen.print 11	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:22,410] jepsen worker 0 - jepsen.print 6	:invoke	:cas	[3 0]
+control | INFO [2026-03-01 00:02:22,447] jepsen worker 5 - jepsen.print 11	:ok	:read	3
+control | INFO [2026-03-01 00:02:22,451] jepsen worker 0 - jepsen.print 6	:ok	:cas	[3 0]
+control | INFO [2026-03-01 00:02:22,482] jepsen worker 0 - jepsen.print 6	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:22,582] jepsen worker 2 - jepsen.print 14	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:22,590] jepsen worker 2 - jepsen.print 14	:ok	:read	0
+control | INFO [2026-03-01 00:02:22,623] jepsen worker 0 - jepsen.print 6	:ok	:read	0
+control | INFO [2026-03-01 00:02:22,624] jepsen worker 2 - jepsen.print 14	:invoke	:cas	[1 1]
+control | INFO [2026-03-01 00:02:22,650] jepsen worker 2 - jepsen.print 14	:fail	:cas	[1 1]
+control | INFO [2026-03-01 00:02:22,718] jepsen worker 3 - jepsen.print 9	:invoke	:cas	[2 3]
+control | INFO [2026-03-01 00:02:22,738] jepsen worker 3 - jepsen.print 9	:fail	:cas	[2 3]
+control | INFO [2026-03-01 00:02:22,748] jepsen worker 5 - jepsen.print 11	:invoke	:write	2
+control | INFO [2026-03-01 00:02:22,756] jepsen worker 5 - jepsen.print 11	:ok	:write	2
+control | INFO [2026-03-01 00:02:22,757] jepsen worker 5 - jepsen.print 11	:invoke	:cas	[0 2]
+control | INFO [2026-03-01 00:02:22,766] jepsen worker 0 - jepsen.print 6	:invoke	:cas	[1 2]
+control | INFO [2026-03-01 00:02:22,783] jepsen worker 5 - jepsen.print 11	:fail	:cas	[0 2]
+control | INFO [2026-03-01 00:02:22,795] jepsen worker 0 - jepsen.print 6	:fail	:cas	[1 2]
+control | INFO [2026-03-01 00:02:22,795] jepsen worker 0 - jepsen.print 6	:invoke	:cas	[1 2]
+control | INFO [2026-03-01 00:02:22,822] jepsen worker 2 - jepsen.print 14	:invoke	:cas	[4 3]
+control | INFO [2026-03-01 00:02:22,841] jepsen worker 3 - jepsen.print 9	:invoke	:write	1
+control | INFO [2026-03-01 00:02:22,850] jepsen worker 2 - jepsen.print 14	:fail	:cas	[4 3]
+control | INFO [2026-03-01 00:02:22,859] jepsen worker 0 - jepsen.print 6	:fail	:cas	[1 2]
+control | INFO [2026-03-01 00:02:22,860] jepsen worker 3 - jepsen.print 9	:ok	:write	1
+control | INFO [2026-03-01 00:02:22,866] jepsen worker 3 - jepsen.print 9	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:22,925] jepsen worker 3 - jepsen.print 9	:ok	:read	1
+control | INFO [2026-03-01 00:02:22,926] jepsen worker 5 - jepsen.print 11	:invoke	:cas	[2 1]
+control | INFO [2026-03-01 00:02:22,985] jepsen worker 0 - jepsen.print 6	:invoke	:cas	[3 0]
+control | INFO [2026-03-01 00:02:23,025] jepsen worker 2 - jepsen.print 14	:invoke	:write	2
+control | INFO [2026-03-01 00:02:23,076] jepsen worker 0 - jepsen.print 6	:fail	:cas	[3 0]
+control | INFO [2026-03-01 00:02:23,082] jepsen worker 0 - jepsen.print 6	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:23,090] jepsen worker 0 - jepsen.print 6	:ok	:read	2
+control | INFO [2026-03-01 00:02:23,091] jepsen worker 3 - jepsen.print 9	:invoke	:write	4
+control | INFO [2026-03-01 00:02:23,095] jepsen worker 5 - jepsen.print 11	:fail	:cas	[2 1]
+control | INFO [2026-03-01 00:02:23,096] jepsen worker 2 - jepsen.print 14	:ok	:write	2
+control | INFO [2026-03-01 00:02:23,091] jepsen worker 0 - jepsen.print 6	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:23,129] jepsen worker 5 - jepsen.print 11	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:23,146] jepsen worker 0 - jepsen.print 6	:ok	:read	2
+control | INFO [2026-03-01 00:02:23,157] jepsen worker 0 - jepsen.print 6	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:23,162] jepsen worker 0 - jepsen.print 6	:ok	:read	4
+control | INFO [2026-03-01 00:02:23,151] jepsen worker 3 - jepsen.print 9	:ok	:write	4
+control | INFO [2026-03-01 00:02:23,218] jepsen worker 0 - jepsen.print 6	:invoke	:cas	[4 0]
+control | INFO [2026-03-01 00:02:23,225] jepsen worker 0 - jepsen.print 6	:ok	:cas	[4 0]
+control | INFO [2026-03-01 00:02:23,228] jepsen worker 5 - jepsen.print 11	:ok	:read	4
+control | INFO [2026-03-01 00:02:23,238] jepsen worker 0 - jepsen.print 6	:invoke	:cas	[2 0]
+control | INFO [2026-03-01 00:02:23,260] jepsen worker 2 - jepsen.print 14	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:23,266] jepsen worker 2 - jepsen.print 14	:ok	:read	0
+control | INFO [2026-03-01 00:02:23,268] jepsen worker 0 - jepsen.print 6	:fail	:cas	[2 0]
+control | INFO [2026-03-01 00:02:23,300] jepsen worker 2 - jepsen.print 14	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:23,342] jepsen worker 2 - jepsen.print 14	:ok	:read	0
+control | INFO [2026-03-01 00:02:23,342] jepsen worker 2 - jepsen.print 14	:invoke	:cas	[2 2]
+control | INFO [2026-03-01 00:02:23,376] jepsen worker 2 - jepsen.print 14	:fail	:cas	[2 2]
+control | INFO [2026-03-01 00:02:23,386] jepsen worker 3 - jepsen.print 9	:invoke	:write	0
+control | INFO [2026-03-01 00:02:23,410] jepsen worker 3 - jepsen.print 9	:ok	:write	0
+control | INFO [2026-03-01 00:02:23,424] jepsen worker 5 - jepsen.print 11	:invoke	:cas	[1 0]
+control | INFO [2026-03-01 00:02:23,442] jepsen worker 0 - jepsen.print 6	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:23,463] jepsen worker 2 - jepsen.print 14	:invoke	:write	4
+control | INFO [2026-03-01 00:02:23,445] jepsen worker 5 - jepsen.print 11	:fail	:cas	[1 0]
+control | INFO [2026-03-01 00:02:23,480] jepsen worker 2 - jepsen.print 14	:ok	:write	4
+control | INFO [2026-03-01 00:02:23,481] jepsen worker 0 - jepsen.print 6	:ok	:read	0
+control | INFO [2026-03-01 00:02:23,483] jepsen worker 0 - jepsen.print 6	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:23,538] jepsen worker 0 - jepsen.print 6	:ok	:read	4
+control | INFO [2026-03-01 00:02:23,539] jepsen worker 5 - jepsen.print 11	:invoke	:write	1
+control | INFO [2026-03-01 00:02:23,543] jepsen worker 3 - jepsen.print 9	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:23,546] jepsen worker 2 - jepsen.print 14	:invoke	:write	2
+control | INFO [2026-03-01 00:02:23,556] jepsen worker 0 - jepsen.print 6	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:23,563] jepsen worker 0 - jepsen.print 6	:ok	:read	2
+control | INFO [2026-03-01 00:02:23,567] jepsen worker 5 - jepsen.print 11	:ok	:write	1
+control | INFO [2026-03-01 00:02:23,572] jepsen worker 5 - jepsen.print 11	:invoke	:write	4
+control | INFO [2026-03-01 00:02:23,603] jepsen worker 0 - jepsen.print 6	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:23,574] jepsen worker 3 - jepsen.print 9	:ok	:read	1
+control | INFO [2026-03-01 00:02:23,575] jepsen worker 2 - jepsen.print 14	:ok	:write	2
+control | INFO [2026-03-01 00:02:23,625] jepsen worker 2 - jepsen.print 14	:invoke	:cas	[1 4]
+control | INFO [2026-03-01 00:02:23,647] jepsen worker 0 - jepsen.print 6	:ok	:read	1
+control | INFO [2026-03-01 00:02:23,669] jepsen worker 2 - jepsen.print 14	:fail	:cas	[1 4]
+control | INFO [2026-03-01 00:02:23,661] jepsen worker 5 - jepsen.print 11	:ok	:write	4
+control | INFO [2026-03-01 00:02:23,671] jepsen worker 2 - jepsen.print 14	:invoke	:cas	[1 4]
+control | INFO [2026-03-01 00:02:23,683] jepsen worker 3 - jepsen.print 9	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:23,700] jepsen worker 5 - jepsen.print 11	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:23,715] jepsen worker 3 - jepsen.print 9	:ok	:read	3
+control | INFO [2026-03-01 00:02:23,723] jepsen worker 5 - jepsen.print 11	:ok	:read	3
+control | INFO [2026-03-01 00:02:23,724] jepsen worker 2 - jepsen.print 14	:fail	:cas	[1 4]
+control | INFO [2026-03-01 00:02:23,758] jepsen worker 5 - jepsen.print 11	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:23,772] jepsen worker 5 - jepsen.print 11	:ok	:read	3
+control | INFO [2026-03-01 00:02:23,783] jepsen worker 5 - jepsen.print 11	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:23,811] jepsen worker 5 - jepsen.print 11	:ok	:read	3
+control | INFO [2026-03-01 00:02:23,813] jepsen worker 0 - jepsen.print 6	:invoke	:cas	[1 4]
+control | INFO [2026-03-01 00:02:23,827] jepsen worker 2 - jepsen.print 14	:invoke	:write	1
+control | INFO [2026-03-01 00:02:23,882] jepsen worker 3 - jepsen.print 9	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:23,891] jepsen worker 5 - jepsen.print 11	:invoke	:cas	[0 2]
+control | INFO [2026-03-01 00:02:23,965] jepsen worker 0 - jepsen.print 6	:fail	:cas	[1 4]
+control | INFO [2026-03-01 00:02:23,968] jepsen worker 3 - jepsen.print 9	:ok	:read	3
+control | INFO [2026-03-01 00:02:23,968] jepsen worker 3 - jepsen.print 9	:invoke	:write	1
+control | INFO [2026-03-01 00:02:23,974] jepsen worker 2 - jepsen.print 14	:ok	:write	1
+control | INFO [2026-03-01 00:02:24,005] jepsen worker 0 - jepsen.print 6	:invoke	:write	2
+control | INFO [2026-03-01 00:02:24,028] jepsen worker 3 - jepsen.print 9	:ok	:write	1
+control | INFO [2026-03-01 00:02:24,046] jepsen worker 2 - jepsen.print 14	:invoke	:write	3
+control | INFO [2026-03-01 00:02:24,105] jepsen worker 0 - jepsen.print 6	:ok	:write	2
+control | INFO [2026-03-01 00:02:24,134] jepsen worker 2 - jepsen.print 14	:ok	:write	3
+control | INFO [2026-03-01 00:02:24,162] jepsen worker 0 - jepsen.print 6	:invoke	:cas	[4 2]
+control | INFO [2026-03-01 00:02:24,218] jepsen worker 2 - jepsen.print 14	:invoke	:cas	[4 4]
+control | INFO [2026-03-01 00:02:24,245] jepsen worker 3 - jepsen.print 9	:invoke	:write	1
+control | INFO [2026-03-01 00:02:24,299] jepsen worker 5 - jepsen.print 11	:fail	:cas	[0 2]
+control | INFO [2026-03-01 00:02:24,305] jepsen worker 0 - jepsen.print 6	:fail	:cas	[4 2]
+control | INFO [2026-03-01 00:02:24,307] jepsen worker 2 - jepsen.print 14	:fail	:cas	[4 4]
+control | INFO [2026-03-01 00:02:24,307] jepsen worker 2 - jepsen.print 14	:invoke	:write	2
+control | INFO [2026-03-01 00:02:24,342] jepsen worker 5 - jepsen.print 11	:invoke	:write	1
+control | INFO [2026-03-01 00:02:24,345] jepsen worker 0 - jepsen.print 6	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:24,407] jepsen worker 2 - jepsen.print 14	:ok	:write	2
+control | INFO [2026-03-01 00:02:24,434] jepsen worker 3 - jepsen.print 9	:ok	:write	1
+control | INFO [2026-03-01 00:02:24,435] jepsen worker 5 - jepsen.print 11	:ok	:write	1
+control | INFO [2026-03-01 00:02:24,509] jepsen worker 0 - jepsen.print 6	:ok	:read	1
+control | INFO [2026-03-01 00:02:24,513] jepsen worker 5 - jepsen.print 11	:invoke	:cas	[2 0]
+control | INFO [2026-03-01 00:02:24,555] jepsen worker 0 - jepsen.print 6	:invoke	:write	3
+control | INFO [2026-03-01 00:02:24,559] jepsen worker 5 - jepsen.print 11	:fail	:cas	[2 0]
+control | INFO [2026-03-01 00:02:24,593] jepsen worker 2 - jepsen.print 14	:invoke	:cas	[4 4]
+control | INFO [2026-03-01 00:02:24,654] jepsen worker 3 - jepsen.print 9	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:24,678] jepsen worker 2 - jepsen.print 14	:fail	:cas	[4 4]
+control | INFO [2026-03-01 00:02:24,712] jepsen worker 5 - jepsen.print 11	:invoke	:write	2
+control | INFO [2026-03-01 00:02:24,730] jepsen worker 2 - jepsen.print 14	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:24,765] jepsen worker 2 - jepsen.print 14	:ok	:read	3
+control | INFO [2026-03-01 00:02:24,766] jepsen worker 2 - jepsen.print 14	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:24,771] jepsen worker 0 - jepsen.print 6	:ok	:write	3
+control | INFO [2026-03-01 00:02:24,782] jepsen worker 5 - jepsen.print 11	:ok	:write	2
+control | INFO [2026-03-01 00:02:24,782] jepsen worker 5 - jepsen.print 11	:invoke	:cas	[3 3]
+control | INFO [2026-03-01 00:02:24,806] jepsen worker 0 - jepsen.print 6	:invoke	:write	1
+control | INFO [2026-03-01 00:02:24,817] jepsen worker 2 - jepsen.print 14	:ok	:read	2
+control | INFO [2026-03-01 00:02:24,817] jepsen worker 2 - jepsen.print 14	:invoke	:cas	[4 1]
+control | INFO [2026-03-01 00:02:24,824] jepsen worker 5 - jepsen.print 11	:fail	:cas	[3 3]
+control | INFO [2026-03-01 00:02:24,830] jepsen worker 3 - jepsen.print 9	:ok	:read	3
+control | INFO [2026-03-01 00:02:24,851] jepsen worker 3 - jepsen.print 9	:invoke	:write	2
+control | INFO [2026-03-01 00:02:24,876] jepsen worker 2 - jepsen.print 14	:fail	:cas	[4 1]
+control | INFO [2026-03-01 00:02:24,883] jepsen worker 2 - jepsen.print 14	:invoke	:write	4
+control | INFO [2026-03-01 00:02:24,909] jepsen worker 5 - jepsen.print 11	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:25,017] jepsen worker 0 - jepsen.print 6	:ok	:write	1
+control | INFO [2026-03-01 00:02:25,022] jepsen worker 0 - jepsen.print 6	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:25,066] jepsen worker 3 - jepsen.print 9	:ok	:write	2
+control | INFO [2026-03-01 00:02:25,068] jepsen worker 4 - jepsen.print 10	:ok	:read	1
+control | INFO [2026-03-01 00:02:25,069] jepsen worker 2 - jepsen.print 14	:ok	:write	4
+control | INFO [2026-03-01 00:02:25,073] jepsen worker 5 - jepsen.print 11	:ok	:read	2
+control | INFO [2026-03-01 00:02:25,083] jepsen worker 5 - jepsen.print 11	:invoke	:cas	[4 1]
+control | INFO [2026-03-01 00:02:25,097] jepsen worker 2 - jepsen.print 14	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:25,137] jepsen worker 0 - jepsen.print 6	:ok	:read	4
+control | INFO [2026-03-01 00:02:25,141] jepsen worker 2 - jepsen.print 14	:ok	:read	4
+control | INFO [2026-03-01 00:02:25,142] jepsen worker 1 - jepsen.print 1	:ok	:read	1
+control | INFO [2026-03-01 00:02:25,144] jepsen worker 5 - jepsen.print 11	:ok	:cas	[4 1]
+control | INFO [2026-03-01 00:02:25,166] jepsen worker 1 - jepsen.print 1	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:25,166] jepsen worker 0 - jepsen.print 6	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:25,218] jepsen worker 2 - jepsen.print 14	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:25,224] jepsen worker 3 - jepsen.print 9	:invoke	:cas	[2 1]
+control | INFO [2026-03-01 00:02:25,283] jepsen worker 4 - jepsen.print 10	:invoke	:cas	[1 2]
+control | INFO [2026-03-01 00:02:25,291] jepsen worker 2 - jepsen.print 14	:ok	:read	1
+control | INFO [2026-03-01 00:02:25,299] jepsen worker 5 - jepsen.print 11	:invoke	:cas	[1 3]
+control | INFO [2026-03-01 00:02:25,323] jepsen worker 0 - jepsen.print 6	:ok	:read	1
+control | INFO [2026-03-01 00:02:25,361] jepsen worker 0 - jepsen.print 6	:invoke	:cas	[3 3]
+control | INFO [2026-03-01 00:02:25,347] jepsen worker 4 - jepsen.print 10	:ok	:cas	[1 2]
+control | INFO [2026-03-01 00:02:25,348] jepsen worker 1 - jepsen.print 1	:ok	:read	1
+control | INFO [2026-03-01 00:02:25,383] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[4 2]
+control | INFO [2026-03-01 00:02:25,389] jepsen worker 2 - jepsen.print 14	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:25,363] jepsen worker 3 - jepsen.print 9	:ok	:cas	[2 1]
+control | INFO [2026-03-01 00:02:25,415] jepsen worker 5 - jepsen.print 11	:ok	:cas	[1 3]
+control | INFO [2026-03-01 00:02:25,415] jepsen worker 3 - jepsen.print 9	:invoke	:cas	[0 1]
+control | INFO [2026-03-01 00:02:25,417] jepsen worker 0 - jepsen.print 6	:ok	:cas	[3 3]
+control | INFO [2026-03-01 00:02:25,472] jepsen worker 2 - jepsen.print 14	:ok	:read	1
+control | INFO [2026-03-01 00:02:25,472] jepsen worker 4 - jepsen.print 10	:invoke	:cas	[2 3]
+control | INFO [2026-03-01 00:02:25,503] jepsen worker 1 - jepsen.print 1	:fail	:cas	[4 2]
+control | INFO [2026-03-01 00:02:25,505] jepsen worker 3 - jepsen.print 9	:fail	:cas	[0 1]
+control | INFO [2026-03-01 00:02:25,504] jepsen worker 4 - jepsen.print 10	:fail	:cas	[2 3]
+control | INFO [2026-03-01 00:02:25,506] jepsen worker 4 - jepsen.print 10	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:25,511] jepsen worker 4 - jepsen.print 10	:ok	:read	3
+control | INFO [2026-03-01 00:02:25,569] jepsen worker 5 - jepsen.print 11	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:25,573] jepsen worker 0 - jepsen.print 6	:invoke	:write	2
+control | INFO [2026-03-01 00:02:25,595] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[1 1]
+control | INFO [2026-03-01 00:02:25,599] jepsen worker 0 - jepsen.print 6	:ok	:write	2
+control | INFO [2026-03-01 00:02:25,614] jepsen worker 2 - jepsen.print 14	:invoke	:write	2
+control | INFO [2026-03-01 00:02:25,637] jepsen worker 5 - jepsen.print 11	:ok	:read	3
+control | INFO [2026-03-01 00:02:25,615] jepsen worker 1 - jepsen.print 1	:fail	:cas	[1 1]
+control | INFO [2026-03-01 00:02:25,615] jepsen worker 3 - jepsen.print 9	:invoke	:cas	[2 2]
+control | INFO [2026-03-01 00:02:25,656] jepsen worker 4 - jepsen.print 10	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:25,669] jepsen worker 2 - jepsen.print 14	:ok	:write	2
+control | INFO [2026-03-01 00:02:25,669] jepsen worker 4 - jepsen.print 10	:ok	:read	2
+control | INFO [2026-03-01 00:02:25,675] jepsen worker 3 - jepsen.print 9	:ok	:cas	[2 2]
+control | INFO [2026-03-01 00:02:25,715] jepsen worker 5 - jepsen.print 11	:invoke	:cas	[0 1]
+control | INFO [2026-03-01 00:02:25,715] jepsen worker 4 - jepsen.print 10	:invoke	:cas	[3 3]
+control | INFO [2026-03-01 00:02:25,746] jepsen worker 0 - jepsen.print 6	:invoke	:cas	[3 2]
+control | INFO [2026-03-01 00:02:25,767] jepsen worker 5 - jepsen.print 11	:fail	:cas	[0 1]
+control | INFO [2026-03-01 00:02:25,797] jepsen worker 4 - jepsen.print 10	:fail	:cas	[3 3]
+control | INFO [2026-03-01 00:02:25,808] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[3 4]
+control | INFO [2026-03-01 00:02:25,843] jepsen worker 0 - jepsen.print 6	:fail	:cas	[3 2]
+control | INFO [2026-03-01 00:02:25,844] jepsen worker 2 - jepsen.print 14	:invoke	:cas	[1 3]
+control | INFO [2026-03-01 00:02:25,854] jepsen worker 1 - jepsen.print 1	:fail	:cas	[3 4]
+control | INFO [2026-03-01 00:02:25,885] jepsen worker 3 - jepsen.print 9	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:25,941] jepsen worker 4 - jepsen.print 10	:invoke	:write	4
+control | INFO [2026-03-01 00:02:25,961] jepsen worker 3 - jepsen.print 9	:ok	:read	2
+control | INFO [2026-03-01 00:02:25,976] jepsen worker 2 - jepsen.print 14	:fail	:cas	[1 3]
+control | INFO [2026-03-01 00:02:26,011] jepsen worker 5 - jepsen.print 11	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:26,032] jepsen worker 0 - jepsen.print 6	:invoke	:write	0
+control | INFO [2026-03-01 00:02:26,055] jepsen worker 2 - jepsen.print 14	:invoke	:write	4
+control | INFO [2026-03-01 00:02:26,057] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[2 2]
+control | INFO [2026-03-01 00:02:26,079] jepsen worker 5 - jepsen.print 11	:ok	:read	2
+control | INFO [2026-03-01 00:02:26,079] jepsen worker 3 - jepsen.print 9	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:26,102] jepsen worker 0 - jepsen.print 6	:ok	:write	0
+control | INFO [2026-03-01 00:02:26,138] jepsen worker 4 - jepsen.print 10	:ok	:write	4
+control | INFO [2026-03-01 00:02:26,139] jepsen worker 3 - jepsen.print 9	:ok	:read	0
+control | INFO [2026-03-01 00:02:26,158] jepsen worker 4 - jepsen.print 10	:invoke	:cas	[4 1]
+control | INFO [2026-03-01 00:02:26,166] jepsen worker 2 - jepsen.print 14	:ok	:write	4
+control | INFO [2026-03-01 00:02:26,190] jepsen worker 3 - jepsen.print 9	:invoke	:write	1
+control | INFO [2026-03-01 00:02:26,193] jepsen worker 1 - jepsen.print 1	:fail	:cas	[2 2]
+control | INFO [2026-03-01 00:02:26,254] jepsen worker 4 - jepsen.print 10	:fail	:cas	[4 1]
+control | INFO [2026-03-01 00:02:26,326] jepsen worker 4 - jepsen.print 10	:invoke	:write	4
+control | INFO [2026-03-01 00:02:26,357] jepsen worker 5 - jepsen.print 11	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:26,387] jepsen worker 0 - jepsen.print 6	:invoke	:write	0
+control | INFO [2026-03-01 00:02:26,399] jepsen worker 2 - jepsen.print 14	:invoke	:cas	[2 4]
+control | INFO [2026-03-01 00:02:26,415] jepsen worker 4 - jepsen.print 10	:ok	:write	4
+control | INFO [2026-03-01 00:02:26,425] jepsen worker 4 - jepsen.print 10	:invoke	:write	2
+control | INFO [2026-03-01 00:02:26,474] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[1 2]
+control | INFO [2026-03-01 00:02:26,519] jepsen worker 3 - jepsen.print 9	:ok	:write	1
+control | INFO [2026-03-01 00:02:26,631] jepsen worker 3 - jepsen.print 9	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:26,721] jepsen worker 1 - jepsen.print 1	:fail	:cas	[1 2]
+control | INFO [2026-03-01 00:02:26,743] jepsen worker 4 - jepsen.print 10	:ok	:write	2
+control | INFO [2026-03-01 00:02:26,745] jepsen worker 3 - jepsen.print 9	:ok	:read	2
+control | INFO [2026-03-01 00:02:26,747] jepsen worker 0 - jepsen.print 6	:ok	:write	0
+control | INFO [2026-03-01 00:02:26,754] jepsen worker 0 - jepsen.print 6	:invoke	:write	2
+control | INFO [2026-03-01 00:02:26,520] jepsen worker 5 - jepsen.print 11	:ok	:read	1
+control | INFO [2026-03-01 00:02:26,757] jepsen worker 5 - jepsen.print 11	:invoke	:write	1
+control | INFO [2026-03-01 00:02:26,775] jepsen worker 3 - jepsen.print 9	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:26,780] jepsen worker 2 - jepsen.print 14	:fail	:cas	[2 4]
+control | INFO [2026-03-01 00:02:26,744] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[1 1]
+control | INFO [2026-03-01 00:02:26,813] jepsen worker 2 - jepsen.print 14	:invoke	:cas	[0 0]
+control | INFO [2026-03-01 00:02:26,891] jepsen worker 1 - jepsen.print 1	:fail	:cas	[1 1]
+control | INFO [2026-03-01 00:02:26,898] jepsen worker 5 - jepsen.print 11	:ok	:write	1
+control | INFO [2026-03-01 00:02:26,899] jepsen worker 2 - jepsen.print 14	:fail	:cas	[0 0]
+control | INFO [2026-03-01 00:02:26,912] jepsen worker 2 - jepsen.print 14	:invoke	:write	0
+control | INFO [2026-03-01 00:02:27,003] jepsen worker 3 - jepsen.print 9	:ok	:read	2
+control | INFO [2026-03-01 00:02:27,003] jepsen worker 2 - jepsen.print 14	:ok	:write	0
+control | INFO [2026-03-01 00:02:27,018] jepsen worker 0 - jepsen.print 6	:ok	:write	2
+control | INFO [2026-03-01 00:02:27,018] jepsen worker 5 - jepsen.print 11	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:27,025] jepsen worker 4 - jepsen.print 10	:invoke	:write	0
+control | INFO [2026-03-01 00:02:27,072] jepsen worker 0 - jepsen.print 6	:invoke	:cas	[1 0]
+control | INFO [2026-03-01 00:02:27,108] jepsen worker 0 - jepsen.print 6	:fail	:cas	[1 0]
+control | INFO [2026-03-01 00:02:27,170] jepsen worker 0 - jepsen.print 6	:invoke	:cas	[2 1]
+control | INFO [2026-03-01 00:02:27,121] jepsen worker 5 - jepsen.print 11	:ok	:read	0
+control | INFO [2026-03-01 00:02:27,197] jepsen worker 1 - jepsen.print 1	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:27,230] jepsen worker 2 - jepsen.print 14	:invoke	:cas	[1 3]
+control | INFO [2026-03-01 00:02:27,232] jepsen worker 4 - jepsen.print 10	:ok	:write	0
+control | INFO [2026-03-01 00:02:27,233] jepsen worker 0 - jepsen.print 6	:fail	:cas	[2 1]
+control | INFO [2026-03-01 00:02:27,269] jepsen worker 2 - jepsen.print 14	:fail	:cas	[1 3]
+control | INFO [2026-03-01 00:02:27,308] jepsen worker 2 - jepsen.print 14	:invoke	:cas	[2 0]
+control | INFO [2026-03-01 00:02:27,310] jepsen worker 1 - jepsen.print 1	:ok	:read	0
+control | INFO [2026-03-01 00:02:27,311] jepsen worker 3 - jepsen.print 9	:invoke	:write	2
+control | INFO [2026-03-01 00:02:27,320] jepsen worker 3 - jepsen.print 9	:ok	:write	2
+control | INFO [2026-03-01 00:02:27,327] jepsen worker 2 - jepsen.print 14	:ok	:cas	[2 0]
+control | INFO [2026-03-01 00:02:27,358] jepsen worker 4 - jepsen.print 10	:invoke	:write	2
+control | INFO [2026-03-01 00:02:27,371] jepsen worker 4 - jepsen.print 10	:ok	:write	2
+control | INFO [2026-03-01 00:02:27,399] jepsen worker 5 - jepsen.print 11	:invoke	:write	3
+control | INFO [2026-03-01 00:02:27,405] jepsen worker 5 - jepsen.print 11	:ok	:write	3
+control | INFO [2026-03-01 00:02:27,405] jepsen worker 0 - jepsen.print 6	:invoke	:cas	[4 3]
+control | INFO [2026-03-01 00:02:27,408] jepsen worker nemesis - jepsen.print :nemesis	:info	:start	nil
+control | INFO [2026-03-01 00:02:27,413] jepsen worker 1 - jepsen.print 1	:invoke	:write	4
+control | INFO [2026-03-01 00:02:27,415] jepsen worker 0 - jepsen.print 6	:fail	:cas	[4 3]
+control | INFO [2026-03-01 00:02:27,445] jepsen worker 1 - jepsen.print 1	:ok	:write	4
+control | INFO [2026-03-01 00:02:27,446] jepsen worker 2 - jepsen.print 14	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:27,458] jepsen worker 2 - jepsen.print 14	:ok	:read	4
+control | INFO [2026-03-01 00:02:27,482] jepsen worker 3 - jepsen.print 9	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:27,488] jepsen worker 3 - jepsen.print 9	:ok	:read	4
+control | INFO [2026-03-01 00:02:27,542] jepsen worker 4 - jepsen.print 10	:invoke	:cas	[3 0]
+control | INFO [2026-03-01 00:02:27,579] jepsen worker 5 - jepsen.print 11	:invoke	:cas	[4 4]
+control | INFO [2026-03-01 00:02:27,606] jepsen worker 4 - jepsen.print 10	:fail	:cas	[3 0]
+control | INFO [2026-03-01 00:02:27,609] jepsen worker 5 - jepsen.print 11	:ok	:cas	[4 4]
+control | INFO [2026-03-01 00:02:27,619] jepsen worker 0 - jepsen.print 6	:invoke	:cas	[3 0]
+control | INFO [2026-03-01 00:02:27,652] jepsen worker 1 - jepsen.print 1	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:27,702] jepsen worker 2 - jepsen.print 14	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:27,749] jepsen worker 3 - jepsen.print 9	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:27,762] jepsen worker 4 - jepsen.print 10	:invoke	:cas	[1 4]
+control | INFO [2026-03-01 00:02:27,769] jepsen worker 5 - jepsen.print 11	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:27,798] jepsen worker nemesis - jepsen.print :nemesis	:info	:start	[:isolated {"n3" #{"n2" "n1"}, "n2" #{"n3"}, "n1" #{"n3"}}]
+control | INFO [2026-03-01 00:02:28,977] jepsen worker 1 - jepsen.print 1	:fail	:read	nil	clojure.lang.ExceptionInfo: clj-http: status 503 {:cached nil, :request-time 1177, :repeatable? false, :protocol-version {:name "HTTP", :major 1, :minor 1}, :streaming? true, :http-client #object[org.apache.http.impl.client.InternalHttpClient 0x204964d9 "org.apache.http.impl.client.InternalHttpClient@204964d9"], :chunked? false, :type :clj-http.client/unexceptional-status, :reason-phrase "Service Unavailable", :headers {"Access-Control-Allow-Headers" "accept, content-type, authorization", "Access-Control-Allow-Methods" "POST, GET, OPTIONS, PUT, DELETE", "Access-Control-Allow-Origin" "*", "Content-Type" "application/json", "Date" "Sun, 01 Mar 2026 00:02:28 GMT", "Content-Length" "87", "Connection" "close"}, :orig-content-encoding nil, :status 503, :length 87, :body "{\"error\":\"etcdserver: leader changed\",\"code\":14,\"message\":\"etcdserver: leader changed\"}", :trace-redirects []}
+control | INFO [2026-03-01 00:02:28,999] jepsen worker 3 - jepsen.print 9	:fail	:read	nil	clojure.lang.ExceptionInfo: clj-http: status 503 {:cached nil, :request-time 1105, :repeatable? false, :protocol-version {:name "HTTP", :major 1, :minor 1}, :streaming? true, :http-client #object[org.apache.http.impl.client.InternalHttpClient 0xae28672 "org.apache.http.impl.client.InternalHttpClient@ae28672"], :chunked? false, :type :clj-http.client/unexceptional-status, :reason-phrase "Service Unavailable", :headers {"Access-Control-Allow-Headers" "accept, content-type, authorization", "Access-Control-Allow-Methods" "POST, GET, OPTIONS, PUT, DELETE", "Access-Control-Allow-Origin" "*", "Content-Type" "application/json", "Date" "Sun, 01 Mar 2026 00:02:28 GMT", "Content-Length" "87", "Connection" "close"}, :orig-content-encoding nil, :status 503, :length 87, :body "{\"error\":\"etcdserver: leader changed\",\"code\":14,\"message\":\"etcdserver: leader changed\"}", :trace-redirects []}
+control | INFO [2026-03-01 00:02:29,005] jepsen worker 1 - jepsen.print 1	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:29,021] jepsen worker 3 - jepsen.print 9	:invoke	:write	4
+control | INFO [2026-03-01 00:02:29,045] jepsen worker 3 - jepsen.print 9	:ok	:write	4
+control | INFO [2026-03-01 00:02:29,054] jepsen worker 3 - jepsen.print 9	:invoke	:cas	[2 0]
+control | INFO [2026-03-01 00:02:29,058] jepsen worker 1 - jepsen.print 1	:ok	:read	4
+control | INFO [2026-03-01 00:02:29,101] jepsen worker 3 - jepsen.print 9	:fail	:cas	[2 0]
+control | INFO [2026-03-01 00:02:29,102] jepsen worker 3 - jepsen.print 9	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:29,124] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[0 0]
+control | INFO [2026-03-01 00:02:29,304] jepsen worker 1 - jepsen.print 1	:fail	:cas	[0 0]
+control | INFO [2026-03-01 00:02:29,306] jepsen worker 3 - jepsen.print 9	:ok	:read	4
+control | INFO [2026-03-01 00:02:29,307] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[4 2]
+control | INFO [2026-03-01 00:02:29,316] jepsen worker 1 - jepsen.print 1	:ok	:cas	[4 2]
+control | INFO [2026-03-01 00:02:29,324] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[3 3]
+control | INFO [2026-03-01 00:02:29,340] jepsen worker 3 - jepsen.print 9	:invoke	:write	0
+control | INFO [2026-03-01 00:02:29,364] jepsen worker 1 - jepsen.print 1	:fail	:cas	[3 3]
+control | INFO [2026-03-01 00:02:29,366] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[0 2]
+control | INFO [2026-03-01 00:02:29,366] jepsen worker 3 - jepsen.print 9	:ok	:write	0
+control | INFO [2026-03-01 00:02:29,387] jepsen worker 1 - jepsen.print 1	:ok	:cas	[0 2]
+control | INFO [2026-03-01 00:02:29,397] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[4 2]
+control | INFO [2026-03-01 00:02:29,400] jepsen worker 3 - jepsen.print 9	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:29,431] jepsen worker 1 - jepsen.print 1	:fail	:cas	[4 2]
+control | INFO [2026-03-01 00:02:29,433] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[3 4]
+control | INFO [2026-03-01 00:02:29,433] jepsen worker 3 - jepsen.print 9	:ok	:read	2
+control | INFO [2026-03-01 00:02:29,440] jepsen worker 1 - jepsen.print 1	:fail	:cas	[3 4]
+control | INFO [2026-03-01 00:02:29,479] jepsen worker 1 - jepsen.print 1	:invoke	:write	2
+control | INFO [2026-03-01 00:02:29,485] jepsen worker 3 - jepsen.print 9	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:29,521] jepsen worker 3 - jepsen.print 9	:ok	:read	2
+control | INFO [2026-03-01 00:02:29,529] jepsen worker 1 - jepsen.print 1	:ok	:write	2
+control | INFO [2026-03-01 00:02:29,577] jepsen worker 1 - jepsen.print 1	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:29,602] jepsen worker 3 - jepsen.print 9	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:29,614] jepsen worker 3 - jepsen.print 9	:ok	:read	2
+control | INFO [2026-03-01 00:02:29,616] jepsen worker 3 - jepsen.print 9	:invoke	:cas	[4 1]
+control | INFO [2026-03-01 00:02:29,626] jepsen worker 3 - jepsen.print 9	:fail	:cas	[4 1]
+control | INFO [2026-03-01 00:02:29,660] jepsen worker 3 - jepsen.print 9	:invoke	:cas	[2 4]
+control | INFO [2026-03-01 00:02:29,667] jepsen worker 1 - jepsen.print 1	:ok	:read	2
+control | INFO [2026-03-01 00:02:29,711] jepsen worker 3 - jepsen.print 9	:ok	:cas	[2 4]
+control | INFO [2026-03-01 00:02:29,711] jepsen worker 3 - jepsen.print 9	:invoke	:cas	[0 0]
+control | INFO [2026-03-01 00:02:29,733] jepsen worker 1 - jepsen.print 1	:invoke	:write	1
+control | INFO [2026-03-01 00:02:29,879] jepsen worker 3 - jepsen.print 9	:fail	:cas	[0 0]
+control | INFO [2026-03-01 00:02:29,879] jepsen worker 3 - jepsen.print 9	:invoke	:write	2
+control | INFO [2026-03-01 00:02:29,890] jepsen worker 1 - jepsen.print 1	:ok	:write	1
+control | INFO [2026-03-01 00:02:29,910] jepsen worker 1 - jepsen.print 1	:invoke	:write	3
+control | INFO [2026-03-01 00:02:29,940] jepsen worker 3 - jepsen.print 9	:ok	:write	2
+control | INFO [2026-03-01 00:02:29,943] jepsen worker 3 - jepsen.print 9	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:29,971] jepsen worker 1 - jepsen.print 1	:ok	:write	3
+control | INFO [2026-03-01 00:02:29,981] jepsen worker 3 - jepsen.print 9	:ok	:read	3
+control | INFO [2026-03-01 00:02:29,992] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[2 1]
+control | INFO [2026-03-01 00:02:29,997] jepsen worker 3 - jepsen.print 9	:invoke	:write	4
+control | INFO [2026-03-01 00:02:30,091] jepsen worker 1 - jepsen.print 1	:fail	:cas	[2 1]
+control | INFO [2026-03-01 00:02:30,092] jepsen worker 3 - jepsen.print 9	:ok	:write	4
+control | INFO [2026-03-01 00:02:30,100] jepsen worker 3 - jepsen.print 9	:invoke	:cas	[1 3]
+control | INFO [2026-03-01 00:02:30,116] jepsen worker 1 - jepsen.print 1	:invoke	:cas	[2 1]
+control | INFO [2026-03-01 00:02:30,119] jepsen worker 3 - jepsen.print 9	:fail	:cas	[1 3]
+control | INFO [2026-03-01 00:02:30,134] jepsen worker 3 - jepsen.print 9	:invoke	:write	3
+control | INFO [2026-03-01 00:02:30,137] jepsen worker 1 - jepsen.print 1	:fail	:cas	[2 1]
+control | INFO [2026-03-01 00:02:30,167] jepsen worker 3 - jepsen.print 9	:ok	:write	3
+control | INFO [2026-03-01 00:02:30,168] jepsen worker 1 - jepsen.print 1	:invoke	:write	4
+control | INFO [2026-03-01 00:02:30,292] jepsen worker 3 - jepsen.print 9	:invoke	:write	2
+control | INFO [2026-03-01 00:02:30,340] jepsen worker 3 - jepsen.print 9	:ok	:write	2
+control | INFO [2026-03-01 00:02:30,341] jepsen worker 3 - jepsen.print 9	:invoke	:write	0
+control | INFO [2026-03-01 00:02:30,378] jepsen worker 1 - jepsen.print 1	:ok	:write	4
+control | INFO [2026-03-01 00:02:30,379] jepsen worker 1 - jepsen.print 1	:invoke	:write	0
+control | INFO [2026-03-01 00:02:30,412] jepsen worker 3 - jepsen.print 9	:ok	:write	0
+control | INFO [2026-03-01 00:02:30,425] jepsen worker 1 - jepsen.print 1	:ok	:write	0
+control | INFO [2026-03-01 00:02:30,426] jepsen worker 3 - jepsen.print 9	:invoke	:write	1
+control | INFO [2026-03-01 00:02:30,557] jepsen worker 1 - jepsen.print 1	:invoke	:write	4
+control | INFO [2026-03-01 00:02:30,594] jepsen worker 3 - jepsen.print 9	:ok	:write	1
+control | INFO [2026-03-01 00:02:30,594] jepsen worker 3 - jepsen.print 9	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:30,615] jepsen worker 3 - jepsen.print 9	:ok	:read	1
+control | INFO [2026-03-01 00:02:30,621] jepsen worker 3 - jepsen.print 9	:invoke	:write	0
+control | INFO [2026-03-01 00:02:30,618] jepsen worker 1 - jepsen.print 1	:ok	:write	4
+control | INFO [2026-03-01 00:02:30,625] jepsen worker 1 - jepsen.print 1	:invoke	:write	2
+control | INFO [2026-03-01 00:02:30,639] jepsen worker 3 - jepsen.print 9	:ok	:write	0
+control | INFO [2026-03-01 00:02:30,640] jepsen worker 3 - jepsen.print 9	:invoke	:cas	[2 3]
+control | INFO [2026-03-01 00:02:30,643] jepsen worker 1 - jepsen.print 1	:ok	:write	2
+control | INFO [2026-03-01 00:02:30,648] jepsen worker 3 - jepsen.print 9	:fail	:cas	[2 3]
+control | INFO [2026-03-01 00:02:32,662] jepsen worker 0 - jepsen.print 6	:info	:cas	[3 0]	:timeout
+control | INFO [2026-03-01 00:02:32,718] jepsen worker 2 - jepsen.print 14	:fail	:read	nil	:timeout
+control | INFO [2026-03-01 00:02:32,771] jepsen worker 4 - jepsen.print 10	:info	:cas	[1 4]	:timeout
+control | INFO [2026-03-01 00:02:32,824] jepsen worker 5 - jepsen.print 11	:fail	:read	nil	:timeout
+control | INFO [2026-03-01 00:02:32,827] jepsen worker 2 - jepsen.generator.interpreter Healing the network
+control | INFO [2026-03-01 00:02:32,870] jepsen worker nemesis - jepsen.print :nemesis	:info	:stop	nil
+control | INFO [2026-03-01 00:02:33,105] jepsen worker nemesis - jepsen.print :nemesis	:info	:stop	:network-healed
+control | INFO [2026-03-01 00:02:38,115] jepsen worker 5 - jepsen.print 11	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:38,121] jepsen worker 5 - jepsen.print 11	:ok	:read	0
+control | INFO [2026-03-01 00:02:38,517] jepsen test runner - jepsen.core Run complete, writing
+control | INFO [2026-03-01 00:02:39,899] jepsen test runner - jepsen.core Snarfing log files
+control | INFO [2026-03-01 00:02:40,043] jepsen node n3 - jepsen.core downloading /var/log/etcd.log to etcd.log
+control | INFO [2026-03-01 00:02:40,069] jepsen node n2 - jepsen.core downloading /var/log/etcd.log to etcd.log
+control | INFO [2026-03-01 00:02:40,075] jepsen node n1 - jepsen.core downloading /var/log/etcd.log to etcd.log
+n1 | Accepted publickey for root from 172.18.0.5 port 33402 ssh2: ED25519 SHA256:LJa1syKHunSfndCrvJI1sLrPhKv2HEyG5WYzwLVGc9Y
+n1 | Received disconnect from 172.18.0.5 port 33402:11: disconnected by user
+n1 | Disconnected from user root 172.18.0.5 port 33402
+n3 | Accepted publickey for root from 172.18.0.5 port 45482 ssh2: ED25519 SHA256:LJa1syKHunSfndCrvJI1sLrPhKv2HEyG5WYzwLVGc9Y
+n2 | Accepted publickey for root from 172.18.0.5 port 46976 ssh2: ED25519 SHA256:LJa1syKHunSfndCrvJI1sLrPhKv2HEyG5WYzwLVGc9Y
+n3 | Received disconnect from 172.18.0.5 port 45482:11: disconnected by user
+n3 | Disconnected from user root 172.18.0.5 port 45482
+n2 | Received disconnect from 172.18.0.5 port 46976:11: disconnected by user
+n2 | Disconnected from user root 172.18.0.5 port 46976
+control | INFO [2026-03-01 00:02:44,825] jepsen node n1 - jepsen.etcd-machine n1 stopping etcd
+control | INFO [2026-03-01 00:02:44,825] jepsen node n1 - jepsen.control.util Stopping /opt/etcd/etcd with signal -9
+control | INFO [2026-03-01 00:02:44,829] jepsen node n2 - jepsen.etcd-machine n2 stopping etcd
+control | INFO [2026-03-01 00:02:44,830] jepsen node n3 - jepsen.etcd-machine n3 stopping etcd
+control | INFO [2026-03-01 00:02:44,862] jepsen node n3 - jepsen.control.util Stopping /opt/etcd/etcd with signal -9
+control | INFO [2026-03-01 00:02:44,868] jepsen node n2 - jepsen.control.util Stopping /opt/etcd/etcd with signal -9
+control | INFO [2026-03-01 00:02:47,518] jepsen test runner - jepsen.core Analyzing...
+control | INFO [2026-03-01 00:02:54,160] knossos reporter - knossos.search {:space 256, :cost 8.36E+8, :op {:process 11, :type :ok, :f :write, :value 2, :index 697, :time 22491533342}}
+control | INFO [2026-03-01 00:02:59,416] knossos reporter - knossos.search {:space 256, :cost 1.12E+11, :op {:process 6, :type :ok, :f :read, :value 4, :index 747, :time 23273780377}}
+control | INFO [2026-03-01 00:03:03,343] jepsen test runner - jepsen.core Analysis complete
+control | INFO [2026-03-01 00:03:03,988] jepsen results - jepsen.store Wrote /jepsen/store/etcd-machine/2026-03-01T00:01:08.053151667Z/results.edn
+n1 | Received disconnect from 172.18.0.5 port 47276:11: 
+n1 | Disconnected from user root 172.18.0.5 port 47276
+n3 | Received disconnect from 172.18.0.5 port 46318:11: 
+n2 | Received disconnect from 172.18.0.5 port 41026:11: 
+n2 | Disconnected from user root 172.18.0.5 port 41026
+n3 | Disconnected from user root 172.18.0.5 port 46318
+control | INFO [2026-03-01 00:03:04,708] jepsen test runner - jepsen.core {:stats {:valid? true,
+control |          :count 517,
+control |          :ok-count 374,
+control |          :fail-count 135,
+control |          :info-count 8,
+control |          :by-f {:cas {:valid? true,
+control |                       :count 173,
+control |                       :ok-count 39,
+control |                       :fail-count 129,
+control |                       :info-count 5},
+control |                 :read {:valid? true,
+control |                        :count 161,
+control |                        :ok-count 155,
+control |                        :fail-count 6,
+control |                        :info-count 0},
+control |                 :write {:valid? true,
+control |                         :count 183,
+control |                         :ok-count 180,
+control |                         :fail-count 0,
+control |                         :info-count 3}}},
+control |  :linear {:valid? true,
+control |           :configs ({:model #knossos.model.CASRegister{:value 0},
+control |                      :last-op {:process 11,
+control |                                :type :ok,
+control |                                :f :read,
+control |                                :value 0,
+control |                                :index 1045,
+control |                                :time 37855995888,
+control |                                :final? true},
+control |                      :pending [{:process 0,
+control |                                 :type :invoke,
+control |                                 :f :write,
+control |                                 :value 4,
+control |                                 :index 657,
+control |                                 :time 16888602571}
+control |                                {:process 6,
+control |                                 :type :invoke,
+control |                                 :f :cas,
+control |                                 :value [3 0],
+control |                                 :index 953,
+control |                                 :time 27353687385}
+control |                                {:process 10,
+control |                                 :type :invoke,
+control |                                 :f :cas,
+control |                                 :value [1 4],
+control |                                 :index 957,
+control |                                 :time 27497413023}]}
+control |                     {:model #knossos.model.CASRegister{:value 0},
+control |                      :last-op {:process 11,
+control |                                :type :ok,
+control |                                :f :read,
+control |                                :value 0,
+control |                                :index 1045,
+control |                                :time 37855995888,
+control |                                :final? true},
+control |                      :pending [{:process 0,
+control |                                 :type :invoke,
+control |                                 :f :write,
+control |                                 :value 4,
+control |                                 :index 657,
+control |                                 :time 16888602571}
+control |                                {:process 2,
+control |                                 :type :invoke,
+control |                                 :f :cas,
+control |                                 :value [0 0],
+control |                                 :index 110,
+control |                                 :time 6389021878}
+control |                                {:process 3,
+control |                                 :type :invoke,
+control |                                 :f :cas,
+control |                                 :value [1 1],
+control |                                 :index 651,
+control |                                 :time 16832365663}
+control |                                {:process 5,
+control |                                 :type :invoke,
+control |                                 :f :write,
+control |                                 :value 2,
+control |                                 :index 655,
+control |                                 :time 16863801159}
+control |                                {:process 6,
+control |                                 :type :invoke,
+control |                                 :f :cas,
+control |                                 :value [3 0],
+control |                                 :index 953,
+control |                                 :time 27353687385}
+control |                                {:process 10,
+control |                                 :type :invoke,
+control |                                 :f :cas,
+control |                                 :value [1 4],
+control |                                 :index 957,
+control |                                 :time 27497413023}]}
+control |                     {:model #knossos.model.CASRegister{:value 0},
+control |                      :last-op {:process 11,
+control |                                :type :ok,
+control |                                :f :read,
+control |                                :value 0,
+control |                                :index 1045,
+control |                                :time 37855995888,
+control |                                :final? true},
+control |                      :pending []}
+control |                     {:model #knossos.model.CASRegister{:value 0},
+control |                      :last-op {:process 11,
+control |                                :type :ok,
+control |                                :f :read,
+control |                                :value 0,
+control |                                :index 1045,
+control |                                :time 37855995888,
+control |                                :final? true},
+control |                      :pending [{:process 5,
+control |                                 :type :invoke,
+control |                                 :f :write,
+control |                                 :value 2,
+control |                                 :index 655,
+control |                                 :time 16863801159}]}
+control |                     {:model #knossos.model.CASRegister{:value 0},
+control |                      :last-op {:process 11,
+control |                                :type :ok,
+control |                                :f :read,
+control |                                :value 0,
+control |                                :index 1045,
+control |                                :time 37855995888,
+control |                                :final? true},
+control |                      :pending [{:process 0,
+control |                                 :type :invoke,
+control |                                 :f :write,
+control |                                 :value 4,
+control |                                 :index 657,
+control |                                 :time 16888602571}
+control |                                {:process 2,
+control |                                 :type :invoke,
+control |                                 :f :cas,
+control |                                 :value [0 0],
+control |                                 :index 110,
+control |                                 :time 6389021878}
+control |                                {:process 3,
+control |                                 :type :invoke,
+control |                                 :f :cas,
+control |                                 :value [1 1],
+control |                                 :index 651,
+control |                                 :time 16832365663}
+control |                                {:process 4,
+control |                                 :type :invoke,
+control |                                 :f :cas,
+control |                                 :value [1 0],
+control |                                 :index 643,
+control |                                 :time 16566293509}
+control |                                {:process 5,
+control |                                 :type :invoke,
+control |                                 :f :write,
+control |                                 :value 2,
+control |                                 :index 655,
+control |                                 :time 16863801159}]}
+control |                     {:model #knossos.model.CASRegister{:value 0},
+control |                      :last-op {:process 11,
+control |                                :type :ok,
+control |                                :f :read,
+control |                                :value 0,
+control |                                :index 1045,
+control |                                :time 37855995888,
+control |                                :final? true},
+control |                      :pending [{:process 2,
+control |                                 :type :invoke,
+control |                                 :f :cas,
+control |                                 :value [0 0],
+control |                                 :index 110,
+control |                                 :time 6389021878}]}
+control |                     {:model #knossos.model.CASRegister{:value 0},
+control |                      :last-op {:process 11,
+control |                                :type :ok,
+control |                                :f :read,
+control |                                :value 0,
+control |                                :index 1045,
+control |                                :time 37855995888,
+control |                                :final? true},
+control |                      :pending [{:process 2,
+control |                                 :type :invoke,
+control |                                 :f :cas,
+control |                                 :value [0 0],
+control |                                 :index 110,
+control |                                 :time 6389021878}
+control |                                {:process 4,
+control |                                 :type :invoke,
+control |                                 :f :cas,
+control |                                 :value [1 0],
+control |                                 :index 643,
+control |                                 :time 16566293509}]}
+control |                     {:model #knossos.model.CASRegister{:value 0},
+control |                      :last-op {:process 11,
+control |                                :type :ok,
+control |                                :f :read,
+control |                                :value 0,
+control |                                :index 1045,
+control |                                :time 37855995888,
+control |                                :final? true},
+control |                      :pending [{:process 4,
+control |                                 :type :invoke,
+control |                                 :f :cas,
+control |                                 :value [1 0],
+control |                                 :index 643,
+control |                                 :time 16566293509}
+control |                                {:process 5,
+control |                                 :type :invoke,
+control |                                 :f :write,
+control |                                 :value 2,
+control |                                 :index 655,
+control |                                 :time 16863801159}]}
+control |                     {:model #knossos.model.CASRegister{:value 0},
+control |                      :last-op {:process 11,
+control |                                :type :ok,
+control |                                :f :read,
+control |                                :value 0,
+control |                                :index 1045,
+control |                                :time 37855995888,
+control |                                :final? true},
+control |                      :pending [{:process 0,
+control |                                 :type :invoke,
+control |                                 :f :write,
+control |                                 :value 4,
+control |                                 :index 657,
+control |                                 :time 16888602571}
+control |                                {:process 2,
+control |                                 :type :invoke,
+control |                                 :f :cas,
+control |                                 :value [0 0],
+control |                                 :index 110,
+control |                                 :time 6389021878}
+control |                                {:process 3,
+control |                                 :type :invoke,
+control |                                 :f :cas,
+control |                                 :value [1 1],
+control |                                 :index 651,
+control |                                 :time 16832365663}
+control |                                {:process 5,
+control |                                 :type :invoke,
+control |                                 :f :write,
+control |                                 :value 2,
+control |                                 :index 655,
+control |                                 :time 16863801159}]}
+control |                     {:model #knossos.model.CASRegister{:value 0},
+control |                      :last-op {:process 11,
+control |                                :type :ok,
+control |                                :f :read,
+control |                                :value 0,
+control |                                :index 1045,
+control |                                :time 37855995888,
+control |                                :final? true},
+control |                      :pending [{:process 4,
+control |                                 :type :invoke,
+control |                                 :f :cas,
+control |                                 :value [1 0],
+control |                                 :index 643,
+control |                                 :time 16566293509}
+control |                                {:process 10,
+control |                                 :type :invoke,
+control |                                 :f :cas,
+control |                                 :value [1 4],
+control |                                 :index 957,
+control |                                 :time 27497413023}]}),
+control |           :analyzer :linear,
+control |           :final-paths ()},
+control |  :valid? true}
+control | 
+control | 
+control | Everything looks good! ヽ(‘ー`)ノ
