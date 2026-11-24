@@ -24,10 +24,11 @@ RUN apt-get update \
       openssh-server sudo iptables iproute2 procps psmisc curl ca-certificates \
  && rm -rf /var/lib/apt/lists/*
 
-# Jepsen partitions with iptables. The machine's kernel has the legacy
-# tables, not nftables, which Debian's iptables uses by default.
-RUN update-alternatives --set iptables /usr/sbin/iptables-legacy \
- && update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
+# Jepsen partitions with iptables: nft, Debian's default, or legacy with
+# --build-arg IPTABLES=legacy. The machine's kernel has both.
+ARG IPTABLES=nft
+RUN update-alternatives --set iptables /usr/sbin/iptables-${IPTABLES} \
+ && update-alternatives --set ip6tables /usr/sbin/ip6tables-${IPTABLES}
 
 RUN mkdir -p /opt/etcd /run/sshd \
  && curl -fsSL "https://github.com/etcd-io/etcd/releases/download/${ETCD_VERSION}/etcd-${ETCD_VERSION}-linux-amd64.tar.gz" \

@@ -15,15 +15,16 @@ etcd on the nodes, and the test with all its dependencies on the control node.
 
 ## Run it
 
-The machine has 2 vCPUs and 4G of memory, so the test runs in a session of
-2 vCPUs and 6G. A session that size needs the
+The machine has 2 vCPUs and 4G of memory, and the test runs in a session of
+4 vCPUs and 8G, which leaves the session's other two vCPUs for recording the
+run. A session that size needs the
 [Starter plan or higher](https://testflows.com/machine/pricing/).
 
 From `examples/`, create the session, build the two images for
 `linux/amd64`, then the disk, then run the test to Jepsen's verdict:
 
 ```bash
-machine sessions create jepsen --cpus 2 --mem 6G
+machine sessions create jepsen --cpus 4 --mem 8G
 cd compose/jepsen-etcd
 docker build --platform linux/amd64 -t jepsen-node:local node
 docker build --platform linux/amd64 -t jepsen-control:local control
@@ -34,7 +35,7 @@ machine output jepsen -n : | grep -E ':linear \{|:valid\? (true|false)\}|Everyth
 machine stop jepsen
 ```
 
-The test took 186 seconds of machine time and 188 seconds of real time, and
+The test took 191 seconds of machine time and 203 seconds of real time, and
 ended with Jepsen's verdict:
 
 ```text
@@ -45,6 +46,19 @@ control | Everything looks good! ヽ(‘ー`)ノ
 
 The whole log of that run is [logs/pass.log](logs/pass.log): what each
 service printed, every operation Jepsen ran and the analysis.
+
+### With legacy iptables
+
+The nodes partition with Debian's default `iptables`, which uses nftables.
+To partition with `iptables-legacy` instead, build the node image with
+`IPTABLES=legacy`, then build the disk and run as above:
+
+```bash
+docker build --platform linux/amd64 --build-arg IPTABLES=legacy -t jepsen-node:local node
+```
+
+The machine's kernel has both, and the test passes and replays the same way
+with either.
 
 ## See Jepsen catch a bug
 
@@ -64,13 +78,13 @@ machine stop jepsen-stale
 git apply -R stale-reads.patch
 ```
 
-In this run, a write of 0 completed and the next read returned 1, the value
-it replaced:
+In this run, a write of 3 completed, and a read invoked 32 ms later returned
+1, the value the write replaced:
 
 ```text
-control | INFO [2026-03-01 00:02:11,247] jepsen worker 2 - jepsen.print 2	:ok	:write	0
-control | INFO [2026-03-01 00:02:11,257] jepsen worker 1 - jepsen.print 1	:invoke	:read	nil
-control | INFO [2026-03-01 00:02:11,276] jepsen worker 1 - jepsen.print 1	:ok	:read	1
+control | INFO [2026-03-01 00:02:06,898] jepsen worker 4 - jepsen.print 4	:ok	:write	3
+control | INFO [2026-03-01 00:02:06,930] jepsen worker 5 - jepsen.print 5	:invoke	:read	nil
+control | INFO [2026-03-01 00:02:07,046] jepsen worker 5 - jepsen.print 5	:ok	:read	1
 ```
 
 Jepsen found no order of the operations that a single register could have
@@ -100,7 +114,7 @@ machine stop jepsen-stale-replay
 ```text
 ✔ Forked jepsen-stale/jepsen-stale-replay
   From checkpoint 1 of jepsen-stale, nothing replayed
-✔ Replayed 460379 entries to entry 460380. Converged.
+✔ Replayed 484042 entries to entry 484043. Converged.
 identical
 ```
 
@@ -113,8 +127,8 @@ the difference is the cost of recording, not a warm cache:
 
 | Run | Machine time | Recorded in | Replayed in |
 |---|---|---|---|
-| `jepsen` | 186 s | 188 s | 33 s |
-| `jepsen-stale` | 177 s | 180 s | 32 s |
+| `jepsen` | 191 s | 203 s | 34 s |
+| `jepsen-stale` | 176 s | 195 s | 31 s |
 
 ## Run it on the host
 
@@ -127,8 +141,6 @@ docker compose up --abort-on-container-exit
 
 ## Notes
 
-- The nodes use `iptables-legacy`. The machine's kernel has the legacy
-  tables, not nftables, which Debian's `iptables` uses by default.
 - The control node makes an SSH key at its start and shares it with the
   nodes through the `ssh-keys` volume, so no key is stored in the images.
 - Jepsen records the test's git state with `git`, downloads the nodes' logs
