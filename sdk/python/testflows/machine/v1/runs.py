@@ -4949,6 +4949,32 @@ class Net:
             )
         return [results.link(one) for one in released]
 
+    def apply(
+        self,
+        name: Optional[str] = None,
+        *,
+        within: str = "30m",
+        timeout: Optional[float] = None,
+    ) -> builtins.list[str]:
+        """Apply a container's faults to its link again, or every
+        container's with no `name`, as `machine net apply` does. A program
+        in a container with NET_ADMIN can change its own traffic control,
+        and its link then lacks the faults the listing shows, and the
+        machine's hold; `Link.changed` says so. The faults that still act
+        are left as they are. The call runs the machine.
+
+        Returns:
+            list[str]: The containers whose faults were applied again.
+        """
+        with self._run._client._connection() as client, _translated():
+            return _net.apply(
+                client,
+                self._run.id,
+                name,
+                within_ns=_within_ns(within),
+                timeout_s=timeout,
+            )
+
     def reset(
         self,
         name: str,

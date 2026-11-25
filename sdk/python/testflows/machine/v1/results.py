@@ -1788,6 +1788,9 @@ class Link(_Record):
             fault that draws.
         unapplied (str): On a container's whole link, why its faults did
             not take when it last started; "" when they did.
+        changed (bool): On a container's whole link, whether a program in
+            the container changed its traffic control, so the faults listed
+            for it do not act. `Net.apply()` applies them again.
         sent (int): The packets the fault sent on since it began, each
             duplicate counted once more.
         dropped (int): The packets it dropped since it began.
@@ -1812,6 +1815,7 @@ class Link(_Record):
     log: bool
     seed: int
     unapplied: str
+    changed: bool
     sent: int
     dropped: int
     queued: int
@@ -1837,6 +1841,7 @@ def link(found: Any) -> Link:
         log=found.log,
         seed=found.seed,
         unapplied=found.unapplied,
+        changed=found.changed,
         sent=found.sent,
         dropped=found.dropped,
         queued=found.queued,
