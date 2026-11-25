@@ -147,3 +147,6 @@ docker compose up --abort-on-container-exit
   with `scp` and stops etcd with `killall`, so the images carry all three.
 - The logs keep what the services printed. `machine output -n :` also shows
   the machine's boot.
+
+*Real time is for reference only, to demonstrate what we saw in our
+experiments.*
