@@ -34,7 +34,7 @@ import testflows.machine
 CORE_API_VERSIONS = range(1, 2)
 #: The least revision of that interface this SDK needs. A core from before
 #: revisions has none and counts as 1.
-CORE_API_REVISION = 2
+CORE_API_REVISION = 4
 
 #: The name the core is loaded under, and the file it ships as.
 CORE_MODULE = "testflows.machine._core"
