@@ -21,6 +21,7 @@ enough that a replay either matches or does not. So do `hello-world` and
 | Example | What it does | The bug |
 |---|---|---|
 | [hello/hello-world.c](hello/hello-world.c) | Prints a greeting and the kernel it runs on | None. The smallest disk that boots and runs a program |
+| [hello-random](hello-random/README.md) | Prints a greeting, the date and 256 bytes read from `/dev/random` | None. A replay prints the same random bytes and reaches the same machine state, bit for bit. Its disk is built from `ubuntu:24.04`, not from the examples image |
 | [cpuid/cpuid.c](cpuid/cpuid.c) | Reads the hypervisor bit, the hypervisor vendor and the processor brand with the CPUID instruction, and prints each as the bytes returned | None. Shows what the machine tells a program about the processor it runs on |
 | [races/data-race.c](races/data-race.c) | N threads increment one shared counter with no lock | Lost update. The read-add-write is three steps and another thread lands between two of them, so the total comes out short |
 | [starvation/timeout-starve.c](starvation/timeout-starve.c) | Main arms a timeout and waits; the worker must publish before it fires | The worker is starved for the whole wait and the timeout expires with nothing published. It is the ONLY runnable thread while main sleeps, so no pick-next policy finds this |

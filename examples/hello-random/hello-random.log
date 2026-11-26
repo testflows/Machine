@@ -1,0 +1,296 @@
+ENTRIES           SOURCE                    LINE      OUTPUT
+29:93             ttyS0                     1         early console in extract_kernel
+99:169            ttyS0                     2         input_data: 0x0000000001fba2c4
+175:243           ttyS0                     3         input_len: 0x000000000056f095
+249:311           ttyS0                     4         output: 0x0000000001000000
+317:387           ttyS0                     5         output_len: 0x00000000014f405c
+393:477           ttyS0                     6         kernel_total_size: 0x0000000001230000
+483:555           ttyS0                     7         needed_size: 0x0000000001600000
+561:643           ttyS0                     8         trampoline_32bit: 0x0000000000000000
+649:651           ttyS0                     9         
+653:655           ttyS0                     10        
+661:741           ttyS0                     11        KASLR disabled: 'nokaslr' on cmdline.
+743:745           ttyS0                     12        
+751:753           ttyS0                     13        
+755:905           ttyS0                     14        Decompressing Linux... Parsing ELF... No relocation needed... done.
+907:1025          ttyS0                     15        Booting the kernel (entry_offset: 0x0000000000000000).
+1042:1474         ttyS0                     16        Linux version 6.11.11-testflows-os-v1.0 (user@user-ubox) (gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0, GNU ld (GNU Binutils for Ubuntu) 2.42) #221 SMP PREEMPT_DYNAMIC Wed Nov 25 04:22:14 EST 2026 (TestFlows OS v1.0)
+1476:1626         ttyS0                     17        Kernel is locked down from Kernel configuration; see man kernel_lockdown.7
+1628:2316         ttyS0                     18        Command line: noapic noacpi pci=conf1 reboot=k panic=1 i8042.direct=1 i8042.dumbkbd=1 i8042.nopnp=1 numa_balancing=disable transparent_hugepage=never zswap.enabled=0 nokaslr lockdown=confidentiality sysctl.kernel.kptr_restrict=2 sysctl.kernel.dmesg_restrict=1 earlyprintk=serial i8042.noaux=1 console=ttyS0 root=/dev/vda rw  reclaim_rng_seed=0
+2318:2382         ttyS0                     19        BIOS-provided physical RAM map:
+2384:2508         ttyS0                     20        BIOS-e820: [mem 0x0000000000000000-0x000000000009fbff] usable
+2510:2638         ttyS0                     21        BIOS-e820: [mem 0x000000000009fc00-0x000000000009ffff] reserved
+2640:2768         ttyS0                     22        BIOS-e820: [mem 0x00000000000f0000-0x00000000000fffff] reserved
+2770:2894         ttyS0                     23        BIOS-e820: [mem 0x0000000000100000-0x000000000fffffff] usable
+2896:2990         ttyS0                     24        printk: legacy bootconsole [earlyser0] enabled
+3001:3085         ttyS0                     25        ERROR: earlyprintk= earlyser already used
+3087:3167         ttyS0                     26        NX (Execute Disable) protection: active
+3169:3231         ttyS0                     27        APIC: Static calls initialized
+3233:3289         ttyS0                     28        DMI not present or invalid.
+3291:3363         ttyS0                     29        tsc: Fast TSC calibration using PIT
+3365:3437         ttyS0                     30        tsc: Detected 999.933 MHz processor
+3439:3531         ttyS0                     31        last_pfn = 0x10000 max_arch_pfn = 0x400000000
+3533:3595         ttyS0                     32        MTRRs disabled (not available)
+3597:3723         ttyS0                     33        x86/PAT: Configuration [0-7]: WB  WC  UC- UC  WB  WP  UC- WT  
+3725:3825         ttyS0                     34        found SMP MP-table at [mem 0x000f0330-0x000f033f]
+3827:3895         ttyS0                     35        Using GB pages for direct mapping
+3897:3981         ttyS0                     36        Incomplete global flushes, disabling PCID
+3983:4081         ttyS0                     37        ACPI: Early table checksum verification disabled
+4083:4231         ttyS0                     38        ACPI BIOS Error (bug): A valid RSDP was not found (20240322/tbxfroot-222)
+4235:4315         ttyS0                     39        Intel MultiProcessor Specification v1.4
+4317:4369         ttyS0                     40        MPTABLE: OEM ID: KVMCPU00
+4371:4439         ttyS0                     41        MPTABLE: Product ID: 0.1         
+4441:4499         ttyS0                     42        MPTABLE: APIC at: 0xFEE00000
+4501:4527         ttyS0                     43        Zone ranges:
+4529:4639         ttyS0                     44          DMA      [mem 0x0000000000001000-0x0000000000ffffff]
+4641:4751         ttyS0                     45          DMA32    [mem 0x0000000001000000-0x000000000fffffff]
+4753:4787         ttyS0                     46          Normal   empty
+4789:4855         ttyS0                     47        Movable zone start for each node
+4857:4907         ttyS0                     48        Early memory node ranges
+4909:5021         ttyS0                     49          node   0: [mem 0x0000000000001000-0x000000000009efff]
+5023:5135         ttyS0                     50          node   0: [mem 0x0000000000100000-0x000000000fffffff]
+5137:5267         ttyS0                     51        Initmem setup node 0 [mem 0x0000000000001000-0x000000000fffffff]
+5269:5371         ttyS0                     52        On node 0, zone DMA: 1 pages in unavailable ranges
+5373:5477         ttyS0                     53        On node 0, zone DMA: 97 pages in unavailable ranges
+5555:5635         ttyS0                     54        Intel MultiProcessor Specification v1.4
+5637:5689         ttyS0                     55        MPTABLE: OEM ID: KVMCPU00
+5691:5759         ttyS0                     56        MPTABLE: Product ID: 0.1         
+5761:5819         ttyS0                     57        MPTABLE: APIC at: 0xFEE00000
+5821:5873         ttyS0                     58        Processor #0 (Bootup-CPU)
+5875:6001         ttyS0                     59        IOAPIC[0]: apic_id 2, version 17, address 0xfec00000, GSI 0-23
+6003:6031         ttyS0                     60        Processors: 1
+6033:6107         ttyS0                     61        CPU topo: Max. logical packages:   1
+6109:6183         ttyS0                     62        CPU topo: Max. logical dies:       1
+6185:6259         ttyS0                     63        CPU topo: Max. dies per package:   1
+6261:6335         ttyS0                     64        CPU topo: Max. threads per core:   1
+6337:6417         ttyS0                     65        CPU topo: Num. cores per package:     1
+6419:6499         ttyS0                     66        CPU topo: Num. threads per package:   1
+6501:6609         ttyS0                     67        CPU topo: Allowing 1 present CPUs plus 0 hotplug CPUs
+6611:6719         ttyS0                     68        [mem 0x10000000-0xffffffff] available for PCI devices
+6721:6929         ttyS0                     69        clocksource: refined-jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645519600211568 ns
+6931:7073         ttyS0                     70        setup_percpu: NR_CPUS:256 nr_cpumask_bits:1 nr_cpu_ids:1 nr_node_ids:1
+7075:7189         ttyS0                     71        percpu: Embedded 47 pages/cpu s159832 r0 d32680 u2097152
+7191:7893         ttyS0                     72        Kernel command line: noapic noacpi pci=conf1 reboot=k panic=1 i8042.direct=1 i8042.dumbkbd=1 i8042.nopnp=1 numa_balancing=disable transparent_hugepage=never zswap.enabled=0 nokaslr lockdown=confidentiality sysctl.kernel.kptr_restrict=2 sysctl.kernel.dmesg_restrict=1 earlyprintk=serial i8042.noaux=1 console=ttyS0 root=/dev/vda rw  reclaim_rng_seed=0
+7895:8169         ttyS0                     73        Unknown kernel command line parameters "noacpi nokaslr numa_balancing=disable transparent_hugepage=never", will be passed to user space.
+8171:8315         ttyS0                     74        Dentry cache hash table entries: 32768 (order: 6, 262144 bytes, linear)
+8317:8459         ttyS0                     75        Inode-cache hash table entries: 16384 (order: 5, 131072 bytes, linear)
+8461:8583         ttyS0                     76        Built 1 zonelists, mobility grouping on.  Total pages: 65438
+8585:8709         ttyS0                     77        mem auto-init: stack:all(zero), heap alloc:off, heap free:off
+8711:8829         ttyS0                     78        SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+8831:8931         ttyS0                     79        deterministic_reclaim: seed=0, 1 cpus initialized
+8933:8989         ttyS0                     80        Poking KASLR using RDTSC...
+8991:9035         ttyS0                     81        Dynamic Preempt: none
+9037:9137         ttyS0                     82        rcu: Preemptible hierarchical RCU implementation.
+9139:9211         ttyS0                     83        rcu: 	RCU event tracing is enabled.
+9213:9335         ttyS0                     84        rcu: 	RCU restricting CPUs from NR_CPUS=256 to nr_cpu_ids=1.
+9337:9421         ttyS0                     85        	Trampoline variant of Tasks RCU enabled.
+9423:9501         ttyS0                     86        	Tracing variant of Tasks RCU enabled.
+9503:9645         ttyS0                     87        rcu: RCU calculated value of scheduler-enlistment delay is 25 jiffies.
+9647:9769         ttyS0                     88        rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=1
+9771:9939         ttyS0                     89        RCU Tasks: Setting shift to 0 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=1.
+9941:10121        ttyS0                     90        RCU Tasks Trace: Setting shift to 0 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=1.
+10123:10227       ttyS0                     91        NR_IRQS: 16640, nr_irqs: 256, preallocated irqs: 16
+10229:10355       ttyS0                     92        rcu: srcu_init: Setting srcu_struct sizes based on contention.
+10403:10457       ttyS0                     93        Console: colour *CGA 80x25
+10468:10546       ttyS0                     94        printk: legacy console [ttyS0] enabled
+10550:10628       ttyS0                     95        printk: legacy console [ttyS0] enabled
+10632:10728       ttyS0                     96        printk: legacy bootconsole [earlyser0] disabled
+10732:10828       ttyS0                     97        printk: legacy bootconsole [earlyser0] disabled
+10835:10917       ttyS0                     98        APIC: Switch to symmetric I/O mode setup
+10923:11047       ttyS0                     99        Not enabling interrupt remapping due to skipped IO-APIC setup
+11053:11263       ttyS0                     100       clocksource: tsc-early: mask: 0xffffffffffffffff max_cycles: 0x1cd3afb3361, max_idle_ns: 881590553176 ns
+11269:11481       ttyS0                     101       Calibrating delay loop (skipped), value calculated using timer frequency.. 1999.86 BogoMIPS (lpj=3999732)
+11487:11605       ttyS0                     102       x86/cpu: User Mode Instruction Prevention (UMIP) activated
+11611:11701       ttyS0                     103       Last level iTLB entries: 4KB 0, 2MB 0, 4MB 0
+11707:11811       ttyS0                     104       Last level dTLB entries: 4KB 0, 2MB 0, 4MB 0, 1GB 0
+11817:11889       ttyS0                     105       Spectre V2 : User space: Vulnerable
+11895:11969       ttyS0                     106       Speculative Store Bypass: Vulnerable
+11975:12119       ttyS0                     107       x86/fpu: Supporting XSAVE feature 0x001: 'x87 floating point registers'
+12125:12239       ttyS0                     108       x86/fpu: Supporting XSAVE feature 0x002: 'SSE registers'
+12245:12359       ttyS0                     109       x86/fpu: Supporting XSAVE feature 0x004: 'AVX registers'
+12365:12513       ttyS0                     110       x86/fpu: Supporting XSAVE feature 0x200: 'Protection Keys User registers'
+12519:12629       ttyS0                     111       x86/fpu: xstate_offset[2]:  576, xstate_sizes[2]:  256
+12635:12747       ttyS0                     112       x86/fpu: xstate_offset[9]:  832, xstate_sizes[9]:    8
+12758:12944       ttyS0                     113       x86/fpu: Enabled xstate features 0x207, context size is 840 bytes, using 'compacted' format.
+12958:13096       ttyS0                     114       keeping SMP alternatives [mem 0xffffffff820a2000-0xffffffff820a8fff]
+13102:13176       ttyS0                     115       pid_max: default: 32768 minimum: 301
+13182:13266       ttyS0                     116       LSM: initializing lsm=lockdown,capability
+13272:13406       ttyS0                     117       Mount-cache hash table entries: 512 (order: 0, 4096 bytes, linear)
+13412:13558       ttyS0                     118       Mountpoint-cache hash table entries: 512 (order: 0, 4096 bytes, linear)
+13784:13952       ttyS0                     119       smpboot: CPU0: Intel TestFlows Machine v1 (...)
+13958:14130       ttyS0                     120       Performance Events: unsupported (...) no PMU driver, software events only.
+14136:14200       ttyS0                     121       signal: max sigframe size: 3232
+14206:14284       ttyS0                     122       rcu: Hierarchical SRCU implementation.
+14290:14378       ttyS0                     123       rcu: 	Max phase no-delay instances is 1000.
+14384:14456       ttyS0                     124       smp: Bringing up secondary CPUs ...
+14462:14522       ttyS0                     125       smp: Brought up 1 node, 1 CPU
+14528:14648       ttyS0                     126       smpboot: Total of 1 processors activated (1999.86 BogoMIPS)
+14654:14932       ttyS0                     127       Memory: 227060K/261752K available (10240K kernel code, 965K rwdata, 1888K rodata, 1104K init, 1372K bss, 32884K reserved, 0K cma-reserved)
+14938:14983       ttyS0                     128       devtmpfs: initialized
+14990:15182       ttyS0                     129       clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+15188:15312       ttyS0                     130       futex hash table entries: 256 (order: 2, 16384 bytes, linear)
+15318:15422       ttyS0                     131       NET: Registered PF_NETLINK/PF_ROUTE protocol family
+15428:15534       ttyS0                     132       thermal_sys: Registered thermal governor 'step_wise'
+15540:15648       ttyS0                     133       thermal_sys: Registered thermal governor 'user_space'
+15654:15716       ttyS0                     134       cpuidle: using governor ladder
+15722:15781       ttyS0                     135       cpuidle: using governor menu
+15786             ttyS0                     136       machine para: ready (abi 55)
+15792             ttyS0                     137       PCI: Using configuration type 1 for base access
+15797             ttyS0                     138       ACPI: Interpreter disabled.
+15798             ttyS0                     139       iommu: Default domain type: Translated
+15799             ttyS0                     140       iommu: DMA domain TLB invalidation policy: lazy mode
+15802             ttyS0                     141       PCI: Probing PCI hardware
+15803             ttyS0                     142       PCI host bridge to bus 0000:00
+15804             ttyS0                     143       pci_bus 0000:00: root bus resource [io  0x0000-0xffff]
+15805             ttyS0                     144       pci_bus 0000:00: root bus resource [mem 0x00000000-0x3fffffffffff]
+15806             ttyS0                     145       pci_bus 0000:00: No busn resource found for root bus, will use [bus 00-ff]
+15845             ttyS0                     146       pci 0000:00:00.0: [1af4:1044] type 00 class 0xff0000 conventional PCI endpoint
+15922             ttyS0                     147       pci 0000:00:00.0: BAR 0 [io  0x6200-0x62ff]
+15925             ttyS0                     148       pci 0000:00:00.0: BAR 1 [mem 0xd2000000-0xd20000ff]
+15928             ttyS0                     149       pci 0000:00:00.0: BAR 2 [mem 0xd2000400-0xd20007ff]
+16099             ttyS0                     150       pci 0000:00:01.0: [1af4:1042] type 00 class 0x018000 conventional PCI endpoint
+16176             ttyS0                     151       pci 0000:00:01.0: BAR 0 [io  0x6300-0x63ff]
+16179             ttyS0                     152       pci 0000:00:01.0: BAR 1 [mem 0xd2000800-0xd20008ff]
+16182             ttyS0                     153       pci 0000:00:01.0: BAR 2 [mem 0xd2000c00-0xd2000fff]
+16375             ttyS0                     154       pci_bus 0000:00: busn_res: [bus 00-ff] end is updated to 00
+16388             ttyS0                     155       vgaarb: loaded
+16389             ttyS0                     156       clocksource: Switched to clocksource tsc-early
+16394             ttyS0                     157       pnp: PnP ACPI: disabled
+16395             ttyS0                     158       NET: Registered PF_INET protocol family
+16396             ttyS0                     159       IP idents hash table entries: 4096 (order: 3, 32768 bytes, linear)
+16397             ttyS0                     160       tcp_listen_portaddr_hash hash table entries: 256 (order: 0, 4096 bytes, linear)
+16398             ttyS0                     161       Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+16399             ttyS0                     162       TCP established hash table entries: 2048 (order: 2, 16384 bytes, linear)
+16400             ttyS0                     163       TCP bind hash table entries: 2048 (order: 4, 65536 bytes, linear)
+16401             ttyS0                     164       TCP: Hash tables configured (established 2048 bind 2048)
+16402             ttyS0                     165       UDP hash table entries: 256 (order: 1, 8192 bytes, linear)
+16403             ttyS0                     166       UDP-Lite hash table entries: 256 (order: 1, 8192 bytes, linear)
+16404             ttyS0                     167       NET: Registered PF_UNIX/PF_LOCAL protocol family
+16405             ttyS0                     168       pci_bus 0000:00: resource 4 [io  0x0000-0xffff]
+16406             ttyS0                     169       pci_bus 0000:00: resource 5 [mem 0x00000000-0x3fffffffffff]
+16411             ttyS0                     170       PCI: CLS 0 bytes, default 64
+16412             ttyS0                     171       RAPL PMU: API unit is 2^-32 Joules, 0 fixed counters, 10737418240 ms ovfl timer
+16413             ttyS0                     172       platform rtc_cmos: registered platform RTC device (no PNP device found)
+16416             ttyS0                     173       workingset: timestamp_bits=46 max_order=16 bucket_order=0
+16417             ttyS0                     174       fuse: init (API version 7.40)
+16418             ttyS0                     175       io scheduler mq-deadline registered
+16419             ttyS0                     176       io scheduler kyber registered
+16754             ttyS0                     177       Serial: 8250/16550 driver, 4 ports, IRQ sharing disabled
+16777             ttyS0                     178       serial8250: ttyS0 at I/O 0x3f8 (irq = 4, base_baud = 115200) is a 16550A
+16801             ttyS0                     179       serial8250: ttyS1 at I/O 0x2f8 (irq = 3, base_baud = 115200) is a 16550A
+16829             ttyS0                     180       serial8250: ttyS2 at I/O 0x3e8 (irq = 4, base_baud = 115200) is a 16550A
+16856             ttyS0                     181       serial8250: ttyS3 at I/O 0x2e8 (irq = 3, base_baud = 115200) is a 16550A
+16988             ttyS0                     182       random: crng init done
+16990             ttyS0                     183       loop: module loaded
+17004             ttyS0                     184       virtio_blk virtio1: 1/0/0 default/read/poll queues
+17115             ttyS0                     185       virtio_blk virtio1: [vda] 4194304 512-byte logical blocks (2.15 GB/2.00 GiB)
+17121             ttyS0                     186       i8042: PNP detection disabled
+17160             ttyS0                     187       serio: i8042 KBD port at 0x60,0x64 irq 1
+17164             ttyS0                     188       input: AT Raw Set 2 keyboard as /devices/platform/i8042/serio0/input/input0
+17166             ttyS0                     189       netem: version 1.3
+17167             ttyS0                     190       u32 classifier
+17168             ttyS0                     191           input device check on
+17169             ttyS0                     192       xt_time: kernel timezone is -0000
+17170             ttyS0                     193       NET: Registered PF_INET6 protocol family
+17173             ttyS0                     194       Segment Routing with IPv6
+17174             ttyS0                     195       In-situ OAM (IOAM) with IPv6
+17175             ttyS0                     196       sit: IPv6, IPv4 and MPLS over IPv4 tunneling driver
+17176             ttyS0                     197       NET: Registered PF_PACKET protocol family
+17177             ttyS0                     198       IPI shorthand broadcast: enabled
+17180             ttyS0                     199       sched_clock: Marking stable (340512684, 1975692)->(350123259, -7634883)
+17234             ttyS0                     200       EXT4-fs (vda): mounting ext2 file system using the ext4 subsystem
+17247             ttyS0                     201       EXT4-fs (vda): mounted filesystem 221cf109-d3e7-4be8-8bb8-7bc99de63f54 r/w without journal. Quota mode: disabled.
+17248             ttyS0                     202       VFS: Mounted root (ext2 filesystem) on device 254:0.
+17251             ttyS0                     203       devtmpfs: mounted
+17252             ttyS0                     204       keeping unused kernel image (initmem) [mem 0xffffffff81f8e000-0xffffffff820a1fff]
+17253             ttyS0                     205       Write protecting the kernel read-only data: 12288k
+17254             ttyS0                     206       keeping unused kernel image (rodata/data gap) [mem 0xffffffff81bd8000-0xffffffff81bfffff]
+17267             ttyS0                     207       Run /sbin/init as init process
+17295:17296       ttyS0                     208       === disk: starting ===
+17316:17317       ttyS0                     209       mount: /dev already mounted, skipping
+17342:17343       ttyS0                     210       === starting dockerd ===
+17345:17346       ttyS0                     211       waiting for /var/run/docker.sock ...
+19203:19204       ttyS0                     212         socket ready (2 half-seconds)
+19332             /output/exec/agent        213       ready 1
+20869             ttyS0                     214       clocksource: tsc: mask: 0xffffffffffffffff max_cycles: 0x1cd3afb3361, max_idle_ns: 881590553176 ns
+20870             ttyS0                     215       clocksource: Switched to clocksource tsc
+21887:21888       ttyS0                     216       === docker compose up (/opt/compose/docker-compose.yml) ===
+22271:22272       ttyS0                     217        Container compose-app-1  Creating
+22432:22433       ttyS0                     218        Container compose-app-1  Created
+22438:22439       ttyS0                     219        Container compose-app-1  Starting
+31660:31661       ttyS0                     220        Container compose-app-1  Started
+32531:32532       ttyS0                     221       app | Hello from TestFlows Machine!
+32534             /output/keep/app/console  222       Hello from TestFlows Machine!
+32535:32536       ttyS0                     223       app | Sun Mar  1 00:00:03 UTC 2026
+32537             /output/keep/app/console  224       Sun Mar  1 00:00:03 UTC 2026
+32538:32540       ttyS0                     225       app | 000000 05 47 34 4b 9f 2d b7 88 20 f1 5d 72 c5 be 6e de
+32542             /output/keep/app/console  226       000000 05 47 34 4b 9f 2d b7 88 20 f1 5d 72 c5 be 6e de
+32543:32544       ttyS0                     227       app | 000010 cc 63 da cb 21 b0 08 c7 b0 22 af de fa a0 d6 55
+32545             /output/keep/app/console  228       000010 cc 63 da cb 21 b0 08 c7 b0 22 af de fa a0 d6 55
+32546:32547       ttyS0                     229       app | 000020 c5 18 0a 8c 00 10 5f 64 4b e7 ee ea 4d ae dc 69
+32548             /output/keep/app/console  230       000020 c5 18 0a 8c 00 10 5f 64 4b e7 ee ea 4d ae dc 69
+32549:32550       ttyS0                     231       app | 000030 68 f2 4f b3 73 74 c5 5e f3 22 12 7c d4 89 00 7f
+32551             /output/keep/app/console  232       000030 68 f2 4f b3 73 74 c5 5e f3 22 12 7c d4 89 00 7f
+32552:32553       ttyS0                     233       app | 000040 b2 fc fc 3d fd be 9f b1 8b c2 7e b2 1b be ae 08
+32554             /output/keep/app/console  234       000040 b2 fc fc 3d fd be 9f b1 8b c2 7e b2 1b be ae 08
+32555:32556       ttyS0                     235       app | 000050 bc 84 6a 1a c8 9c 88 00 d2 e2 2b ad a9 b6 dc aa
+32557             /output/keep/app/console  236       000050 bc 84 6a 1a c8 9c 88 00 d2 e2 2b ad a9 b6 dc aa
+32558:32559       ttyS0                     237       app | 000060 48 48 b3 27 ec 6b de b5 8d 08 d4 26 8a c5 2f 33
+32560             /output/keep/app/console  238       000060 48 48 b3 27 ec 6b de b5 8d 08 d4 26 8a c5 2f 33
+32561:32562       ttyS0                     239       app | 000070 90 59 5d e2 ca c8 d5 d6 32 d5 35 1c bd 82 91 01
+32563             /output/keep/app/console  240       000070 90 59 5d e2 ca c8 d5 d6 32 d5 35 1c bd 82 91 01
+32564:32565       ttyS0                     241       app | 000080 e6 f5 10 bb 9e 6c 72 5d 04 d4 28 63 35 6e fa 50
+32566             /output/keep/app/console  242       000080 e6 f5 10 bb 9e 6c 72 5d 04 d4 28 63 35 6e fa 50
+32567:32568       ttyS0                     243       app | 000090 cf 0f 8b 45 b8 fe c9 ba dc f6 40 93 2c 35 8e 1b
+32569             /output/keep/app/console  244       000090 cf 0f 8b 45 b8 fe c9 ba dc f6 40 93 2c 35 8e 1b
+32570:32571       ttyS0                     245       app | 0000a0 29 42 dc f2 cb e0 7a 69 e0 86 48 d2 a3 73 dc d2
+32572             /output/keep/app/console  246       0000a0 29 42 dc f2 cb e0 7a 69 e0 86 48 d2 a3 73 dc d2
+32573:32574       ttyS0                     247       app | 0000b0 98 ed 17 b4 45 db 1c 4f c4 c3 8a b3 33 31 71 7c
+32575             /output/keep/app/console  248       0000b0 98 ed 17 b4 45 db 1c 4f c4 c3 8a b3 33 31 71 7c
+32576:32577       ttyS0                     249       app | 0000c0 e5 74 13 e3 90 03 7e 36 d2 5e 26 f5 3b 59 8d 6d
+32578             /output/keep/app/console  250       0000c0 e5 74 13 e3 90 03 7e 36 d2 5e 26 f5 3b 59 8d 6d
+32579:32580       ttyS0                     251       app | 0000d0 14 28 5e b7 70 df 78 5e 06 c2 85 89 22 8b 09 e4
+32581             /output/keep/app/console  252       0000d0 14 28 5e b7 70 df 78 5e 06 c2 85 89 22 8b 09 e4
+32582:32583       ttyS0                     253       app | 0000e0 27 6b be d0 42 13 9c 2a 60 38 d6 36 23 db f5 41
+32584             /output/keep/app/console  254       0000e0 27 6b be d0 42 13 9c 2a 60 38 d6 36 23 db f5 41
+32585:32587       ttyS0                     255       app | 0000f0 b9 bf 5f d1 a1 b4 85 1d 29 0c ed 25 43 56 0b 64
+32601             /output/keep/app/console  256       0000f0 b9 bf 5f d1 a1 b4 85 1d 29 0c ed 25 43 56 0b 64
+32602:32603       ttyS0                     257       app | 000100
+32604             /output/keep/app/console  258       000100
+32646:32647       ttyS0                     259       === app exited by itself: code 0 ===
+33011:33012       ttyS0                     260        Container compose-app-1  Stopping
+33015:33016       ttyS0                     261        Container compose-app-1  Stopped
+33041:33042       ttyS0                     262       context canceled
+33056:33057       ttyS0                     263       === docker version (sanity) ===
+33135:33136       ttyS0                     264       Client:
+33137:33141       ttyS0                     265        Version:           27.3.1
+33142:33145       ttyS0                     266        API version:       1.47
+33146:33149       ttyS0                     267        Go version:        go1.22.7
+33150:33153       ttyS0                     268        Git commit:        ce12230
+33154:33158       ttyS0                     269        Built:             Fri Sep 20 11:39:44 2024
+33159:33163       ttyS0                     270        OS/Arch:           linux/amd64
+33164:33168       ttyS0                     271        Context:           default
+33169             ttyS0                     272       
+33170:33171       ttyS0                     273       Server: Docker Engine - Community
+33172:33173       ttyS0                     274        Engine:
+33174:33180       ttyS0                     275         Version:          27.3.1
+33181:33184       ttyS0                     276         API version:      1.47 (minimum version 1.24)
+33185:33188       ttyS0                     277         Go version:       go1.22.7
+33189:33192       ttyS0                     278         Git commit:       41ca978
+33193:33197       ttyS0                     279         Built:            Fri Sep 20 11:41:02 2024
+33198:33202       ttyS0                     280         OS/Arch:          linux/amd64
+33203:33206       ttyS0                     281         Experimental:     false
+33207:33208       ttyS0                     282        containerd:
+33209:33213       ttyS0                     283         Version:          v1.7.22
+33214:33217       ttyS0                     284         GitCommit:        7f7fdf5fed64eb6a7caf99b3e12efcf9d60e311c
+33218:33219       ttyS0                     285        machine-runc:
+33220:33224       ttyS0                     286         Version:          1.1.14
+33225:33228       ttyS0                     287         GitCommit:        v1.1.14-0-g2c9f560
+33229:33230       ttyS0                     288        docker-init:
+33231:33235       ttyS0                     289         Version:          0.19.0
+33236:33239       ttyS0                     290         GitCommit:        de40ad0
+33351:33352       ttyS0                     291       Docker Compose version v2.30.3
+33371:33372       ttyS0                     292       === test complete: rc=0 ===
+33373:33374       ttyS0                     293       stopping dockerd ...
+33449             ttyS0                     294       reboot: Restarting system
+33450             ttyS0                     295       reboot: machine restart
