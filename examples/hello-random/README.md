@@ -3,7 +3,7 @@
 A machine that boots Linux, prints a greeting and the date, and then prints
 256 bytes read from `/dev/random` in hex. On a computer, every run prints
 other bytes. In a machine, a replay prints the same bytes and reaches the same
-machine state, bit for bit.
+state.
 
 The disk is built from the public `ubuntu:24.04` image, so no Docker is
 needed. The machine runs one command in it:
