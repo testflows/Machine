@@ -132,16 +132,33 @@ def write_events(path, actions, violations):
             out.write(f"{t:.3f}\t{entry}\t{what}\n")
 
 
+def screen_output(screen, before):
+    """What a terminal is sent to show `screen` after `before`: the whole
+    screen when it is the first or its size changed, else only the rows
+    that changed, each from its start. A screen log repeats every row of
+    every screen, and most of them did not change."""
+    if before is None or len(before.rows) != len(screen.rows):
+        return CLEAR + "\r\n".join(screen.rows)
+    return "".join(
+        # A row starts with its attributes reset, as it does on a cleared
+        # screen: the row drawn before it may leave a color set.
+        f"\x1b[{line};1H\x1b[0m\x1b[2K{row}"
+        for line, (old, row) in enumerate(zip(before.rows, screen.rows), 1)
+        if row != old
+    )
+
+
 def write_cast(path, screens, violations):
     """Write the screens as an asciinema v2 recording, each at its
-    Bombadil time, with a marker at each violation."""
+    Bombadil time, with a marker at each violation. Each screen redraws
+    only what changed, which keeps a recording small enough to embed."""
     width = max(len(ANSI.sub("", row)) for s in screens for row in s.rows)
     height = max(len(s.rows) for s in screens)
-    start = next(s.time for s in screens if s.time)
+    timed = [s for s in screens if s.time]
+    start = timed[0].time
     events = [
-        (s.time - start, "o", CLEAR + "\r\n".join(s.rows))
-        for s in screens
-        if s.time
+        (s.time - start, "o", screen_output(s, before))
+        for before, s in zip([None] + timed, timed)
     ]
     events += [
         (v.time - start, "m", f"{v.name} violated, entry {entry_of(v)}")
