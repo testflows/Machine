@@ -1,0 +1,42 @@
+Gives nano a second to put its key bindings back after a resize.
+
+hasStandardBindings checks the first screen Bombadil samples after an
+action, with next. After a resize, that screen can be taken before nano has
+redrawn its bottom two lines. With eventually and a bound of one second,
+the property holds once nano repaints, and still fails for a nano that
+never shows the bindings, such as nano -x.
+
+The lines it changes are Bombadil's examples/nano.ts, MIT-licensed. The
+change is licensed under the Apache License, Version 2.0, like the example.
+The Dockerfile applies it to make nano-eventually.ts.
+
+--- a/examples/nano.ts
++++ b/examples/nano.ts
+@@ -1,4 +1,4 @@
+-import { always, Cell, next } from "@antithesishq/bombadil";
++import { always, Cell, eventually } from "@antithesishq/bombadil";
+ import { extract, weighted } from "@antithesishq/bombadil/terminal";
+ import { CharSets } from "@antithesishq/bombadil/terminal/defaults/actions";
+ import {
+@@ -12,8 +12,11 @@
+   return state.grid.rowText(rows - 2) + " " + state.grid.rowText(rows - 1);
+ });
+ 
++// `eventually`, not `next`: after a resize, the next sample can be taken
++// before nano has redrawn its bottom lines, which stay empty until it
++// does.
+ export const hasStandardBindings = always(
+-  next(() => {
++  eventually(() => {
+     const text = statusLinesText.current ?? "";
+     // Bail out only in genuinely-non-main-mode states:
+     //  - just exited (Ctrl-C / Ctrl-D)
+@@ -24,7 +27,7 @@
+     return (
+       text.includes("Help") && text.includes("Exit") && text.includes("Read")
+     );
+-  }),
++  }).within(1, "seconds"),
+ );
+ 
+ function justExited(): boolean {
