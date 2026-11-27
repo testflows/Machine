@@ -91,6 +91,26 @@ machine output bombadil sources
 machine output bombadil --source /output/keep/app/bombadil/nano.screen.log -n -20
 ```
 
+The run's output files are under `/output/keep/app`, the service's
+`MACHINE_OUTPUT_DIR`:
+
+| File | What it holds |
+|---|---|
+| `console` | What the service printed: a line as each example starts and ends |
+| `bombadil/<example>.screen.log` | Every screen Bombadil saw and each action it took, for `cat`, `nano`, `tb`, `btop` and `tetris` |
+| `bombadil/<example>.bin` | Bombadil's trace of the example |
+| `bombadil/tigerbeetle.log` | TigerBeetle's own log |
+| `bombadil/.bombadil-*.tmp` | Temporary files Bombadil writes as it starts a trace, 16 bytes each |
+
+TigerBeetle's times are the machine's clock, which starts at 2026-03-01. Save
+each source you want to read to a file of its own, under its own name; `-n :`
+takes every line:
+
+```bash
+machine output bombadil -n : --source /output/keep/app/bombadil/nano.screen.log > nano.screen.log
+machine output bombadil -n : --source /output/keep/app/bombadil/tigerbeetle.log > tigerbeetle.log
+```
+
 `nano` reports violations of `hasStandardBindings`, nano's key bindings missing
 from its two bottom lines. They are not bugs in nano. Each is the first screen
 Bombadil samples after it resizes the terminal, before nano has repainted, and
